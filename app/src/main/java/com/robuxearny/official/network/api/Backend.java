@@ -12,9 +12,11 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class Backend {
-    private static final String BASE_URL = "https://7da5-151-73-146-110.ngrok-free.app/accounts/";
+    private static final String BASE_URL = "https://f2bc-151-73-146-110.ngrok-free.app/accounts/";
     public static final String ACCESS = BASE_URL + "access";
     public static final String CHECK_TOKEN = BASE_URL + "checkToken";
+    public static final String GET_MONEY = BASE_URL + "getMoney";
+    public static final String SET_MONEY = BASE_URL + "setMoney";
 
     public static String access(String username, String password) throws ExecutionException, InterruptedException {
         ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -62,6 +64,69 @@ public class Backend {
             Request request = new Request.Builder()
                     .post(postBody)
                     .url(CHECK_TOKEN)
+                    .build();
+
+            try (Response response = client.newCall(request).execute()) {
+                if (response.body() != null) {
+                    future.complete(response.body().string());
+                } else {
+                    future.complete(null);
+                }
+            } catch (IOException e) {
+                future.completeExceptionally(e);
+            }
+        });
+
+        executor.shutdown();
+        return future.get();
+    }
+
+    public static int getMoney(String token) throws ExecutionException, InterruptedException {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        CompletableFuture<Integer> future = new CompletableFuture<>();
+
+        executor.execute(() -> {
+            OkHttpClient client = new OkHttpClient();
+
+            FormBody postBody = new FormBody.Builder()
+                    .addEncoded("token", token)
+                    .build();
+
+            Request request = new Request.Builder()
+                    .post(postBody)
+                    .url(GET_MONEY)
+                    .build();
+
+            try (Response response = client.newCall(request).execute()) {
+                if (response.body() != null) {
+                    future.complete(Integer.parseInt(response.body().string()));
+                } else {
+                    future.complete(null);
+                }
+            } catch (IOException e) {
+                future.completeExceptionally(e);
+            }
+        });
+
+        executor.shutdown();
+        return future.get();
+    }
+
+    public static String setMoney(String token, int amount) throws ExecutionException, InterruptedException {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        CompletableFuture<String> future = new CompletableFuture<>();
+
+        executor.execute(() -> {
+            OkHttpClient client = new OkHttpClient();
+
+            FormBody postBody = new FormBody.Builder()
+                    .addEncoded("token", token)
+                    .addEncoded("amount", String.valueOf(amount))
+                    .build();
+
+            Request request = new Request.Builder()
+                    .post(postBody)
+                    .url(SET_MONEY)
                     .build();
 
             try (Response response = client.newCall(request).execute()) {

@@ -18,7 +18,12 @@ In order to send you the Robux don't forget to click on the ads as much as you c
     <string name="redeem_robux">Redeem Robux</string>
     <string name="roblox_username">Username</string>
     <string name="start">Start</string>
+    <string name="ticket_finish">Please finish your current ticket first.</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="play">Play</string>
+    <string name="x">X</string>
+    <string name="winning_numbers">Winning numbers: %s</string>
+    <string name="total_points">Total points: %d</string>
+    <string name="new_ticket">New ticket (AD)</string>
 </resources>

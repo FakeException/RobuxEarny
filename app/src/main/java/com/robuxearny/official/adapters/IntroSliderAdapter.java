@@ -82,9 +82,6 @@ public class IntroSliderAdapter extends PagerAdapter {
                 }
                 toast.show();
 
-                // Avvia l'attività principale o il menu principale
-                //context.startActivity(new Intent(context, MainMenuActivity.class));
-               // ((Activity) context).finish();
             });
         }
 
