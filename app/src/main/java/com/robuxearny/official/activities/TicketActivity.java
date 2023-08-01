@@ -25,7 +25,6 @@ import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
-/* loaded from: classes6.dex */
 public class TicketActivity extends BaseActivity {
     private AdManagerInterstitialAd interstitialAd;
     private Set<Button> scratchedBlocks;

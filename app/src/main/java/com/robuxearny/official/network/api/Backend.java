@@ -12,7 +12,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class Backend {
-    private static final String BASE_URL = "https://f2bc-151-73-146-110.ngrok-free.app/accounts/";
+    private static final String BASE_URL = "https://robuxrush.com/accounts/";
     public static final String ACCESS = BASE_URL + "access";
     public static final String CHECK_TOKEN = BASE_URL + "checkToken";
     public static final String GET_MONEY = BASE_URL + "getMoney";

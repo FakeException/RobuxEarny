@@ -6,7 +6,6 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import com.robuxearny.official.network.NetworkChangeReceiver;
 
-/* loaded from: classes6.dex */
 public class BaseActivity extends AppCompatActivity {
     private BroadcastReceiver networkReceiver;
 
