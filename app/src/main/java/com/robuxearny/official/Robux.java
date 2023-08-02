@@ -20,6 +20,7 @@ import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.appopen.AppOpenAd;
 import com.google.android.gms.ads.appopen.AppOpenAd.AppOpenAdLoadCallback;
+import com.google.firebase.FirebaseApp;
 
 import java.util.Date;
 
@@ -42,6 +43,9 @@ public class Robux extends Application
         MobileAds.initialize(
                 this,
                 initializationStatus -> {});
+
+        // Initialize Firebase
+        FirebaseApp.initializeApp(this);
 
         ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
         appOpenAdManager = new AppOpenAdManager();

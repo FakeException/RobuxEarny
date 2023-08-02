@@ -1,6 +1,5 @@
 package com.robuxearny.official.activities;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -17,10 +16,15 @@ import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.admanager.AdManagerAdRequest;
 import com.google.android.gms.ads.admanager.AdManagerInterstitialAd;
 import com.google.android.gms.ads.admanager.AdManagerInterstitialAdLoadCallback;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.robuxearny.official.R;
-import com.robuxearny.official.network.api.Backend;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
@@ -32,18 +36,22 @@ public class TicketActivity extends BaseActivity {
     private int totalPoints;
     private TextView totalPointsTextView;
     private Set<Integer> winningNumbers;
-    private String token;
+    private String uid;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ticket);
 
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (currentUser != null) {
+            uid = currentUser.getUid();
+        }
+
         loadAd();
 
         this.totalPointsTextView = findViewById(R.id.totalPointsTextView);
-        SharedPreferences sharedPrefs = getSharedPreferences("MyPrefs", 0);
-        this.token = sharedPrefs.getString("token", "");
 
         Button confirmButton = findViewById(R.id.confirmButton);
 
@@ -98,13 +106,62 @@ public class TicketActivity extends BaseActivity {
 
     private void initializeGame() {
         this.winningNumbers = generateWinningNumbers();
-        try {
-            this.totalPoints = Backend.getMoney(token);
-        } catch (ExecutionException | InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        updateTotalPointsTextView();
+        getCurrentUserCoins(uid);
     }
+
+    private void updateCoins(String uid, int newCoins) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference userRef = db.collection("users").document(uid);
+
+        userRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+
+                    userRef.update("coins", newCoins).addOnSuccessListener(obj -> {
+                        Log.d("Coins", "Coins updated");
+                    }).addOnFailureListener(exc -> {
+                        Log.d("Coins", exc.getMessage());
+                    });
+                }
+            }
+
+        });
+
+    }
+
+    private void getCurrentUserCoins(String uid) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Log.d("Coins", "Current UID: " + uid);
+
+        db.collection("users").document(uid).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    Map<String, Object> data = document.getData();
+                    Log.d("Coins", "Document Data: " + data);
+
+                    Long coinsLong = document.getLong("coins");
+                    if (coinsLong != null) {
+                        long coins = coinsLong;
+                        this.totalPoints = (int) coins;
+                        updateTotalPointsTextView();
+                        Log.d("Coins", "Current User Coins: " + coins);
+                    } else {
+                        this.totalPoints = 0;
+                        Log.d("Coins", "Coins field does not exist in the document.");
+                    }
+                } else {
+                    this.totalPoints = 0;
+                    Log.d("Coins", "Document does not exist");
+                }
+            } else {
+                this.totalPoints = 0;
+                Log.d("Coins", "Error fetching document: " + task.getException());
+            }
+        });
+    }
+
 
     private Set<Integer> generateWinningNumbers() {
         Set<Integer> numbers = new HashSet<>();
@@ -168,9 +225,7 @@ public class TicketActivity extends BaseActivity {
             }
             this.winningNumbers = generateWinningNumbers();
             updateWinningNumbersTextView();
-            if (Backend.setMoney(token, totalPoints).contains("error")) {
-                Toast.makeText(this, "Could not update the coins", Toast.LENGTH_LONG).show();
-            }
+            updateCoins(uid, totalPoints);
             return;
         }
         Toast.makeText(this, getString(R.string.ticket_finish), Toast.LENGTH_LONG).show();

@@ -8,7 +8,7 @@ Welcome to RobuxEarny! An user-friendly application where you can effortlessly e
 This app has a special coin system with six packages.\nEach package comes with a different amount of coins.\nBy playing fun scratch cards, you can earn coins.\nThe more coins you earn, the more packages you can unlock.\nThis means you'll have more chances to earn Robux! It's a simple way to earn Robux and have fun along the way!"</string>
     <string name="ready">Are you ready?</string>
     <string name="ready_desc">"
-Before starting please register an account for our service,\nit's fine also your Roblox username.\nWhen you are ready press the start button below and start right now to earn a lot of Robux!
+When you are ready press the start button below and start right now to earn a lot of Robux!\m
 In order to send you the Robux don't forget to click on the ads as much as you can.\n"</string>
     <string name="current_points">Current Points: %d</string>
     <string name="done">Done!</string>
@@ -19,11 +19,10 @@ In order to send you the Robux don't forget to click on the ads as much as you c
     <string name="roblox_username">Username</string>
     <string name="start">Start</string>
     <string name="ticket_finish">Please finish your current ticket first.</string>
-    <string name="username">Username</string>
-    <string name="password">Password</string>
     <string name="play">Play</string>
     <string name="x">X</string>
     <string name="winning_numbers">Winning numbers: %s</string>
     <string name="total_points">Total points: %d</string>
     <string name="new_ticket">New ticket (AD)</string>
+    <string name="web_client_id" translatable="false">1085849240516-4r0330jokf9873h6jtccud2b26mnhdni.apps.googleusercontent.com</string>
 </resources>
