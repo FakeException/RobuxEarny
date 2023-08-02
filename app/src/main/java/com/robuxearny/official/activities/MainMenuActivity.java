@@ -2,6 +2,7 @@ package com.robuxearny.official.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 
@@ -12,7 +13,6 @@ import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.rewarded.RewardedAd;
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
-import com.google.android.material.button.MaterialButton;
 import com.robuxearny.official.R;
 
 public class MainMenuActivity extends BaseActivity {
@@ -35,19 +35,16 @@ public class MainMenuActivity extends BaseActivity {
         adView2.loadAd(adRequest);
         adView3.loadAd(adRequest);
 
+    }
 
-        MaterialButton buttonPlay = findViewById(R.id.buttonPlay);
-        MaterialButton buttonRedeem = findViewById(R.id.buttonRedeem);
+    public void play(View view) {
+        showRewardedVideo();
+        startActivity(new Intent(this, TicketActivity.class));
+    }
 
-        buttonPlay.setOnClickListener(v -> {
-            showRewardedVideo();
-            startActivity(new Intent(this, TicketActivity.class));
-        });
-
-        buttonRedeem.setOnClickListener(v -> {
-            // Handle "Redeem" button click here
-            // Start the appropriate activity for redeeming rewards
-        });
+    public void redeem(View view) {
+        //showRewardedVideo();
+        //startActivity(new Intent(this, TicketActivity.class));
     }
 
     public void loadRewardedAd() {

@@ -5,5 +5,5 @@
         android:width="12dp"
         android:height="12dp" />
     <solid
-        android:color="#C800FF" /> <!-- Sostituisci con il colore desiderato per l'indicatore attivo -->
+        android:color="#D094E1" /> <!-- Sostituisci con il colore desiderato per l'indicatore attivo -->
 </shape>

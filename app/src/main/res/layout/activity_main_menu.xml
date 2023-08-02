@@ -1,92 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
-
-    <TextView
-        android:id="@+id/appTitleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+    android:id="@+id/main_sv_main_layout"
+    tools:context=".activities.MainMenuActivity">
 
     <LinearLayout
-        android:id="@+id/buttonLayout"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/adBannerLayout"
-        android:layout_marginBottom="16dp">
+        android:orientation="vertical">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonPlay"
-            style="@style/Widget.MaterialComponents.Button"
-            android:layout_width="0dp"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/play"
-            android:layout_weight="1"
-            android:layout_marginEnd="8dp"/>
+            android:layout_marginStart="42dp"
+            android:layout_marginTop="42dp"
+            android:text="@string/app_name"
+            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+            android:textSize="40sp" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonRedeem"
-            style="@style/Widget.MaterialComponents.Button"
-            android:layout_width="0dp"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/redeem_robux"
-            android:layout_weight="1"
-            android:layout_marginStart="8dp"/>
-    </LinearLayout>
+            android:layout_marginVertical="0dp"
+            android:layout_marginStart="44dp"
+            android:text="@string/description" />
 
-    <LinearLayout
-        android:id="@+id/adBannerLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonLayout"
-        app:layout_constraintBottom_toBottomOf="parent">
+        <com.google.android.material.card.MaterialCardView
 
+            android:id="@+id/robux_card"
+            style="@style/Widget.Material3.CardView.Elevated"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="35dp"
+            android:layout_marginTop="45dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="3dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="35dp"
+                    android:layout_marginStart="35dp"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/start_earning"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/start_earning"
+                        android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+                        android:textSize="30sp" />
+
+                    <TextView
+                        android:id="@+id/earn_robux"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/earn_robux"
+                        android:textSize="11sp"
+                        android:textStyle="italic" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="35dp"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/play"
+                            style="@style/Widget.Material3.Button.Icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="play"
+                            android:text="@string/play"
+                            app:icon="@drawable/money"
+                             />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/robux_image"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginEnd="-55dp"
+                    android:src="@drawable/robux"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:importantForAccessibility="no" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.gms.ads.AdView
             android:id="@+id/adView"
             app:adSize="BANNER"
             app:adUnitId="ca-app-pub-6202710455352099/6361829689"
+            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/redeem_robux"
+            style="@style/Widget.Material3.Button.TextButton.Icon"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginTop="35dp"
+            android:allowClickWhenDisabled="true"
+            android:gravity="start|center_vertical"
+            android:onClick="redeem"
+            android:text="@string/redeem_robux"
+            app:icon="@drawable/redeem"
+            app:iconPadding="15dp"
+            tools:targetApi="s" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/invite"
+            style="@style/Widget.Material3.Button.TextButton.Icon"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginTop="8dp"
+            android:allowClickWhenDisabled="true"
+            android:gravity="start|center_vertical"
+            android:text="@string/invite_a_friend"
+            app:icon="@drawable/invite"
+            app:iconPadding="15dp"
+            tools:targetApi="s" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/settings"
+            style="@style/Widget.Material3.Button.TextButton.Icon"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="42dp"
+            android:gravity="start|center_vertical"
+            android:text="@string/settings"
+            app:icon="@drawable/settings"
+            app:iconPadding="15dp" />
 
         <com.google.android.gms.ads.AdView
             android:id="@+id/adView2"
             app:adSize="BANNER"
             app:adUnitId="ca-app-pub-6202710455352099/6361829689"
             android:layout_width="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_height="wrap_content" />
 
         <com.google.android.gms.ads.AdView
             android:id="@+id/adView3"
             app:adSize="BANNER"
             app:adUnitId="ca-app-pub-6202710455352099/6361829689"
+            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineCenter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

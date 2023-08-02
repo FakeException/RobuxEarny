@@ -13,6 +13,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView3"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-6202710455352099/6361829689"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <TextView
         android:id="@+id/winningNumbersTextView"
         android:layout_width="wrap_content"
@@ -30,93 +37,112 @@
         android:columnOrderPreserved="false"
         android:rowCount="3">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/block1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_margin="4dp"
+            android:textColor="@color/white"
+            ads:shapeAppearance="@style/ShapeAppearance.MaterialComponents.SmallComponent"
             android:text="@string/x"
             android:textSize="24sp" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/block2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_margin="4dp"
+            android:textColor="@color/white"
+            ads:shapeAppearance="@style/ShapeAppearance.MaterialComponents.SmallComponent"
             android:text="@string/x"
+
             android:textSize="24sp" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/block3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_margin="4dp"
+            android:textColor="@color/white"
+            ads:shapeAppearance="@style/ShapeAppearance.MaterialComponents.SmallComponent"
             android:text="@string/x"
             android:textSize="24sp" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/block4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_margin="4dp"
+            android:textColor="@color/white"
+            ads:shapeAppearance="@style/ShapeAppearance.MaterialComponents.SmallComponent"
             android:text="@string/x"
             android:textSize="24sp" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/block5"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_margin="4dp"
+            android:textColor="@color/white"
+            ads:shapeAppearance="@style/ShapeAppearance.MaterialComponents.SmallComponent"
             android:text="@string/x"
             android:textSize="24sp" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/block6"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_margin="4dp"
+            android:textColor="@color/white"
+            ads:shapeAppearance="@style/ShapeAppearance.MaterialComponents.SmallComponent"
             android:text="@string/x"
             android:textSize="24sp" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/block7"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_margin="4dp"
+            android:textColor="@color/white"
+            ads:shapeAppearance="@style/ShapeAppearance.MaterialComponents.SmallComponent"
             android:text="@string/x"
             android:textSize="24sp" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/block8"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_margin="4dp"
+            android:textColor="@color/white"
+            ads:shapeAppearance="@style/ShapeAppearance.MaterialComponents.SmallComponent"
             android:text="@string/x"
             android:textSize="24sp" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/block9"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_margin="4dp"
+            android:textColor="@color/white"
+            ads:shapeAppearance="@style/ShapeAppearance.MaterialComponents.SmallComponent"
             android:text="@string/x"
             android:textSize="24sp" />
     </GridLayout>
@@ -137,6 +163,13 @@
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView2"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-6202710455352099/6361829689"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView4"
         ads:adSize="BANNER"
         ads:adUnitId="ca-app-pub-6202710455352099/6361829689"
         android:layout_width="wrap_content"

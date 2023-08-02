@@ -1,5 +1,6 @@
 package com.robuxearny.official.activities;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -69,9 +70,13 @@ public class TicketActivity extends BaseActivity {
 
         AdView adView = findViewById(R.id.adView);
         AdView adView2 = findViewById(R.id.adView2);
+        AdView adView3 = findViewById(R.id.adView3);
+        AdView adView4 = findViewById(R.id.adView4);
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
         adView2.loadAd(adRequest);
+        adView3.loadAd(adRequest);
+        adView4.loadAd(adRequest);
 
         this.scratchedBlocks = new HashSet<>();
 
@@ -180,6 +185,7 @@ public class TicketActivity extends BaseActivity {
 
         int randomNumber = generateRandomNumber();
         block.setText(String.valueOf(randomNumber));
+        block.setTextColor(Color.BLACK);
 
         if (this.winningNumbers.contains(randomNumber)) {
             int points = generateRandomPoints();
@@ -222,6 +228,7 @@ public class TicketActivity extends BaseActivity {
             for (int i = 1; i <= 9; i++) {
                 Button block = findViewById(getResources().getIdentifier("block" + i, "id", getPackageName()));
                 block.setText(getString(R.string.x));
+                block.setTextColor(Color.WHITE);
             }
             this.winningNumbers = generateWinningNumbers();
             updateWinningNumbersTextView();
