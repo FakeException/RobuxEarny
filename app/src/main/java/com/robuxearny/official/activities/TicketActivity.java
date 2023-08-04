@@ -205,7 +205,6 @@ public class TicketActivity extends BaseActivity {
         Random random = new Random();
         return random.nextInt(11) + 1;
     }
-
     private void updateWinningNumbersTextView() {
         TextView winningNumbersTextView = findViewById(R.id.winningNumbersTextView);
         StringBuilder numbersBuilder = new StringBuilder();

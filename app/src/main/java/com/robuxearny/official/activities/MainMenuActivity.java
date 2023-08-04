@@ -43,8 +43,8 @@ public class MainMenuActivity extends BaseActivity {
     }
 
     public void redeem(View view) {
-        //showRewardedVideo();
-        //startActivity(new Intent(this, TicketActivity.class));
+        showRewardedVideo();
+        startActivity(new Intent(this, RedeemActivity.class));
     }
 
     public void loadRewardedAd() {

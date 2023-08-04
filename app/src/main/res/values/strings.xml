@@ -25,4 +25,18 @@
     <string name="coinsystem_desc">\nThis app has a special coin system with six packages.\\nEach package comes with a different amount of coins that corresponds to a different amount of Robux. By playing fun scratch cards, you can earn coins. The more coins you earn, the more packages you can unlock. This means you\'ll have more chances to earn Robux! It\'s a simple way to earn Robux and have fun along the way!</string>
     <string name="ready_desc">"\nWhen you are ready press the start button below and start right now to earn a lot of Robux!\\n In order to send you the Robux don't forget to click on the ads as much as you can.\n"</string>
     <string name="winning_numbers">Winning numbers: %s</string>
+    <string name="delivery">Delivery: 1–2 days</string>
+    <string name="basic_package" translatable="false">Basic Package</string>
+    <string name="deluxe_package" translatable="false">Deluxe Package</string>
+    <string name="premium_package" translatable="false">Premium Package</string>
+    <string name="price">Price: %d Points</string>
+    <string name="not_enough">You don\'t have enough coins :(</string>
+    <string name="redeem_amount" translatable="false">Robux: %d Robux</string>
+    <string name="redeem">Redeem</string>
+    <string name="guide">Follow this guide for redeeming your Robux:\n\n1) Log in to Roblox: Use your Roblox username and password to log in.\n\n2) Go to "Create": Click on "Create" button on the top.\n\n3) Open Your Game: Select a game for adding a gamepass.\n\n4) Add a Gamepass: Click on "Associated Items," choose "Passes," and add your Gamepass.\n\n5) Customize Your Gamepass: Give it a name and description.\n\n6) Set the Price: Set the price to %d Robux.\n\n7) Save It: Save it, click on the … button and copy the link.\n\n8) Paste the link: Paste the link below and you are ready to go.</string>
+    <string name="gamepass_url">Paste your gamepass url here</string>
+    <string name="confirmation">Confirmation</string>
+    <string name="confirm_desc">Is the Gamepass URL correct and do you want to confirm?</string>
+    <string name="yes">Yes</string>
+    <string name="request">Request sent! You will receive your Robux soon.</string>
 </resources>

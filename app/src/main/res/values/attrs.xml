@@ -1,0 +1,7 @@
+<resources>
+    <declare-styleable name="PackageCard">
+        <attr name="title_text" format="string" />
+        <attr name="cost" format="string" />
+        <attr name="robux" format="string" />
+    </declare-styleable>
+</resources>

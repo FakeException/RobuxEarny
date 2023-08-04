@@ -21,5 +21,15 @@
     <string name="start_earning">Guadagna!</string>
     <string name="invite_a_friend">Invita un amico</string>
     <string name="settings">Impostazioni</string>
-    <string name="description">L\'app migliore e più veloce per guadagnare Robux</string>
+    <string name="description">La miglior app per guadagnare Robux</string>
+    <string name="delivery">Consegna: 1–2 giorni</string>
+    <string name="price">Prezzo: %d Punti</string>
+    <string name="redeem">Riscatta</string>
+    <string name="guide">Segui questa guida per poter riscattare i Robux:\n\n1) Logga su Roblox: Utilizza il tuo nome utente e la tua password di Roblox per accedere.\n\n2) Vai su "Crea": Clicca sul tasto "Crea" sopra.\n\n3) Apri Il Tuo Gioco: Seleziona un gioco per aggiungere un gamepass.\n\n4) Aggiungi un Gamepass: Clicca su "Articoli Associati," scegli "I Pass," aggiungi il tuo Gamepass.\n\n5) Modifica il tuo Gamepass: Dagli un nome e una descrizione.\n\n6) Scegli il Prezzo: Setta il prezzo a %d Robux.\n\n7) Salvalo: Salvalo, clicca sul tasto … del tuo gamepass e copia il link.\n\n8) Incolla il link: Incolla il link qui sotto e hai fatto.</string>
+    <string name="gamepass_url">Inserisci il tuo url gamepass qui</string>
+    <string name="not_enough">Non hai abbastanza monete :(</string>
+    <string name="confirmation">Conferma</string>
+    <string name="confirm_desc">L\'URL del Gamepass è corretto e vuoi confermare?</string>
+    <string name="yes">Sì</string>
+    <string name="request">Richiesta inviata! Riceverai presto i Robux.</string>
 </resources>

@@ -7,6 +7,10 @@ android {
     namespace = "com.robuxearny.official"
     compileSdk = 33
 
+    dataBinding {
+        enable = true
+    }
+
     defaultConfig {
         applicationId = "com.robuxearny.official"
         minSdk = 24
