@@ -1,3 +1,9 @@
+/*
+ * Created by FakeException on 8/5/23, 11:58 AM
+ * Copyright (c) 2023. All rights reserved.
+ * Last modified 8/5/23, 11:58 AM
+ */
+
 package com.robuxearny.official;
 
 import android.app.Activity;
@@ -21,6 +27,8 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.appopen.AppOpenAd;
 import com.google.android.gms.ads.appopen.AppOpenAd.AppOpenAdLoadCallback;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.appcheck.FirebaseAppCheck;
+import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory;
 
 import java.util.Date;
 
@@ -46,6 +54,9 @@ public class Robux extends Application
 
         // Initialize Firebase
         FirebaseApp.initializeApp(this);
+        FirebaseAppCheck firebaseAppCheck = FirebaseAppCheck.getInstance();
+        firebaseAppCheck.installAppCheckProviderFactory(
+                PlayIntegrityAppCheckProviderFactory.getInstance());
 
         ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
         appOpenAdManager = new AppOpenAdManager();
