@@ -30,6 +30,21 @@
     <string name="not_enough">Non hai abbastanza monete :(</string>
     <string name="confirmation">Conferma</string>
     <string name="confirm_desc">L\'URL del Gamepass è corretto e vuoi confermare?</string>
+    <string name="confirm_desc2">Sei sicuro di voler eliminare il tuo account?</string>
     <string name="yes">Sì</string>
     <string name="request">Richiesta inviata! Riceverai presto i Robux.</string>
+    <string name="no_internet">Nessuna connessione internet</string>
+    <string name="connect_internet">Connettiti ad internet per usare quest\'app.</string>
+    <string name="rooted_device">Dispositivo Modificato</string>
+    <string name="root_desc">Non puoi usare quest\'app sui dispositivi modificati.</string>
+    <string name="account_deleted">Account eliminato correttamente.</string>
+    <string name="delete_account">Elimina Account</string>
+    <string name="delete_your_robuxearny_account">Elimina il tuo account RobuxEarny</string>
+    <string name="about">Su di noi</string>
+    <string name="github_repository">Repository GitHub</string>
+    <string name="repository">fakeexception/RobuxEarny</string>
+    <string name="discord_server">Server Discord</string>
+    <string name="discord_desc">Entra nel nostro server Discord per guadagnare Robux</string>
+    <string name="contact_us">Contattaci</string>
+    <string name="logout_from_your_account">Esci dal tuo account</string>
 </resources>

@@ -84,7 +84,7 @@
                             android:layout_height="wrap_content"
                             android:onClick="play"
                             android:text="@string/play"
-                            app:icon="@drawable/money"
+                            app:icon="@drawable/ic_money"
                              />
 
                     </LinearLayout>
@@ -126,7 +126,7 @@
             android:gravity="start|center_vertical"
             android:onClick="redeem"
             android:text="@string/redeem_robux"
-            app:icon="@drawable/redeem"
+            app:icon="@drawable/ic_redeem"
             app:iconPadding="15dp"
             tools:targetApi="s" />
 
@@ -140,7 +140,7 @@
             android:allowClickWhenDisabled="true"
             android:gravity="start|center_vertical"
             android:text="@string/invite_a_friend"
-            app:icon="@drawable/invite"
+            app:icon="@drawable/ic_invite"
             app:iconPadding="15dp"
             tools:targetApi="s" />
 
@@ -154,7 +154,8 @@
             android:layout_marginBottom="42dp"
             android:gravity="start|center_vertical"
             android:text="@string/settings"
-            app:icon="@drawable/settings"
+            app:icon="@drawable/ic_settings"
+            android:onClick="openSettings"
             app:iconPadding="15dp" />
 
         <com.google.android.gms.ads.AdView

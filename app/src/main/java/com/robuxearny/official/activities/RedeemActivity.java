@@ -11,6 +11,7 @@ import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.robuxearny.official.R;
 import com.robuxearny.official.adapters.PackageAdapter;
 import com.robuxearny.official.data.AdBanner;
@@ -25,6 +26,9 @@ public class RedeemActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_redeem);
+
+        MaterialToolbar tbToolBar = findViewById(R.id.redeem_tb_toolbar);
+        tbToolBar.setNavigationOnClickListener(v -> finish());
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

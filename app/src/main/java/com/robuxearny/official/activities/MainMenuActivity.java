@@ -95,4 +95,8 @@ public class MainMenuActivity extends BaseActivity {
 
         });
     }
+
+    public void openSettings(View view) {
+        startActivity(new Intent(this, SettingsActivity.class));
+    }
 }

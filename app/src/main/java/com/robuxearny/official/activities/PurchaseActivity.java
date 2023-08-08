@@ -15,8 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
-
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -57,7 +56,7 @@ public class PurchaseActivity extends BaseActivity {
     }
 
     private void showConfirmation(final Activity activity) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(activity);
         builder.setTitle(getString(R.string.confirmation));
         builder.setMessage(getString(R.string.confirm_desc));
         builder.setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> {
@@ -87,9 +86,8 @@ public class PurchaseActivity extends BaseActivity {
             }
         });
         builder.setNegativeButton("No", ((dialogInterface, i) -> dialogInterface.cancel()));
-        AlertDialog dialog = builder.create();
-        dialog.setCancelable(false);
-        dialog.show();
+        builder.setCancelable(false);
+        builder.show();
     }
 
     private void updateCoins(String uid, int newCoins) {

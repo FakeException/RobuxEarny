@@ -37,6 +37,24 @@
     <string name="gamepass_url">Paste your gamepass url here</string>
     <string name="confirmation">Confirmation</string>
     <string name="confirm_desc">Is the Gamepass URL correct and do you want to confirm?</string>
+    <string name="confirm_desc2">Are you sure you want to delete your account?</string>
     <string name="yes">Yes</string>
     <string name="request">Request sent! You will receive your Robux soon.</string>
+    <string name="account" translatable="false">Account</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="delete_your_robuxearny_account">Delete your RobuxEarny account</string>
+    <string name="about">About</string>
+    <string name="github_repository">GitHub repository</string>
+    <string name="repository">fakeexception/RobuxEarny</string>
+    <string name="discord_server">Discord server</string>
+    <string name="discord_desc">Join our Robux earning Discord server</string>
+    <string name="mail" translatable="false">info@robuxrush.com</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="no_internet">No Internet Connection</string>
+    <string name="connect_internet">Please connect to the internet to use this app.</string>
+    <string name="rooted_device">Rooted Device</string>
+    <string name="root_desc">You are not allowed to use this app on rooted devices.</string>
+    <string name="account_deleted">Account successfully deleted.</string>
+    <string name="logout_from_your_account">Logout from your account</string>
+    <string name="logout" translatable="false">Logout</string>
 </resources>
