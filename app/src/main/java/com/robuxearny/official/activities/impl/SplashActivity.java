@@ -1,10 +1,10 @@
 /*
- * Created by FakeException on 8/5/23, 11:58 AM
+ * Created by FakeException on 8/11/23, 2:29 PM
  * Copyright (c) 2023. All rights reserved.
- * Last modified 8/5/23, 11:58 AM
+ * Last modified 8/11/23, 12:45 PM
  */
 
-package com.robuxearny.official.activities;
+package com.robuxearny.official.activities.impl;
 
 import android.app.Application;
 import android.content.Intent;
@@ -17,8 +17,10 @@ import androidx.work.ArrayCreatingInputMerger;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
+import com.google.android.gms.ads.MobileAds;
 import com.robuxearny.official.R;
 import com.robuxearny.official.Robux;
+import com.robuxearny.official.activities.BaseActivity;
 import com.robuxearny.official.listeners.ActivityFinishListener;
 import com.robuxearny.official.utils.Dialogs;
 import com.robuxearny.official.utils.RootChecker;
@@ -42,10 +44,12 @@ public class SplashActivity extends BaseActivity implements ActivityFinishListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        // Create a timer so the SplashActivity will be displayed for a fixed amount of time.
-        createTimer(COUNTER_TIME);
+        initializeMobileAdsSdk();
+
         OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(RootChecker.class).setInputMerger(ArrayCreatingInputMerger.class).build();
         WorkManager.getInstance(this).enqueue(workRequest);
+
+        createTimer(COUNTER_TIME);
     }
 
     /**
@@ -100,6 +104,15 @@ public class SplashActivity extends BaseActivity implements ActivityFinishListen
     @Override
     public void onActivityFinishRequested() {
         Dialogs.showNoRootDialog(this);
+    }
+
+    private void initializeMobileAdsSdk() {
+        // Log the Mobile Ads SDK version.
+        Log.d("Ads", "Google Mobile Ads SDK Version: " + MobileAds.getVersion());
+
+        MobileAds.initialize(
+                this,
+                initializationStatus -> {});
     }
 
 }

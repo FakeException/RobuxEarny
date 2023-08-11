@@ -26,7 +26,7 @@
 
 
         <activity
-            android:name=".activities.SplashActivity"
+            android:name=".activities.impl.SplashActivity"
             android:exported="true"
             android:noHistory="true">
             <intent-filter>
@@ -37,35 +37,41 @@
         </activity>
 
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".activities.impl.MainActivity"
             android:exported="true"
             />
 
-        <activity android:name=".activities.MainMenuActivity" android:exported="true">
+        <activity android:name=".activities.impl.MainMenuActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.TicketActivity" android:exported="true">
+        <activity android:name=".activities.impl.games.TicketActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.RedeemActivity" android:exported="true">
+        <activity android:name=".activities.impl.RedeemActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.PurchaseActivity" android:exported="true">
+        <activity android:name=".activities.impl.PurchaseActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.SettingsActivity" android:exported="true">
+        <activity android:name=".activities.impl.SettingsActivity" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".activities.impl.games.SlotMachineActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
             </intent-filter>

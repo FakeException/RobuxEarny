@@ -1,10 +1,10 @@
 /*
- * Created by FakeException on 8/8/23, 11:49 AM
+ * Created by FakeException on 8/11/23, 2:29 PM
  * Copyright (c) 2023. All rights reserved.
- * Last modified 8/8/23, 11:49 AM
+ * Last modified 8/8/23, 1:49 PM
  */
 
-package com.robuxearny.official.activities;
+package com.robuxearny.official.activities.impl;
 
 import android.app.Activity;
 import android.content.ClipData;
@@ -16,14 +16,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.functions.FirebaseFunctions;
 import com.robuxearny.official.R;
+import com.robuxearny.official.activities.BaseActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,12 +37,7 @@ public class SettingsActivity extends BaseActivity {
         MaterialToolbar tbToolBar = findViewById(R.id.settings_tb_toolbar);
         tbToolBar.setNavigationOnClickListener(v -> finish());
 
-        AdView adView = findViewById(R.id.adView);
-        AdView adView2 = findViewById(R.id.adView2);
-
-        AdRequest adRequest = new AdRequest.Builder().build();
-        adView.loadAd(adRequest);
-        adView2.loadAd(adRequest);
+        setupBanners(findViewById(R.id.adView), findViewById(R.id.adView2));
     }
 
     public void deleteAccount(View view) {

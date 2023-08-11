@@ -23,7 +23,6 @@ import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.appopen.AppOpenAd;
 import com.google.android.gms.ads.appopen.AppOpenAd.AppOpenAdLoadCallback;
 import com.google.firebase.FirebaseApp;
@@ -38,19 +37,11 @@ public class Robux extends Application
 
     private AppOpenAdManager appOpenAdManager;
     private Activity currentActivity;
-    private static final String TAG = "RobuxEarny";
 
     @Override
     public void onCreate() {
         super.onCreate();
         this.registerActivityLifecycleCallbacks(this);
-
-        // Log the Mobile Ads SDK version.
-        Log.d(TAG, "Google Mobile Ads SDK Version: " + MobileAds.getVersion());
-
-        MobileAds.initialize(
-                this,
-                initializationStatus -> {});
 
         // Initialize Firebase
         FirebaseApp.initializeApp(this);

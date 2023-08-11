@@ -10,6 +10,9 @@ import android.content.BroadcastReceiver;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.robuxearny.official.network.NetworkChangeReceiver;
 
 public class BaseActivity extends AppCompatActivity {
@@ -19,6 +22,13 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.networkReceiver = new NetworkChangeReceiver(this);
+    }
+
+    public void setupBanners(AdView... ads) {
+        for (AdView ad : ads) {
+            AdRequest adRequest = new AdRequest.Builder().build();
+            ad.loadAd(adRequest);
+        }
     }
 
     @Override

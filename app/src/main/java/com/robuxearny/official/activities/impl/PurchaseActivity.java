@@ -1,10 +1,10 @@
 /*
- * Created by FakeException on 8/5/23, 11:58 AM
+ * Created by FakeException on 8/11/23, 2:29 PM
  * Copyright (c) 2023. All rights reserved.
- * Last modified 8/5/23, 11:58 AM
+ * Last modified 8/8/23, 12:52 PM
  */
 
-package com.robuxearny.official.activities;
+package com.robuxearny.official.activities.impl;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -23,6 +23,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.functions.FirebaseFunctions;
 import com.robuxearny.official.R;
+import com.robuxearny.official.activities.BaseActivity;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,10 +1,10 @@
 /*
- * Created by FakeException on 8/5/23, 11:58 AM
+ * Created by FakeException on 8/11/23, 2:29 PM
  * Copyright (c) 2023. All rights reserved.
- * Last modified 8/5/23, 11:58 AM
+ * Last modified 8/11/23, 1:27 AM
  */
 
-package com.robuxearny.official.activities;
+package com.robuxearny.official.activities.impl;
 
 import android.os.Bundle;
 
@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.robuxearny.official.R;
+import com.robuxearny.official.activities.BaseActivity;
 import com.robuxearny.official.adapters.PackageAdapter;
 import com.robuxearny.official.data.AdBanner;
 import com.robuxearny.official.data.Package;

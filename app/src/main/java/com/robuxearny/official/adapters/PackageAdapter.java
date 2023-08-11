@@ -26,7 +26,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.robuxearny.official.R;
-import com.robuxearny.official.activities.PurchaseActivity;
+import com.robuxearny.official.activities.impl.PurchaseActivity;
 import com.robuxearny.official.data.AdBanner;
 import com.robuxearny.official.data.Package;
 

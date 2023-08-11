@@ -1,10 +1,10 @@
 /*
- * Created by FakeException on 8/5/23, 11:58 AM
+ * Created by FakeException on 8/11/23, 2:29 PM
  * Copyright (c) 2023. All rights reserved.
- * Last modified 8/5/23, 11:58 AM
+ * Last modified 8/11/23, 12:45 PM
  */
 
-package com.robuxearny.official.activities;
+package com.robuxearny.official.activities.impl;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -31,6 +31,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.robuxearny.official.R;
+import com.robuxearny.official.activities.BaseActivity;
 import com.robuxearny.official.adapters.IntroSliderAdapter;
 import com.robuxearny.official.data.IntroSlide;
 
@@ -94,35 +95,35 @@ public class MainActivity extends BaseActivity {
             Intent intent = new Intent(this, MainMenuActivity.class);
             startActivity(intent);
             finish();
+        } else {
+            ViewPager viewPager = findViewById(R.id.viewPager);
+            indicatorLayout = findViewById(R.id.indicatorLayout);
+
+            List<IntroSlide> introSlides = new ArrayList<>();
+            introSlides.add(new IntroSlide(getString(R.string.welcome), getString(R.string.welcome_desc)));
+            introSlides.add(new IntroSlide(getString(R.string.coinsystem), getString(R.string.coinsystem_desc)));
+            introSlides.add(new IntroSlide(getString(R.string.ready), getString(R.string.ready_desc)));
+
+            IntroSliderAdapter introSliderAdapter = new IntroSliderAdapter(this, introSlides, oneTapLauncher, oneTapClient);
+            viewPager.setAdapter(introSliderAdapter);
+
+            setupIndicator(introSlides.size());
+
+            viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                }
+
+                @Override
+                public void onPageSelected(int position) {
+                    setIndicator(position);
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+                }
+            });
         }
-
-        ViewPager viewPager = findViewById(R.id.viewPager);
-        indicatorLayout = findViewById(R.id.indicatorLayout);
-
-        List<IntroSlide> introSlides = new ArrayList<>();
-        introSlides.add(new IntroSlide(getString(R.string.welcome), getString(R.string.welcome_desc)));
-        introSlides.add(new IntroSlide(getString(R.string.coinsystem), getString(R.string.coinsystem_desc)));
-        introSlides.add(new IntroSlide(getString(R.string.ready), getString(R.string.ready_desc)));
-
-        IntroSliderAdapter introSliderAdapter = new IntroSliderAdapter(this, introSlides, oneTapLauncher, oneTapClient);
-        viewPager.setAdapter(introSliderAdapter);
-
-        setupIndicator(introSlides.size());
-
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                setIndicator(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-            }
-        });
     }
 
     private void saveData(String uid) {
