@@ -70,8 +70,10 @@ public class Ads {
     }
 
     public static void showRewardedVideoActivity(Activity activity, Class<?> open) {
+
         if (rewardedAd == null) {
-            return;
+            Intent act = new Intent(activity, open);
+            activity.startActivity(act);
         }
         rewardedAd.setFullScreenContentCallback(new FullScreenContentCallback() {
             @Override

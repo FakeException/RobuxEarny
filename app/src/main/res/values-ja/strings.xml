@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Created by FakeException on 8/14/23, 10:56 AM
+  ~ Copyright (c) 2023. All rights reserved.
+  ~ Last modified 8/14/23, 10:56 AM
+  -->
+
+<resources>
+    <string name="app_name">RobuxEarny</string>
+    <string name="welcome">ようこそ！</string>
+    <string name="welcome_desc">\nRobuxEarnyへようこそ！\n短期間でRobuxを稼ぐためのアプリです！\n簡単なミニゲームをやったらすぐ稼げます、\nこのアプリは完全に無料で色んなミニゲームをやることでたくさんのRobuxを稼ぐことが出来ます！</string>
+    <string name="coinsystem">コインシステム</string>
+    <string name="coinsystem_desc">\nこのアプリには６パックの特別なコインシステムがあります。\n各パックには、異なるRobux数には異なる量のコインが含まれています。\nミニゲームをやることでコインを得られます。\n得たコインは多かったら大量のRobuxパックを解除できます。\nそれは簡単で面白いRobuxを稼ぐ方法です！</string>
+    <string name="ready">準備がいい？</string>
+    <string name="ready_desc">"\n準備ができたら以下のボタンを押してすぐRobuxを稼ぎ始めます！\nあなたにRobuxを送金するためにアプリ内の広告をタッチするのを忘れないでください。\n"</string>
+    <string name="current_points">現在のコイン： %d</string>
+    <string name="done">完了！</string>
+    <string name="account">アカウント</string>
+    <string name="logout">ログアウト</string>
+    <string name="load">アプリは%d秒に起動します</string>
+    <string name="redeem_robux">Robux引き換え</string>
+    <string name="start">始めます</string>
+    <string name="ticket_finish">このチケットを終わらせてください。</string>
+    <string name="play">プレイ</string>
+    <string name="winning_numbers">当選番号： %s</string>
+    <string name="total_points">合計コイン： %d</string>
+    <string name="new_ticket">新しいチケット</string>
+    <string name="earn_robux">コインを得て多くにRobuxを引き換えます！</string>
+    <string name="start_earning">Robuxを稼ぐ！</string>
+    <string name="invite_a_friend">友達の招待</string>
+    <string name="settings">設定</string>
+    <string name="description">Robuxを稼ぐための最高なアプリです</string>
+    <string name="delivery">送金: １－２日間</string>
+    <string name="price">値段: %d コイン</string>
+    <string name="redeem">引き換え</string>
+    <string name="guide">このガイドに従ってRobuxを引き換える手順をご確認ください：\n\n１）Robloxにログイン：Robloxのユーザー名とパスワードを使用してログインします。\n\n２）"制作"に移動：上部の「制作」ボタンをクリックします。\n\n３）ゲームを開く：ゲームパスを追加するゲームを選択します。\n\n４）ゲームパスを追加：「関連アイテム」をクリックし、"パス"を選択してゲームパスを追加します。\n\n５）ゲームパスを編集：名前と説明を付けます。\n\n６）価格を設定：価格を%d Robuxに設定します。\n\n７）保存：ゲームパスを保存し、ゲームパスの「…」ボタンをクリックしてリンクをコピーします。\n\n８）リンクを貼り付け：下記の場所にリンクを貼り付けて完了です。</string>
+    <string name="gamepass_url">パスのURLをここに入力してください</string>
+    <string name="not_enough">コインは不足しています :(</string>
+    <string name="confirmation">確認</string>
+    <string name="confirm_desc">パスのURLは正しくて確認しますか？</string>
+    <string name="confirm_desc2">アカウントを削除してもよろしいですか？</string>
+    <string name="yes">はい</string>
+    <string name="request">リクエストを送信しました！ 近日中にRobuxをお送りします。</string>
+    <string name="no_internet">インターネットは接続されていません</string>
+    <string name="connect_internet">インターネットに接続してください。</string>
+    <string name="rooted_device">改造されたデバイス</string>
+    <string name="root_desc">このアプリは改造されたデバイスを対応しません。</string>
+    <string name="account_deleted">アカウントを削除しました。</string>
+    <string name="delete_account">アカウント削除</string>
+    <string name="delete_your_robuxearny_account">RobuxEarnyのアカウントを削除します</string>
+    <string name="about">RobuxEarnyについて</string>
+    <string name="github_repository">GitHubレポジトリ</string>
+    <string name="repository">fakeexception/RobuxEarny</string>
+    <string name="discord_server">Discordサーバー</string>
+    <string name="discord_desc">RobuxEarnyのDiscordサーバーに参加します</string>
+    <string name="contact_us">連絡先</string>
+    <string name="logout_from_your_account">アカウントをログアウトします</string>
+</resources>

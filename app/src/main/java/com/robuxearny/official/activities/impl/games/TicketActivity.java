@@ -157,6 +157,7 @@ public class TicketActivity extends GameActivity {
             // Check if the maximum attempts have been reached or if it's time to switch randomly
             int MAX_TICKET_ATTEMPTS = 7;
             if (ticketAttempts >= MAX_TICKET_ATTEMPTS || shouldSwitchRandomly(MAX_TICKET_ATTEMPTS)) {
+                showInterstitial();
                 Intent slot = new Intent(this, SlotMachineActivity.class);
                 startActivity(slot);
             }

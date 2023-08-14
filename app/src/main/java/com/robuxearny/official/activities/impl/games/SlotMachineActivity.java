@@ -100,6 +100,7 @@ public class SlotMachineActivity extends GameActivity {
         if (slotAttempts >= MAX_SLOT_ATTEMPTS || shouldSwitchRandomly(MAX_SLOT_ATTEMPTS)) {
             Intent slot = new Intent(this, TicketActivity.class);
             startActivity(slot);
+            finish();
         }
 
         if (slotMachine.checkWin(this)) {

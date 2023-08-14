@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">RobuxEarny</string>
     <string name="welcome">Welcome!</string>
-    <string name="welcome_desc">\nWelcome to RobuxEarny! An user-friendly application where you can effortlessly earn Robux!\nYou just need to play some very simple mini games, It\'s completely free and you will be able to redeem your robux by accumulating your coins!</string>
+    <string name="welcome_desc">\nWelcome to RobuxEarny! An application where you can earn Robux effortlessly!\nYou just need to play some very simple mini games, It\'s completely free and you will be able to redeem your robux by accumulating your coins!</string>
     <string name="coinsystem">Coin System</string>
     <string name="ready">Are you ready?</string>
-    <string name="current_points">Current Points: %d</string>
+    <string name="current_points">Current Coins: %d</string>
     <string name="done">Done!</string>
     <string name="load">App is done loading in %d</string>
     <string name="splash_activity_image_text" translatable="false">Splash Activity Image</string>
@@ -14,22 +14,22 @@
     <string name="ticket_finish">Please finish your current ticket first.</string>
     <string name="play">Play</string>
     <string name="x" translatable="false">"?"</string>
-    <string name="total_points">Total points: %d</string>
+    <string name="total_points">Total coins: %d</string>
     <string name="new_ticket">New ticket</string>
     <string name="web_client_id" translatable="false">1085849240516-4r0330jokf9873h6jtccud2b26mnhdni.apps.googleusercontent.com</string>
-    <string name="earn_robux">Earn a lot of points and redeem Robux!</string>
+    <string name="earn_robux">Earn lot of coins and redeem Robux!</string>
     <string name="start_earning">Start earning</string>
     <string name="invite_a_friend">Invite a friend</string>
     <string name="settings">Settings</string>
     <string name="description">The best and fastest app for earning Robux</string>
-    <string name="coinsystem_desc">\nThis app has a special coin system with six packages.\nEach package comes with a different amount of coins that corresponds to a different amount of Robux. By playing fun scratch cards, you can earn coins. The more coins you earn, the more packages you can unlock. This means you\'ll have more chances to earn Robux! It\'s a simple way to earn Robux and have fun along the way!</string>
+    <string name="coinsystem_desc">\nThis app has a special coin system with six packages.\nEach package comes with a different amount of coins that corresponds to a different amount of Robux. By playing our mini games, you can earn coins. The more coins you earn, the more packages you can redeem. This means you\'ll have more chances to earn Robux! It\'s a simple way to earn Robux and have fun along the way!</string>
     <string name="ready_desc">"\nWhen you are ready press the start button below and start right now to earn a lot of Robux!\nIn order to send you the Robux don't forget to click on the ads as much as you can.\n"</string>
     <string name="winning_numbers">Winning numbers: %s</string>
     <string name="delivery">Delivery: 1–2 days</string>
     <string name="basic_package" translatable="false">Basic Package</string>
     <string name="deluxe_package" translatable="false">Deluxe Package</string>
     <string name="premium_package" translatable="false">Premium Package</string>
-    <string name="price">Price: %d Points</string>
+    <string name="price">Price: %d Coins</string>
     <string name="not_enough">You don\'t have enough coins :(</string>
     <string name="redeem_amount" translatable="false">Robux: %d Robux</string>
     <string name="redeem">Redeem</string>
@@ -40,7 +40,7 @@
     <string name="confirm_desc2">Are you sure you want to delete your account?</string>
     <string name="yes">Yes</string>
     <string name="request">Request sent! You will receive your Robux soon.</string>
-    <string name="account" translatable="false">Account</string>
+    <string name="account">Account</string>
     <string name="delete_account">Delete Account</string>
     <string name="delete_your_robuxearny_account">Delete your RobuxEarny account</string>
     <string name="about">About</string>
@@ -56,6 +56,6 @@
     <string name="root_desc">You are not allowed to use this app on rooted devices.</string>
     <string name="account_deleted">Account successfully deleted.</string>
     <string name="logout_from_your_account">Logout from your account</string>
-    <string name="logout" translatable="false">Logout</string>
+    <string name="logout">Logout</string>
     <string name="spin" translatable="false">SPIN</string>
 </resources>

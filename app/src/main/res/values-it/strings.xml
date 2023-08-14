@@ -2,12 +2,12 @@
 <resources>
     <string name="app_name">RobuxEarny</string>
     <string name="welcome">Benvenuto!</string>
-    <string name="welcome_desc">\nBenvenuto su RobuxEarny!\nUn\'applicazione facile da usare dove puoi guadagnare Robux in pochissimo tempo!\nDevi solo giocare a un semplice gratta e vinci,\nè completamente gratuito e potrai riscattare i tuoi robux accumulando le tue monete!</string>
+    <string name="welcome_desc">\nBenvenuto su RobuxEarny!\nUn\'applicazione dove puoi guadagnare Robux in pochissimo tempo!\nDevi solamente giocare a dei semplici minigiochi,\nè completamente gratuito e potrai riscattare i tuoi Robux accumulando le tue monete!</string>
     <string name="coinsystem">Sistema Monete</string>
-    <string name="coinsystem_desc">\nQuest\'app ha un sistema speciale di monete con sei pacchetti.\nOgni pacchetto contiene una quantità diversa di monete che corrispondono a un numero diverso di Robux.\nCompletando i gratta e vinci, si possono guadagnare monete.\nPiù monete si guadagnano, più pacchetti si possono sbloccare.\nQuesto significa che avrai più possibilità di guadagnare Robux!\nÈ un modo semplice per guadagnare Robux e divertirsi!</string>
+    <string name="coinsystem_desc">\nQuest\'app ha un sistema speciale di monete con sei pacchetti.\nOgni pacchetto contiene una quantità diversa di monete che corrispondono a un numero diverso di Robux.\nGiocando i nostri minigiochi, si possono guadagnare monete.\nPiù monete si guadagnano, più pacchetti si possono sbloccare.\nQuesto significa che avrai più possibilità di guadagnare Robux!\nÈ un modo semplice per guadagnare Robux e divertirsi!</string>
     <string name="ready">Sei pronto?</string>
-    <string name="ready_desc">"\nQuando sei pronto, premi il pulsante di avvio qui sotto e inizia subito a guadagnare molti Robux!\\nPer poterti inviare i Robux non dimenticare di cliccare sugli annunci il più possibile.\n"</string>
-    <string name="current_points">Punti Correnti: %d</string>
+    <string name="ready_desc">"\nQuando sei pronto, premi il pulsante di avvio qui sotto e inizia subito a guadagnare molti Robux!\nPer poterti inviare i Robux non dimenticare di cliccare sulle pubblicità il più possibile.\n"</string>
+    <string name="current_points">Monete Correnti: %d</string>
     <string name="done">Fatto!</string>
     <string name="load">L\'app si avvia in %d</string>
     <string name="redeem_robux">Riscatta Robux</string>
@@ -15,15 +15,15 @@
     <string name="ticket_finish">Si prega di terminare prima il biglietto corrente.</string>
     <string name="play">Gioca</string>
     <string name="winning_numbers">Numeri vincenti: %s</string>
-    <string name="total_points">Punti totali: %d</string>
+    <string name="total_points">Monete totali: %d</string>
     <string name="new_ticket">Nuovo biglietto</string>
-    <string name="earn_robux">Guadagna molti punti e riscatta Robux!</string>
+    <string name="earn_robux">Guadagna molte monete e riscatta Robux!</string>
     <string name="start_earning">Guadagna!</string>
     <string name="invite_a_friend">Invita un amico</string>
     <string name="settings">Impostazioni</string>
     <string name="description">La miglior app per guadagnare Robux</string>
     <string name="delivery">Consegna: 1–2 giorni</string>
-    <string name="price">Prezzo: %d Punti</string>
+    <string name="price">Prezzo: %d Monete</string>
     <string name="redeem">Riscatta</string>
     <string name="guide">Segui questa guida per poter riscattare i Robux:\n\n1) Logga su Roblox: Utilizza il tuo nome utente e la tua password di Roblox per accedere.\n\n2) Vai su "Crea": Clicca sul tasto "Crea" sopra.\n\n3) Apri Il Tuo Gioco: Seleziona un gioco per aggiungere un gamepass.\n\n4) Aggiungi un Gamepass: Clicca su "Articoli Associati," scegli "I Pass," aggiungi il tuo Gamepass.\n\n5) Modifica il tuo Gamepass: Dagli un nome e una descrizione.\n\n6) Scegli il Prezzo: Setta il prezzo a %d Robux.\n\n7) Salvalo: Salvalo, clicca sul tasto … del tuo gamepass e copia il link.\n\n8) Incolla il link: Incolla il link qui sotto e hai fatto.</string>
     <string name="gamepass_url">Inserisci il tuo url gamepass qui</string>
@@ -39,8 +39,10 @@
     <string name="root_desc">Non puoi usare quest\'app sui dispositivi modificati.</string>
     <string name="account_deleted">Account eliminato correttamente.</string>
     <string name="delete_account">Elimina Account</string>
+    <string name="account">Account</string>
     <string name="delete_your_robuxearny_account">Elimina il tuo account RobuxEarny</string>
     <string name="about">Su di noi</string>
+    <string name="logout">Logout</string>
     <string name="github_repository">Repository GitHub</string>
     <string name="repository">fakeexception/RobuxEarny</string>
     <string name="discord_server">Server Discord</string>
