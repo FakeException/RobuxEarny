@@ -8,6 +8,7 @@ package com.robuxearny.official.activities.impl;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
@@ -29,11 +30,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.robuxearny.official.R;
 import com.robuxearny.official.activities.BaseActivity;
 import com.robuxearny.official.adapters.IntroSliderAdapter;
 import com.robuxearny.official.data.IntroSlide;
+import com.robuxearny.official.utils.ReferralCodeGenerator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,6 +48,8 @@ public class MainActivity extends BaseActivity {
     private LinearLayout indicatorLayout;
     private SignInClient oneTapClient;
     private FirebaseAuth mAuth;
+    private IntroSliderAdapter introSliderAdapter;
+    private boolean canUpdateCoins = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +74,14 @@ public class MainActivity extends BaseActivity {
                                             if (task.isSuccessful()) {
                                                 if (mAuth.getCurrentUser() != null) {
                                                     FirebaseUser user = mAuth.getCurrentUser();
-                                                    Toast.makeText(this, "Success!", Toast.LENGTH_SHORT).show();
-                                                    saveData(user.getUid());
+                                                    Toast.makeText(this, "Login Success!", Toast.LENGTH_SHORT).show();
+
+                                                    if (!introSliderAdapter.getRefCode().isEmpty()) {
+                                                        saveData(user.getUid(), 40);
+                                                        if (canUpdateCoins) updateCoins(introSliderAdapter.getReferrer(), 60);
+                                                    } else {
+                                                        saveData(user.getUid(), 0);
+                                                    }
 
                                                     Intent intent = new Intent(this, MainMenuActivity.class);
                                                     startActivity(intent);
@@ -104,7 +115,7 @@ public class MainActivity extends BaseActivity {
             introSlides.add(new IntroSlide(getString(R.string.coinsystem), getString(R.string.coinsystem_desc)));
             introSlides.add(new IntroSlide(getString(R.string.ready), getString(R.string.ready_desc)));
 
-            IntroSliderAdapter introSliderAdapter = new IntroSliderAdapter(this, introSlides, oneTapLauncher, oneTapClient);
+            introSliderAdapter = new IntroSliderAdapter(this, introSlides, oneTapLauncher, oneTapClient);
             viewPager.setAdapter(introSliderAdapter);
 
             setupIndicator(introSlides.size());
@@ -126,7 +137,7 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    private void saveData(String uid) {
+    private void saveData(String uid, int coinAmount) {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference userDocRef = db.collection("users").document(uid);
@@ -136,10 +147,47 @@ public class MainActivity extends BaseActivity {
                 DocumentSnapshot document = task.getResult();
                 if (!document.exists()) {
                     Map<String, Object> userMap = new HashMap<>();
+                    String referral = ReferralCodeGenerator.generateReferralCode();
                     userMap.put("uid", uid);
-                    userMap.put("coins", 0);
+                    userMap.put("coins", coinAmount);
+                    userMap.put("referral", referral);
+
+                    SharedPreferences.Editor editor = getPrefsEditor();
+                    editor.putString("referralCode", referral);
+                    editor.apply();
 
                     userDocRef.set(userMap)
+                            .addOnSuccessListener(aVoid -> {
+                                Log.d("Firestore", "User data saved successfully.");
+                                saveReferral(uid, referral);
+                            })
+                            .addOnFailureListener(e -> {
+                                Log.e("Firestore", "Error saving user data: " + e.getMessage());
+                            });
+                } else {
+
+                    SharedPreferences.Editor editor = getPrefsEditor();
+                    editor.putString("referralCode", document.getString("referral"));
+                    editor.apply();
+                    canUpdateCoins = false;
+                }
+            }
+        });
+    }
+
+    private void saveReferral(String uid, String code) {
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference codeDocRef = db.collection("referralCodes").document(code);
+
+        codeDocRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (!document.exists()) {
+                    Map<String, Object> userMap = new HashMap<>();
+                    userMap.put("uid", uid);
+
+                    codeDocRef.set(userMap)
                             .addOnSuccessListener(aVoid -> {
                                 Log.d("Firestore", "User data saved successfully.");
                             })
@@ -181,5 +229,26 @@ public class MainActivity extends BaseActivity {
                 indicator.setImageResource(R.drawable.indicator_inactive);
             }
         }
+    }
+
+    public void updateCoins(String uid, int newCoins) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference userRef = db.collection("users").document(uid);
+
+        userRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+
+                    userRef.update("coins",  FieldValue.increment(newCoins)).addOnSuccessListener(obj -> {
+                        Log.d("Coins", "Coins updated");
+                    }).addOnFailureListener(exc -> {
+                        Log.d("Coins", exc.getMessage());
+                    });
+                }
+            }
+
+        });
+
     }
 }

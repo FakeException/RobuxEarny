@@ -32,41 +32,65 @@
 
         <com.google.android.gms.ads.AdView
             android:id="@+id/adView"
-            ads:adSize="BANNER"
-            ads:adUnitId="ca-app-pub-6202710455352099/6361829689"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            ads:adSize="BANNER"
+            ads:adUnitId="ca-app-pub-6202710455352099/6361829689" />
 
-        <TextView
-            android:id="@+id/titleTextView"
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Material3.CardView.Elevated"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            ads:cardCornerRadius="20dp"
+            ads:cardElevation="3dp"
+            ads:contentPadding="5dp"
+            ads:layout_constraintEnd_toEndOf="parent"
+            ads:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/titleTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/descriptionTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="46dp"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="16sp" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <EditText
+            android:id="@+id/refCodeView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:textColor="?android:textColorPrimary"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/descriptionTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textColor="?android:textColorPrimary"
-            android:textSize="16sp" />
+            android:visibility="invisible"
+            android:hint="@string/enter_referral_code"
+            android:autofillHints="android.view.autofill.hintText"
+            android:gravity="center"
+            android:inputType="text|textCapCharacters" />
 
         <Button
             android:id="@+id/startButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="@string/start"
             android:textSize="20sp"
             android:visibility="invisible" />
 
         <com.google.android.gms.ads.AdView
             android:id="@+id/adView2"
-            ads:adSize="BANNER"
-            ads:adUnitId="ca-app-pub-6202710455352099/6361829689"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            ads:adSize="BANNER"
+            ads:adUnitId="ca-app-pub-6202710455352099/6361829689" />
     </LinearLayout>
 </RelativeLayout>

@@ -38,4 +38,8 @@ public class MainMenuActivity extends BaseActivity {
     public void openSettings(View view) {
         startActivity(new Intent(this, SettingsActivity.class));
     }
+
+    public void invite(View view) {
+        startActivity(new Intent(this, ReferralActivity.class));
+    }
 }

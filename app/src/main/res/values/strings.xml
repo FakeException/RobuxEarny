@@ -58,4 +58,6 @@
     <string name="logout_from_your_account">Logout from your account</string>
     <string name="logout">Logout</string>
     <string name="spin" translatable="false">SPIN</string>
+    <string name="share">Share your code</string>
+    <string name="enter_referral_code">Enter Referral Code</string>
 </resources>

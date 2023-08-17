@@ -13,8 +13,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.robuxearny.official.R;
 import com.robuxearny.official.activities.GameActivity;
+import com.robuxearny.official.activities.impl.MainMenuActivity;
 
 import java.util.HashSet;
 import java.util.Random;
@@ -32,6 +34,13 @@ public class TicketActivity extends GameActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ticket);
+
+        MaterialToolbar tbToolBar = findViewById(R.id.ticket_tb_toolbar);
+        tbToolBar.setNavigationOnClickListener(v -> {
+            Intent menu = new Intent(this, MainMenuActivity.class);
+            startActivity(menu);
+            finish();
+        });
 
         this.totalPointsTextView = findViewById(R.id.totalPointsTextView);
 

@@ -141,6 +141,7 @@
             android:gravity="start|center_vertical"
             android:text="@string/invite_a_friend"
             app:icon="@drawable/ic_invite"
+            android:onClick="invite"
             app:iconPadding="15dp"
             tools:targetApi="s" />
 

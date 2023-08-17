@@ -6,6 +6,20 @@
     android:gravity="center"
     android:orientation="vertical">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/ticket_tb_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            ads:navigationIcon="@drawable/ic_back"
+            ads:navigationIconTint="?attr/colorOnSurface"
+            ads:title="@string/app_name" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
         android:layout_width="wrap_content"

@@ -7,7 +7,9 @@
 package com.robuxearny.official.activities;
 
 import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,10 +19,12 @@ import com.robuxearny.official.network.NetworkChangeReceiver;
 
 public class BaseActivity extends AppCompatActivity {
     private BroadcastReceiver networkReceiver;
+    private SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.preferences = getSharedPreferences("RobuxEarny", Context.MODE_PRIVATE);
         this.networkReceiver = new NetworkChangeReceiver(this);
     }
 
@@ -50,5 +54,13 @@ public class BaseActivity extends AppCompatActivity {
 
     private void unregisterNetworkReceiver() {
         unregisterReceiver(this.networkReceiver);
+    }
+
+    public SharedPreferences getPreferences() {
+        return preferences;
+    }
+
+    public SharedPreferences.Editor getPrefsEditor() {
+        return preferences.edit();
     }
 }

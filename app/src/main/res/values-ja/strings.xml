@@ -54,4 +54,5 @@
     <string name="discord_desc">RobuxEarnyのDiscordサーバーに参加します</string>
     <string name="contact_us">連絡先</string>
     <string name="logout_from_your_account">アカウントをログアウトします</string>
+    <string name="enter_referral_code">Enter Referral Code</string>
 </resources>

@@ -13,7 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.IntentSenderRequest;
@@ -24,8 +26,12 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.auth.api.identity.BeginSignInRequest;
 import com.google.android.gms.auth.api.identity.SignInClient;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.robuxearny.official.R;
 import com.robuxearny.official.data.IntroSlide;
+import com.robuxearny.official.utils.CodeExistenceCallback;
 
 import java.util.List;
 
@@ -35,12 +41,16 @@ public class IntroSliderAdapter extends PagerAdapter {
     private final List<IntroSlide> introSlides;
     private final ActivityResultLauncher<IntentSenderRequest> oneTapLauncher;
     private final SignInClient oneTapClient;
+    private String refCode;
+    private String referrer;
 
     public IntroSliderAdapter(Context context, List<IntroSlide> introSlides, ActivityResultLauncher<IntentSenderRequest> oneTapLauncher, SignInClient oneTapClient) {
         this.context = context;
         this.introSlides = introSlides;
         this.oneTapLauncher = oneTapLauncher;
         this.oneTapClient = oneTapClient;
+        this.refCode = "";
+        this.referrer = "";
     }
 
     private BeginSignInRequest signUpRequest;
@@ -49,10 +59,8 @@ public class IntroSliderAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
 
-
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.intro_slide, container, false);
-
 
         TextView titleTextView = view.findViewById(R.id.titleTextView);
         TextView descriptionTextView = view.findViewById(R.id.descriptionTextView);
@@ -78,15 +86,26 @@ public class IntroSliderAdapter extends PagerAdapter {
         if (position == introSlides.size() - 1) {
             Button startButton = view.findViewById(R.id.startButton);
             startButton.setVisibility(View.VISIBLE);
+            EditText refCode = view.findViewById(R.id.refCodeView);
+            refCode.setVisibility(View.VISIBLE);
 
-            startButton.setOnClickListener(v ->
-                    oneTapClient.beginSignIn(signUpRequest)
-                            .addOnSuccessListener((Activity) context, beginSignInResult -> {
-                                IntentSenderRequest intentSenderRequest =
-                                        new IntentSenderRequest.Builder(beginSignInResult.getPendingIntent().getIntentSender()).build();
-                                oneTapLauncher.launch(intentSenderRequest);
-                            })
-                            .addOnFailureListener((Activity) context, e -> Log.d("Login", e.getMessage())));
+            startButton.setOnClickListener(v -> {
+
+                if (!refCode.getText().toString().isEmpty()) {
+                    String ref = refCode.getText().toString();
+                    checkRefExistence(ref, (exists, referrer) -> {
+                        if (exists) {
+                            this.refCode = ref;
+                            this.referrer = referrer;
+                            launchSignIn();
+                        } else {
+                            Toast.makeText(context, "The referral code is not valid", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    launchSignIn();
+                }
+            });
         }
 
         titleTextView.setText(introSlide.getTitle());
@@ -95,6 +114,32 @@ public class IntroSliderAdapter extends PagerAdapter {
         container.addView(view);
 
         return view;
+    }
+
+    private void launchSignIn() {
+        oneTapClient.beginSignIn(signUpRequest)
+                .addOnSuccessListener((Activity) context, beginSignInResult -> {
+                    IntentSenderRequest intentSenderRequest =
+                            new IntentSenderRequest.Builder(beginSignInResult.getPendingIntent().getIntentSender()).build();
+                    oneTapLauncher.launch(intentSenderRequest);
+                })
+                .addOnFailureListener((Activity) context, e -> Log.d("Login", e.getMessage()));
+    }
+
+    private void checkRefExistence(String code, CodeExistenceCallback callback) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference userDocRef = db.collection("referralCodes").document(code);
+
+        userDocRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                boolean exists = document.exists();
+                String referrer = exists ? document.getString("uid") : "";
+                callback.onCodeExistenceChecked(exists, referrer);
+            } else {
+                callback.onCodeExistenceChecked(false, "");
+            }
+        });
     }
 
     @Override
@@ -110,5 +155,13 @@ public class IntroSliderAdapter extends PagerAdapter {
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
         return view == object;
+    }
+
+    public String getRefCode() {
+        return refCode;
+    }
+
+    public String getReferrer() {
+        return referrer;
     }
 }
