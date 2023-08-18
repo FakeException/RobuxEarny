@@ -6,7 +6,7 @@
     <string name="coinsystem">Sistema Monete</string>
     <string name="coinsystem_desc">\nQuest\'app ha un sistema speciale di monete con sei pacchetti.\nOgni pacchetto contiene una quantità diversa di monete che corrispondono a un numero diverso di Robux.\nGiocando i nostri minigiochi, si possono guadagnare monete.\nPiù monete si guadagnano, più pacchetti si possono sbloccare.\nQuesto significa che avrai più possibilità di guadagnare Robux!\nÈ un modo semplice per guadagnare Robux e divertirsi!</string>
     <string name="ready">Sei pronto?</string>
-    <string name="ready_desc">"\nQuando sei pronto, premi il pulsante di avvio qui sotto e inizia subito a guadagnare molti Robux!\nPer poterti inviare i Robux non dimenticare di cliccare sulle pubblicità il più possibile.\n"</string>
+    <string name="ready_desc">"\nQuando sei pronto, premi il pulsante di avvio qui sotto e inizia subito a guadagnare molti Robux!\nSe hai un codice referral di un tuo amico inseriscili qui sotto per ricevere un bonus\nPer poterti inviare i Robux non dimenticare di cliccare sulle pubblicità il più possibile.\n"</string>
     <string name="current_points">Monete Correnti: %d</string>
     <string name="done">Fatto!</string>
     <string name="load">L\'app si avvia in %d</string>
@@ -48,6 +48,13 @@
     <string name="discord_server">Server Discord</string>
     <string name="discord_desc">Entra nel nostro server Discord per guadagnare Robux</string>
     <string name="contact_us">Contattaci</string>
+    <string name="share">Condividi il codice</string>
     <string name="logout_from_your_account">Esci dal tuo account</string>
-    <string name="enter_referral_code">Enter Referral Code</string>
+    <string name="enter_referral_code">Inserisci il codice referral</string>
+    <string name="login_success">Login Riuscito!</string>
+    <string name="ref_desc">Guadagna 60 monete ogni volta che qualcuno usa il tuo codice referral!</string>
+    <string name="login_error">Login fallito, perfavore riprova</string>
+    <string name="robuxearny_referral_code">Codice Referral di RobuxEarny</string>
+    <string name="robuxearny_referral_desc">"Questo è il mio referral code per RobuxEarny: %s, scarica l'app dal Google Play ed ottieni un bonus!"</string>
+    <string name="share_referral_code">Condividi Codice Referral</string>
 </resources>

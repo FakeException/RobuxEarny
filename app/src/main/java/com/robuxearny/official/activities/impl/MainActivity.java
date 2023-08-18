@@ -49,7 +49,6 @@ public class MainActivity extends BaseActivity {
     private SignInClient oneTapClient;
     private FirebaseAuth mAuth;
     private IntroSliderAdapter introSliderAdapter;
-    private boolean canUpdateCoins = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,11 +73,14 @@ public class MainActivity extends BaseActivity {
                                             if (task.isSuccessful()) {
                                                 if (mAuth.getCurrentUser() != null) {
                                                     FirebaseUser user = mAuth.getCurrentUser();
-                                                    Toast.makeText(this, "Login Success!", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(this, R.string.login_success, Toast.LENGTH_SHORT).show();
 
                                                     if (!introSliderAdapter.getRefCode().isEmpty()) {
+
                                                         saveData(user.getUid(), 40);
-                                                        if (canUpdateCoins) updateCoins(introSliderAdapter.getReferrer(), 60);
+                                                        if (!introSliderAdapter.getReferrer().equals(mAuth.getUid())) {
+                                                            updateCoins(introSliderAdapter.getReferrer(), 60);
+                                                        }
                                                     } else {
                                                         saveData(user.getUid(), 0);
                                                     }
@@ -89,7 +91,7 @@ public class MainActivity extends BaseActivity {
                                                 }
 
                                             } else {
-                                                Toast.makeText(this, "Login error", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(this, R.string.login_error, Toast.LENGTH_SHORT).show();
                                             }
                                         });
                             }
@@ -142,6 +144,8 @@ public class MainActivity extends BaseActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference userDocRef = db.collection("users").document(uid);
 
+        SharedPreferences.Editor editor = getPrefsEditor();
+
         userDocRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();
@@ -152,7 +156,6 @@ public class MainActivity extends BaseActivity {
                     userMap.put("coins", coinAmount);
                     userMap.put("referral", referral);
 
-                    SharedPreferences.Editor editor = getPrefsEditor();
                     editor.putString("referralCode", referral);
                     editor.apply();
 
@@ -166,10 +169,8 @@ public class MainActivity extends BaseActivity {
                             });
                 } else {
 
-                    SharedPreferences.Editor editor = getPrefsEditor();
                     editor.putString("referralCode", document.getString("referral"));
                     editor.apply();
-                    canUpdateCoins = false;
                 }
             }
         });

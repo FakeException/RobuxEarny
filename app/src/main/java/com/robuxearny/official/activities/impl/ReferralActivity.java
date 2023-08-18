@@ -36,8 +36,8 @@ public class ReferralActivity extends BaseActivity {
     private void shareReferralCode(String referralCode) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_SUBJECT, "RobuxEarny Referral Code");
-        intent.putExtra(Intent.EXTRA_TEXT, "This is my RobuxEarny's referral code: " + referralCode + " download the app from Google Play and get a coin bonus!");
-        startActivity(Intent.createChooser(intent, "Share Referral Code"));
+        intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.robuxearny_referral_code));
+        intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.robuxearny_referral_desc, referralCode));
+        startActivity(Intent.createChooser(intent, getString(R.string.share_referral_code)));
     }
 }

@@ -11,7 +11,7 @@
     <string name="coinsystem">コインシステム</string>
     <string name="coinsystem_desc">\nこのアプリには６パックの特別なコインシステムがあります。\n各パックには、異なるRobux数には異なる量のコインが含まれています。\nミニゲームをやることでコインを得られます。\n得たコインは多かったら大量のRobuxパックを解除できます。\nそれは簡単で面白いRobuxを稼ぐ方法です！</string>
     <string name="ready">準備がいい？</string>
-    <string name="ready_desc">"\n準備ができたら以下のボタンを押してすぐRobuxを稼ぎ始めます！\nあなたにRobuxを送金するためにアプリ内の広告をタッチするのを忘れないでください。\n"</string>
+    <string name="ready_desc">"\n準備ができたら以下のボタンを押してすぐRobuxを稼ぎ始めます！\n友達からの紹介コードがある場合、報酬を得るために以下に書いてください\nあなたにRobuxを送金するためにアプリ内の広告をタッチするのを忘れないでください。\n"</string>
     <string name="current_points">現在のコイン： %d</string>
     <string name="done">完了！</string>
     <string name="account">アカウント</string>
@@ -53,6 +53,13 @@
     <string name="discord_server">Discordサーバー</string>
     <string name="discord_desc">RobuxEarnyのDiscordサーバーに参加します</string>
     <string name="contact_us">連絡先</string>
+    <string name="share">コード共有</string>
     <string name="logout_from_your_account">アカウントをログアウトします</string>
-    <string name="enter_referral_code">Enter Referral Code</string>
+    <string name="enter_referral_code">紹介コードを入力</string>
+    <string name="login_success">ログインできました！</string>
+    <string name="ref_desc">あなたの紹介コードが使われる度に６０コインを取得します！</string>
+    <string name="login_error">ログインエラーが発生しまいました</string>
+    <string name="robuxearny_referral_code">RobuxEarnyの紹介コード</string>
+    <string name="robuxearny_referral_desc">"%s、これは自分のRobuxEarnyの紹介コードです！Google Playからアプリをダウンロードしてコイン報酬を受け取ります！"</string>
+    <string name="share_referral_code">紹介コードの共有</string>
 </resources>

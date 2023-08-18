@@ -22,13 +22,22 @@
             android:id="@+id/referralCodeTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="1234"
             android:textSize="30sp"
             android:textStyle="bold"
             android:textAlignment="center"
             android:padding="16dp"/>
 
     </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/referralCodeDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:text="@string/ref_desc"
+        android:textAlignment="center"
+        android:padding="16dp"/>
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
