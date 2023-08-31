@@ -72,6 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:visibility="invisible"
+            android:minHeight="48dp"
             android:hint="@string/enter_referral_code"
             android:autofillHints="android.view.autofill.hintText"
             android:gravity="center"
@@ -82,6 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:minHeight="48dp"
             android:text="@string/start"
             android:textSize="20sp"
             android:visibility="invisible" />

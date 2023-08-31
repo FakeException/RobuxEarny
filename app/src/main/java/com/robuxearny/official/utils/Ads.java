@@ -69,12 +69,15 @@ public class Ads {
         rewardedAd.show(activity, listener);
     }
 
-    public static void showRewardedVideoActivity(Activity activity, Class<?> open) {
-
+    public static void showRewardedVideoActivity(Activity activity, Class<?> open, int coins) {
         if (rewardedAd == null) {
+            loadRewardedAd(activity);
             Intent act = new Intent(activity, open);
+            act.putExtra("coins", coins);
             activity.startActivity(act);
+            return;
         }
+
         rewardedAd.setFullScreenContentCallback(new FullScreenContentCallback() {
             @Override
             public void onAdShowedFullScreenContent() {
@@ -94,6 +97,7 @@ public class Ads {
 
         rewardedAd.show(activity, rewardItem -> {
             Intent act = new Intent(activity, open);
+            act.putExtra("coins", coins);
             activity.startActivity(act);
         });
     }

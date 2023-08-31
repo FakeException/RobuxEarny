@@ -37,8 +37,10 @@ public class SlotMachineActivity extends GameActivity {
         setContentView(R.layout.activity_slotmachine);
 
         totalPointsTextView = findViewById(R.id.totalPointsTextView);
+        int points = getIntent().getIntExtra("coins", 0);
 
-        getCurrentUserCoins(totalPointsTextView);
+        setTotalPoints(points);
+        totalPointsTextView.setText(getString(R.string.total_points, points));
 
         setupBanners(findViewById(R.id.adView), findViewById(R.id.adView2), findViewById(R.id.adView3), findViewById(R.id.adView4));
 
@@ -110,7 +112,11 @@ public class SlotMachineActivity extends GameActivity {
             updateTotalPointsTextView(totalPointsTextView);
 
             showInterstitial();
-            Toast.makeText(this, "Congratulations! You win!", Toast.LENGTH_SHORT).show();
+            getMediaPlayer().start();
+            if (getVibrator().hasVibrator()) {
+                getVibrator().vibrate(100);
+            }
+            Toast.makeText(this, R.string.you_win, Toast.LENGTH_SHORT).show();
         }
 
         spinButton.setEnabled(true);

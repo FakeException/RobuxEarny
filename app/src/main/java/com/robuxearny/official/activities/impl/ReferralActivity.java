@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.robuxearny.official.R;
 import com.robuxearny.official.activities.BaseActivity;
 
@@ -20,6 +21,9 @@ public class ReferralActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_referral);
+
+        MaterialToolbar tbToolBar = findViewById(R.id.referral_tb_toolbar);
+        tbToolBar.setNavigationOnClickListener(v -> finish());
 
         setupBanners(findViewById(R.id.adView), findViewById(R.id.adView2), findViewById(R.id.adView3));
 

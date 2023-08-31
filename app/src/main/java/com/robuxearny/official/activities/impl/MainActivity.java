@@ -18,7 +18,11 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.IntentSenderRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.core.splashscreen.SplashScreen;
 import androidx.viewpager.widget.ViewPager;
+import androidx.work.ArrayCreatingInputMerger;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import com.google.android.gms.auth.api.identity.Identity;
 import com.google.android.gms.auth.api.identity.SignInClient;
@@ -33,17 +37,21 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.robuxearny.official.R;
+import com.robuxearny.official.Robux;
 import com.robuxearny.official.activities.BaseActivity;
 import com.robuxearny.official.adapters.IntroSliderAdapter;
 import com.robuxearny.official.data.IntroSlide;
+import com.robuxearny.official.listeners.ActivityFinishListener;
+import com.robuxearny.official.utils.Dialogs;
 import com.robuxearny.official.utils.ReferralCodeGenerator;
+import com.robuxearny.official.utils.RootChecker;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements ActivityFinishListener {
 
     private LinearLayout indicatorLayout;
     private SignInClient oneTapClient;
@@ -52,8 +60,13 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        SplashScreen.installSplashScreen(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
+
+        OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(RootChecker.class).setInputMerger(ArrayCreatingInputMerger.class).build();
+        WorkManager.getInstance(this).enqueue(workRequest);
 
         oneTapClient = Identity.getSignInClient(this);
         mAuth = FirebaseAuth.getInstance();
@@ -105,9 +118,16 @@ public class MainActivity extends BaseActivity {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         if (currentUser != null) {
-            Intent intent = new Intent(this, MainMenuActivity.class);
-            startActivity(intent);
-            finish();
+
+            ((Robux) getApplication())
+                    .showAdIfAvailable(
+                            this,
+                            () -> {
+                                Intent intent = new Intent(this, MainMenuActivity.class);
+                                startActivity(intent);
+                                finish();
+                            });
+
         } else {
             ViewPager viewPager = findViewById(R.id.viewPager);
             indicatorLayout = findViewById(R.id.indicatorLayout);
@@ -251,5 +271,10 @@ public class MainActivity extends BaseActivity {
 
         });
 
+    }
+
+    @Override
+    public void onActivityFinishRequested() {
+        Dialogs.showNoRootDialog(this);
     }
 }

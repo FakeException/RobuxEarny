@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.app.Application.ActivityLifecycleCallbacks;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -27,6 +28,7 @@ import com.google.android.gms.ads.appopen.AppOpenAd;
 import com.google.android.gms.ads.appopen.AppOpenAd.AppOpenAdLoadCallback;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.appcheck.FirebaseAppCheck;
+import com.google.firebase.appcheck.debug.DebugAppCheckProviderFactory;
 import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory;
 
 import java.util.Date;
@@ -45,9 +47,19 @@ public class Robux extends Application
 
         // Initialize Firebase
         FirebaseApp.initializeApp(this);
+
+        boolean isDebug = ((getApplicationInfo().flags &
+                ApplicationInfo.FLAG_DEBUGGABLE) != 0);
+
         FirebaseAppCheck firebaseAppCheck = FirebaseAppCheck.getInstance();
-        firebaseAppCheck.installAppCheckProviderFactory(
-                PlayIntegrityAppCheckProviderFactory.getInstance());
+
+        if (!isDebug) {
+            firebaseAppCheck.installAppCheckProviderFactory(
+                    PlayIntegrityAppCheckProviderFactory.getInstance());
+        } else {
+            firebaseAppCheck.installAppCheckProviderFactory(
+                    DebugAppCheckProviderFactory.getInstance());
+        }
 
         ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
         appOpenAdManager = new AppOpenAdManager();

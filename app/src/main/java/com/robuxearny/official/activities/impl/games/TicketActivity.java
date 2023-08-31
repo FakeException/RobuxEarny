@@ -30,6 +30,7 @@ public class TicketActivity extends GameActivity {
     private Set<Integer> winningNumbers;
     private int ticketAttempts = 0;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +44,7 @@ public class TicketActivity extends GameActivity {
         });
 
         this.totalPointsTextView = findViewById(R.id.totalPointsTextView);
+        totalPointsTextView.setText(getString(R.string.total_points, getIntent().getIntExtra("coins", 0)));
 
         Button confirmButton = findViewById(R.id.confirmButton);
 
@@ -118,6 +120,10 @@ public class TicketActivity extends GameActivity {
         if (this.winningNumbers.contains(randomNumber)) {
             int points = generateRandomPoints();
             increasePoints(points);
+            getMediaPlayer().start();
+            if (getVibrator().hasVibrator()) {
+                getVibrator().vibrate(100);
+            }
         }
 
         this.scratchedBlocks.add(block);
@@ -131,7 +137,7 @@ public class TicketActivity extends GameActivity {
 
     private int generateRandomPoints() {
         Random random = new Random();
-        return random.nextInt(6) + 1;
+        return random.nextInt(4) + 1;
     }
 
     private void updateWinningNumbersTextView() {
@@ -168,6 +174,7 @@ public class TicketActivity extends GameActivity {
             if (ticketAttempts >= MAX_TICKET_ATTEMPTS || shouldSwitchRandomly(MAX_TICKET_ATTEMPTS)) {
                 showInterstitial();
                 Intent slot = new Intent(this, SlotMachineActivity.class);
+                slot.putExtra("coins", getTotalPoints());
                 startActivity(slot);
             }
 

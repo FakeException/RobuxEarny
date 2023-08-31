@@ -6,7 +6,10 @@
 
 package com.robuxearny.official.activities;
 
+import android.content.Context;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -25,6 +28,8 @@ public class GameActivity extends BaseActivity {
 
     private String uid;
     private int totalPoints;
+    private MediaPlayer mediaPlayer;
+    private Vibrator vibrator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +42,9 @@ public class GameActivity extends BaseActivity {
         if (currentUser != null) {
             uid = currentUser.getUid();
         }
+
+        mediaPlayer = MediaPlayer.create(this, R.raw.collect);
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
     }
 
     public void showInterstitial() {
@@ -61,7 +69,6 @@ public class GameActivity extends BaseActivity {
             }
 
         });
-
     }
 
     public void getCurrentUserCoins(TextView totalPointsView) {
@@ -118,5 +125,19 @@ public class GameActivity extends BaseActivity {
 
     public void setTotalPoints(int totalPoints) {
         this.totalPoints = totalPoints;
+    }
+
+    public MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
+    }
+
+    public Vibrator getVibrator() {
+        return vibrator;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        vibrator.cancel();
     }
 }

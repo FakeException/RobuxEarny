@@ -73,7 +73,7 @@ public class PurchaseActivity extends BaseActivity {
                         .call(data)
                         .addOnSuccessListener(result -> {
                             // Handle success
-                            Toast.makeText(this, "Request sent! You will receive your Robux soon.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(this, getString(R.string.request), Toast.LENGTH_LONG).show();
 
                             updateCoins(user.getUid(), coins - cost);
                             Intent menu = new Intent(this, MainMenuActivity.class);

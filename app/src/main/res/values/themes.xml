@@ -7,4 +7,14 @@
     </style>
 
     <style name="Theme.RobuxEarny" parent="Base.Theme.RobuxEarny" />
+
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher_round</item>
+        <item name="windowSplashScreenAnimationDuration">3000</item>
+        <!-- Set the theme of the Activity that directly follows your splash screen. -->
+        <!-- Required -->
+        <item name="postSplashScreenTheme">@style/Theme.RobuxEarny</item>
+
+    </style>
 </resources>

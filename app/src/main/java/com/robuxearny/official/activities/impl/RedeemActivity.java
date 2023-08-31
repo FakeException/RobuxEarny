@@ -42,17 +42,17 @@ public class RedeemActivity extends BaseActivity {
 
     private List<Object> createMixedItemList() {
         List<Object> mixedItems = new ArrayList<>();
-        mixedItems.add(new Package("Basic", 500, 10, R.drawable.robux));
+        mixedItems.add(new Package("Basic", 1500, 10, R.drawable.robux));
         mixedItems.add(new AdBanner());
-        mixedItems.add(new Package("Deluxe", 1000, 25, R.drawable.robux2));
+        mixedItems.add(new Package("Deluxe", 2300, 25, R.drawable.robux2));
         mixedItems.add(new AdBanner());
-        mixedItems.add(new Package("Premium", 2000, 60, R.drawable.robux3));
+        mixedItems.add(new Package("Premium", 3200, 60, R.drawable.robux3));
         mixedItems.add(new AdBanner());
-        mixedItems.add(new Package("Ultimate", 5000, 170, R.drawable.robux4));
+        mixedItems.add(new Package("Ultimate", 5700, 170, R.drawable.robux4));
         mixedItems.add(new AdBanner());
-        mixedItems.add(new Package("Elite", 9000, 300, R.drawable.robux5));
+        mixedItems.add(new Package("Elite", 9600, 300, R.drawable.robux5));
         mixedItems.add(new AdBanner());
-        mixedItems.add(new Package("Supreme", 12000, 440, R.drawable.robux6));
+        mixedItems.add(new Package("Supreme", 15000, 440, R.drawable.robux6));
         mixedItems.add(new AdBanner());
         mixedItems.add(new AdBanner());
         return mixedItems;

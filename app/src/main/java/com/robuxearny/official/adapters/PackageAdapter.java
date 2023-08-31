@@ -6,7 +6,7 @@
 
 package com.robuxearny.official.adapters;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,10 +37,10 @@ public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private static final int VIEW_TYPE_PACKAGE = 1;
     private static final int VIEW_TYPE_AD_BANNER = 2;
 
-    private final Context context;
+    private final Activity context;
     private final List<Object> items;
 
-    public PackageAdapter(Context context, List<Object> items) {
+    public PackageAdapter(Activity context, List<Object> items) {
         this.context = context;
         this.items = items;
     }
@@ -96,6 +96,7 @@ public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                                         purchase.putExtra("coins", (int) coins);
 
                                         context.startActivity(purchase);
+                                        context.finish();
                                     } else {
                                         Toast.makeText(context, context.getString(R.string.not_enough), Toast.LENGTH_SHORT).show();
                                     }
