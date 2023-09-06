@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -64,6 +65,7 @@ public class SettingsActivity extends BaseActivity {
                             FirebaseAuth.getInstance().signOut();
                             Toast.makeText(this, R.string.account_deleted, Toast.LENGTH_LONG).show();
                             Intent main = new Intent(this, MainActivity.class);
+                            main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(main);
                             finish();
                         })
@@ -98,7 +100,20 @@ public class SettingsActivity extends BaseActivity {
     public void logoutAccount(View view) {
         FirebaseAuth.getInstance().signOut();
         Intent main = new Intent(this, MainActivity.class);
+        main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+        SharedPreferences.Editor editor = getPrefsEditor();
+        editor.putInt("coins", 0).apply();
         startActivity(main);
         finish();
+    }
+
+    public void openFAQ(View view) {
+        View popupView = getLayoutInflater().inflate(R.layout.popup_faq, null);
+
+        // Create a dialog and set the custom layout
+        MaterialAlertDialogBuilder alertDialogBuilder = new MaterialAlertDialogBuilder(this);
+        alertDialogBuilder.setView(popupView);
+        alertDialogBuilder.show();
     }
 }

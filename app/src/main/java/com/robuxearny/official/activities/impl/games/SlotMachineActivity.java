@@ -37,8 +37,8 @@ public class SlotMachineActivity extends GameActivity {
         setContentView(R.layout.activity_slotmachine);
 
         totalPointsTextView = findViewById(R.id.totalPointsTextView);
-        int points = getIntent().getIntExtra("coins", 0);
 
+        int points = getPreferences().getInt("coins", 0);
         setTotalPoints(points);
         totalPointsTextView.setText(getString(R.string.total_points, points));
 
@@ -108,10 +108,14 @@ public class SlotMachineActivity extends GameActivity {
         if (slotMachine.checkWin(this)) {
 
             increasePoints(generateRandomPoints());
-            updateCoins(getTotalPoints());
+
             updateTotalPointsTextView(totalPointsTextView);
 
-            showInterstitial();
+            showInterstitial(rewardItem -> {
+                updateCoins(getTotalPoints());
+                getPrefsEditor().putInt("coins", getTotalPoints()).apply();
+            });
+
             getMediaPlayer().start();
             if (getVibrator().hasVibrator()) {
                 getVibrator().vibrate(100);
@@ -124,6 +128,6 @@ public class SlotMachineActivity extends GameActivity {
 
     private int generateRandomPoints() {
         Random random = new Random();
-        return random.nextInt(15) + 1;
+        return random.nextInt(20) + 1;
     }
 }

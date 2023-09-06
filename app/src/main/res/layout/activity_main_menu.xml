@@ -154,9 +154,9 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="42dp"
             android:gravity="start|center_vertical"
+            android:onClick="openSettings"
             android:text="@string/settings"
             app:icon="@drawable/ic_settings"
-            android:onClick="openSettings"
             app:iconPadding="15dp" />
 
         <com.google.android.gms.ads.AdView

@@ -24,10 +24,21 @@ import androidx.work.ArrayCreatingInputMerger;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.auth.api.identity.Identity;
 import com.google.android.gms.auth.api.identity.SignInClient;
 import com.google.android.gms.auth.api.identity.SignInCredential;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
+import com.google.android.play.core.appupdate.AppUpdateInfo;
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.appupdate.AppUpdateOptions;
+import com.google.android.play.core.install.model.AppUpdateType;
+import com.google.android.play.core.install.model.UpdateAvailability;
+import com.google.android.ump.ConsentInformation;
+import com.google.android.ump.ConsentRequestParameters;
+import com.google.android.ump.UserMessagingPlatform;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -50,6 +61,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MainActivity extends BaseActivity implements ActivityFinishListener {
 
@@ -57,6 +69,10 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
     private SignInClient oneTapClient;
     private FirebaseAuth mAuth;
     private IntroSliderAdapter introSliderAdapter;
+    private ConsentInformation consentInformation;
+    private final AtomicBoolean isMobileAdsInitializeCalled = new AtomicBoolean(false);
+    private ActivityResultLauncher<IntentSenderRequest> updateLauncher;
+    private AppUpdateManager appUpdateManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,9 +106,9 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
 
                                                     if (!introSliderAdapter.getRefCode().isEmpty()) {
 
-                                                        saveData(user.getUid(), 40);
+                                                        saveData(user.getUid(), 100);
                                                         if (!introSliderAdapter.getReferrer().equals(mAuth.getUid())) {
-                                                            updateCoins(introSliderAdapter.getReferrer(), 60);
+                                                            updateCoins(introSliderAdapter.getReferrer(), 200);
                                                         }
                                                     } else {
                                                         saveData(user.getUid(), 0);
@@ -114,6 +130,66 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
                     }
                 }
         );
+
+        ConsentRequestParameters params = new ConsentRequestParameters
+                .Builder()
+                .setTagForUnderAgeOfConsent(false)
+                .build();
+
+        consentInformation = UserMessagingPlatform.getConsentInformation(this);
+        consentInformation.requestConsentInfoUpdate(
+                this,
+                params,
+                () -> UserMessagingPlatform.loadAndShowConsentFormIfRequired(
+                        this,
+                        loadAndShowError -> {
+                            if (loadAndShowError != null) {
+                                // Consent gathering failed.
+                                Log.w("Ads", String.format("%s: %s",
+                                        loadAndShowError.getErrorCode(),
+                                        loadAndShowError.getMessage()));
+                            }
+
+                            // Consent has been gathered.
+                            if (consentInformation.canRequestAds()) {
+                                initializeMobileAdsSdk();
+                            }
+                        }
+                ),
+                requestConsentError -> {
+                    // Consent gathering failed.
+                    Log.w("Ads", String.format("%s: %s",
+                            requestConsentError.getErrorCode(),
+                            requestConsentError.getMessage()));
+                });
+
+        if (consentInformation.canRequestAds()) {
+            initializeMobileAdsSdk();
+        }
+
+        appUpdateManager = AppUpdateManagerFactory.create(this);
+
+        Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
+
+        updateLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartIntentSenderForResult(),
+                result -> {
+                    // handle callback
+                    if (result.getResultCode() != RESULT_OK) {
+                        Log.d("Update", "Update flow failed! Result code: " + result.getResultCode());
+                    }
+                });
+
+        appUpdateInfoTask.addOnSuccessListener(appUpdateInfo -> {
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
+                appUpdateManager.startUpdateFlowForResult(
+                        appUpdateInfo,
+                        updateLauncher,
+                        AppUpdateOptions.newBuilder(AppUpdateType.IMMEDIATE)
+                                .setAllowAssetPackDeletion(true)
+                                .build());
+            }
+        });
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -159,6 +235,14 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
         }
     }
 
+    private void initializeMobileAdsSdk() {
+        if (isMobileAdsInitializeCalled.getAndSet(true)) {
+            return;
+        }
+
+        MobileAds.initialize(this);
+    }
+
     private void saveData(String uid, int coinAmount) {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -190,6 +274,13 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
                 } else {
 
                     editor.putString("referralCode", document.getString("referral"));
+
+                    Long coinsLong = document.getLong("coins");
+                    if (coinsLong != null) {
+                        long coins = coinsLong;
+                        editor.putInt("coins", (int) coins);
+                    }
+
                     editor.apply();
                 }
             }
@@ -261,7 +352,7 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
                 DocumentSnapshot document = task.getResult();
                 if (document.exists()) {
 
-                    userRef.update("coins",  FieldValue.increment(newCoins)).addOnSuccessListener(obj -> {
+                    userRef.update("coins", FieldValue.increment(newCoins)).addOnSuccessListener(obj -> {
                         Log.d("Coins", "Coins updated");
                     }).addOnFailureListener(exc -> {
                         Log.d("Coins", exc.getMessage());
@@ -276,5 +367,24 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
     @Override
     public void onActivityFinishRequested() {
         Dialogs.showNoRootDialog(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        appUpdateManager
+                .getAppUpdateInfo()
+                .addOnSuccessListener(
+                        appUpdateInfo -> {
+                            if (appUpdateInfo.updateAvailability()
+                                    == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
+                                // If an in-app update is already running, resume the update.
+                                appUpdateManager.startUpdateFlowForResult(
+                                        appUpdateInfo,
+                                        updateLauncher,
+                                        AppUpdateOptions.newBuilder(AppUpdateType.IMMEDIATE).build());
+                            }
+                        });
     }
 }

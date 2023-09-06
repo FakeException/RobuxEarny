@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.app.Application.ActivityLifecycleCallbacks;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,8 +31,13 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.appcheck.FirebaseAppCheck;
 import com.google.firebase.appcheck.debug.DebugAppCheckProviderFactory;
 import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Date;
+import java.util.Map;
 
 /** Application class that initializes, loads and show ads when activities change states. */
 public class Robux extends Application
@@ -63,6 +69,42 @@ public class Robux extends Application
 
         ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
         appOpenAdManager = new AppOpenAdManager();
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (currentUser != null) {
+            retrieveMoney();
+        }
+    }
+
+    public void retrieveMoney() {
+        SharedPreferences preferences = getSharedPreferences("RobuxEarny", Context.MODE_PRIVATE);
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user != null) {
+            String uid = user.getUid();
+
+            Log.d("Coins", "Current UID: " + uid);
+
+            db.collection("users").document(uid).get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Map<String, Object> data = document.getData();
+                        Log.d("Coins", "Document Data: " + data);
+
+                        Long coinsLong = document.getLong("coins");
+                        if (coinsLong != null) {
+                            long coins = coinsLong;
+                            preferences.edit().putInt("coins", (int) coins).apply();
+                        }
+                    }
+                }
+            });
+        }
+
     }
 
     /**

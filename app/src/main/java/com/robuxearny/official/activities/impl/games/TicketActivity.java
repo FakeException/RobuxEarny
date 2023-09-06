@@ -43,8 +43,11 @@ public class TicketActivity extends GameActivity {
             finish();
         });
 
+        int coins = getPreferences().getInt("coins", 0);
+        setTotalPoints(coins);
+
         this.totalPointsTextView = findViewById(R.id.totalPointsTextView);
-        totalPointsTextView.setText(getString(R.string.total_points, getIntent().getIntExtra("coins", 0)));
+        totalPointsTextView.setText(getString(R.string.total_points, coins));
 
         Button confirmButton = findViewById(R.id.confirmButton);
 
@@ -95,7 +98,6 @@ public class TicketActivity extends GameActivity {
 
     private void initializeGame() {
         this.winningNumbers = generateWinningNumbers();
-        getCurrentUserCoins(totalPointsTextView);
     }
 
     private Set<Integer> generateWinningNumbers() {
@@ -137,7 +139,7 @@ public class TicketActivity extends GameActivity {
 
     private int generateRandomPoints() {
         Random random = new Random();
-        return random.nextInt(4) + 1;
+        return random.nextInt(3) + 1;
     }
 
     private void updateWinningNumbersTextView() {
@@ -157,11 +159,13 @@ public class TicketActivity extends GameActivity {
 
             this.winningNumbers = generateWinningNumbers();
             updateWinningNumbersTextView();
-            updateCoins(getTotalPoints());
 
             ticketAttempts++;
 
-            showInterstitial();
+            showInterstitial(rewardItem -> {
+                updateCoins(getTotalPoints());
+                getPrefsEditor().putInt("coins", getTotalPoints()).apply();
+            });
 
             for (int i = 1; i <= 9; i++) {
                 Button block = findViewById(getResources().getIdentifier("block" + i, "id", getPackageName()));
@@ -172,10 +176,13 @@ public class TicketActivity extends GameActivity {
             // Check if the maximum attempts have been reached or if it's time to switch randomly
             int MAX_TICKET_ATTEMPTS = 7;
             if (ticketAttempts >= MAX_TICKET_ATTEMPTS || shouldSwitchRandomly(MAX_TICKET_ATTEMPTS)) {
-                showInterstitial();
-                Intent slot = new Intent(this, SlotMachineActivity.class);
-                slot.putExtra("coins", getTotalPoints());
-                startActivity(slot);
+                showInterstitial(rewardItem -> {
+                    updateCoins(getTotalPoints());
+                    getPrefsEditor().putInt("coins", getTotalPoints()).apply();
+
+                    Intent slot = new Intent(this, SlotMachineActivity.class);
+                    startActivity(slot);
+                });
             }
 
         } else {

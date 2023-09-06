@@ -52,10 +52,20 @@
     <string name="logout_from_your_account">Esci dal tuo account</string>
     <string name="enter_referral_code">Inserisci il codice referral</string>
     <string name="login_success">Login Riuscito!</string>
-    <string name="ref_desc">Guadagna 60 monete ogni volta che qualcuno usa il tuo codice referral!</string>
+    <string name="ref_desc">Guadagna 200 monete ogni volta che qualcuno usa il tuo codice referral!</string>
     <string name="login_error">Login fallito, perfavore riprova</string>
     <string name="robuxearny_referral_code">Codice Referral di RobuxEarny</string>
     <string name="robuxearny_referral_desc">"Questo è il mio referral code per RobuxEarny: %s, scarica l'app dal Google Play ed ottieni un bonus!"</string>
     <string name="share_referral_code">Condividi Codice Referral</string>
     <string name="you_win">Congratulazioni! Hai vinto!</string>
+    <string name="faq">FAQ</string>
+    <string name="see_our_faq">Vedi il nostro FAQ</string>
+    <string name="qst1">Q: Riceverò i miei Robux?</string>
+    <string name="qst_desc1">A: Sì, riceverai i tuoi Robux a condizione che guardi gli annunci.</string>
+    <string name="qst2">Q: Perché le mie monete non vengono salvate?</string>
+    <string name="qst_desc2">A: Le tue monete verranno salvate solo dopo aver completato la visualizzazione di un video pubblicitario.</string>
+    <string name="qst3">Q: Quando vengono inviati i Robux?</string>
+    <string name="qst_desc3">A: I Robux verranno inviati normalmente in 1–2 giorni, ma potrebbero esserci variazioni.</string>
+    <string name="qst4">Q: Come posso contattarvi?</string>
+    <string name="qst_desc4">A: Compila il modulo di contatto sul nostro sito web https://robuxrush.com</string>
 </resources>

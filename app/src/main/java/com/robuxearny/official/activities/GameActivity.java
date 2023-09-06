@@ -13,6 +13,7 @@ import android.os.Vibrator;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.OnUserEarnedRewardListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -47,8 +48,8 @@ public class GameActivity extends BaseActivity {
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
     }
 
-    public void showInterstitial() {
-        Ads.showInterstitial(this);
+    public void showInterstitial(OnUserEarnedRewardListener listener) {
+        Ads.showInterstitial(this, listener);
     }
 
     public void updateCoins(int newCoins) {

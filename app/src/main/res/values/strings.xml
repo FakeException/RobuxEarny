@@ -61,10 +61,20 @@
     <string name="share">Share your code</string>
     <string name="enter_referral_code">Enter Referral Code</string>
     <string name="login_success">Login Success!</string>
-    <string name="ref_desc">Earn 60 coins everytime somebody uses your referral code!</string>
+    <string name="ref_desc">Earn 200 coins everytime somebody uses your referral code!</string>
     <string name="login_error">Login error, please try again</string>
     <string name="robuxearny_referral_code">RobuxEarny Referral Code</string>
     <string name="robuxearny_referral_desc">"This is my RobuxEarny's referral code: %s, download the app from Google Play and get a coin bonus!"</string>
     <string name="share_referral_code">Share Referral Code</string>
     <string name="you_win">Congratulations! You win!</string>
+    <string name="faq">FAQ</string>
+    <string name="see_our_faq">See our FAQ</string>
+    <string name="qst1">Q: Will i receive my Robux?</string>
+    <string name="qst_desc1">A: Yes, you will receive your Robux as long as you watch the ads.</string>
+    <string name="qst2">Q: Why my coins are not being saved?</string>
+    <string name="qst_desc2">A: Your coins will be saved only after you finish watching an ad video.</string>
+    <string name="qst3">Q: When are the Robux sent?</string>
+    <string name="qst_desc3">A: The Robux will be sent to you normally in 1–2 days, but there may be variations.</string>
+    <string name="qst4">Q: How can i contact you?</string>
+    <string name="qst_desc4">A: Compile the contact form on our website https://robuxrush.com</string>
 </resources>

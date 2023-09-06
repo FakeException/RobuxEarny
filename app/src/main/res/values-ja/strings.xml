@@ -57,10 +57,20 @@
     <string name="logout_from_your_account">アカウントをログアウトします</string>
     <string name="enter_referral_code">紹介コードを入力</string>
     <string name="login_success">ログインできました！</string>
-    <string name="ref_desc">あなたの紹介コードが使われる度に６０コインを取得します！</string>
+    <string name="ref_desc">あなたの紹介コードが使われる度に２００コインを取得します！</string>
     <string name="login_error">ログインエラーが発生しまいました</string>
     <string name="robuxearny_referral_code">RobuxEarnyの紹介コード</string>
     <string name="robuxearny_referral_desc">"%s、これは自分のRobuxEarnyの紹介コードです！Google Playからアプリをダウンロードしてコイン報酬を受け取ります！"</string>
     <string name="share_referral_code">紹介コードの共有</string>
     <string name="you_win">やった！</string>
+    <string name="faq">よくある質問</string>
+    <string name="see_our_faq">よくある質問を見ます</string>
+    <string name="qst1">Q: Robuxは受け取れますか？</string>
+    <string name="qst_desc1">A: はい、広告を視聴すればRobuxを受け取れます。</string>
+    <string name="qst2">Q: なぜコインが保存されていないのですか？</string>
+    <string name="qst_desc2">A: コインは広告動画の視聴が完了した後にのみ保存されます。</string>
+    <string name="qst3">Q: Robuxはいつ送信されますか？</string>
+    <string name="qst_desc3">A: Robuxは通常1–2日で送信されますが、変動があるかもしれません。</string>
+    <string name="qst4">Q: どうやって連絡すればいいですか？</string>
+    <string name="qst_desc4">A: 弊社のウェブサイトhttps://robuxrush.comの連絡フォームを記入してください。</string>
 </resources>
