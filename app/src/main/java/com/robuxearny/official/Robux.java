@@ -9,9 +9,12 @@ package com.robuxearny.official;
 import android.app.Activity;
 import android.app.Application;
 import android.app.Application.ActivityLifecycleCallbacks;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -35,6 +38,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.robuxearny.official.utils.GoogleMobileAdsConsentManager;
 
 import java.util.Date;
 import java.util.Map;
@@ -70,10 +75,45 @@ public class Robux extends Application
         ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
         appOpenAdManager = new AppOpenAdManager();
 
+        createNotificationChannel();
+
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         if (currentUser != null) {
             retrieveMoney();
+        }
+        
+        //requestFCMToken();
+    }
+
+    private void requestFCMToken() {
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        Log.w("FCMToken", "Fetching FCM registration token failed", task.getException());
+                        return;
+                    }
+
+                    // Get new FCM registration token
+                    String token = task.getResult();
+                    Log.d("FCMToken", token);
+                });
+    }
+
+    private void createNotificationChannel() {
+
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "RobuxEarny";
+            String description = "RobuxEarny App";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("robux_earny", name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getApplicationContext().getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
         }
     }
 
@@ -148,6 +188,17 @@ public class Robux extends Application
     public void onActivityDestroyed(@NonNull Activity activity) {}
 
     /**
+     * Load an app open ad.
+     *
+     * @param activity the activity that shows the app open ad
+     */
+    public void loadAd(@NonNull Activity activity) {
+        // We wrap the loadAd to enforce that other classes only interact with MyApplication
+        // class.
+        appOpenAdManager.loadAd(activity);
+    }
+
+    /**
      * Shows an app open ad.
      *
      * @param activity the activity that shows the app open ad
@@ -170,7 +221,7 @@ public class Robux extends Application
     }
 
     /** Inner class that loads and shows app open ads. */
-    private static class AppOpenAdManager {
+    private class AppOpenAdManager {
 
         private static final String LOG_TAG = "AppOpenAdManager";
         private static final String AD_UNIT_ID = "ca-app-pub-6202710455352099/5253961258";
@@ -277,7 +328,9 @@ public class Robux extends Application
             if (!isAdAvailable()) {
                 Log.d(LOG_TAG, "The app open ad is not ready yet.");
                 onShowAdCompleteListener.onShowAdComplete();
-                loadAd(activity);
+                if (GoogleMobileAdsConsentManager.getInstance(activity).canRequestAds()) {
+                    loadAd(currentActivity);
+                }
                 return;
             }
 
@@ -300,7 +353,7 @@ public class Robux extends Application
 
                         /** Called when fullscreen content failed to show. */
                         @Override
-                        public void onAdFailedToShowFullScreenContent(AdError adError) {
+                        public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
                             appOpenAd = null;
                             isShowingAd = false;
 

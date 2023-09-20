@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Created by FakeException on 9/17/23, 6:18 PM
+  ~ Copyright (c) 2023. All rights reserved.
+  ~ Last modified 9/17/23, 6:18 PM
+  -->
+
+<resources>
+    <string name="app_name">RobuxEarny</string>
+    <string name="welcome">Bem-vindo!</string>
+    <string name="welcome_desc">\nBem-vindo ao RobuxEarny! Um aplicativo onde você pode ganhar Robux facilmente!\nBasta jogar alguns jogos simples, é totalmente gratuito e você poderá resgatar seus Robux acumulando moedas!</string>
+    <string name="coinsystem">Sistema de Moedas</string>
+    <string name="ready">Está pronto?</string>
+    <string name="current_points">Moedas Atuais: %d</string>
+    <string name="done">Concluído!</string>
+    <string name="load">Robux Earny está concluindo o carregamento em %d</string>
+    <string name="redeem_robux">Resgatar Robux</string>
+    <string name="start">Iniciar</string>
+    <string name="ticket_finish">Por favor, termine seu ingresso atual primeiro.</string>
+    <string name="play">Jogar</string>
+    <string name="total_points">Moedas Totais: %d</string>
+    <string name="new_ticket">Novo ingresso</string>
+    <string name="earn_robux">Ganhe muitas moedas e resgate Robux!</string>
+    <string name="start_earning">Comece a ganhar</string>
+    <string name="invite_a_friend">Convide um amigo</string>
+    <string name="settings">Configurações</string>
+    <string name="description">O melhor e mais rápido aplicativo para ganhar Robux</string>
+    <string name="coinsystem_desc">\nEste aplicativo possui um sistema de moedas especial com seis pacotes.\nCada pacote vem com uma quantidade diferente de moedas que corresponde a uma quantidade diferente de Robux. Jogando nossos jogos simples, você pode ganhar moedas. Quanto mais moedas você ganhar, mais pacotes poderá resgatar. Isso significa que terá mais chances de ganhar Robux! É uma maneira simples de ganhar Robux e se divertir no processo!</string>
+    <string name="ready_desc">"\nQuando estiver pronto, pressione o botão iniciar abaixo e comece agora mesmo a ganhar muitos Robux!\nSe você tiver um código de indicação de um amigo, escreva-o lá para receber um bônus.\nPara que possamos enviar os Robux, não se esqueça de clicar nos anúncios o máximo que puder.\nEste aplicativo ainda está em beta, mas no futuro adicionaremos muitos mais jogos!\n"</string>
+    <string name="winning_numbers">Números Vencedores: %s</string>
+    <string name="delivery">Entrega: 1–2 dias</string>
+    <string name="price">Preço: %d Moedas</string>
+    <string name="not_enough">Você não tem moedas suficientes :(</string>
+    <string name="redeem">Resgatar</string>
+    <string name="guide">Siga este guia para resgatar seus Robux:\n\n1) Faça login no Roblox: Use seu nome de usuário e senha do Roblox para fazer login.\n\n2) Vá para "Criar": Clique no botão "Criar" no topo.\n\n3) Abra seu jogo: Selecione um jogo para adicionar um passe de jogo.\n\n4) Adicione um Passe de Jogo: Clique em "Itens Associados," escolha "Passes" e adicione seu Passe de Jogo.\n\n5) Personalize seu Passe de Jogo: Dê um nome e descrição a ele.\n\n6) Defina o Preço: Configure o preço para %d Robux.\n\n7) Salve: Salve, clique no botão … e copie o link.\n\n8) Cole o link: Cole o link abaixo e você estará pronto para continuar.</string>
+    <string name="gamepass_url">Cole o URL do seu Passe de Jogo aqui</string>
+    <string name="confirmation">Confirmação</string>
+    <string name="confirm_desc">O URL do Passe de Jogo está correto e você deseja confirmar?</string>
+    <string name="confirm_desc2">Você tem certeza de que deseja excluir sua conta?</string>
+    <string name="yes">Sim</string>
+    <string name="request">Solicitação enviada! Você receberá seus Robux em breve.</string>
+    <string name="account">Conta</string>
+    <string name="delete_account">Excluir Conta</string>
+    <string name="delete_your_robuxearny_account">Excluir sua conta no RobuxEarny</string>
+    <string name="about">Sobre</string>
+    <string name="github_repository">Repositório no GitHub</string>
+    <string name="discord_server">Servidor no Discord</string>
+    <string name="discord_desc">Junte-se ao nosso servidor no Discord para ganhar Robux</string>
+    <string name="contact_us">Contate-nos</string>
+    <string name="no_internet">Sem Conexão com a Internet</string>
+    <string name="connect_internet">Por favor, conecte-se à internet para usar este aplicativo.</string>
+    <string name="rooted_device">Dispositivo com Root</string>
+    <string name="root_desc">Você não tem permissão para usar este aplicativo em dispositivos com root.</string>
+    <string name="account_deleted">Conta excluída com sucesso.</string>
+    <string name="logout_from_your_account">Sair da sua conta</string>
+    <string name="logout">Sair</string>
+    <string name="share">Compartilhe seu código</string>
+    <string name="enter_referral_code">Digite o Código de Indicação</string>
+    <string name="login_success">Login bem-sucedido!</string>
+    <string name="ref_desc">Ganhe 200 moedas toda vez que alguém usar seu código de indicação!</string>
+    <string name="login_error">Erro no login, por favor, tente novamente</string>
+    <string name="robuxearny_referral_code">Código de Indicação do RobuxEarny</string>
+    <string name="robuxearny_referral_desc">"Este é o meu código de indicação do RobuxEarny: %s, baixe o aplicativo no Google Play e ganhe um bônus de moedas!"</string>
+    <string name="share_referral_code">Compartilhe o Código de Indicação</string>
+    <string name="you_win">Parabéns! Você ganhou!</string>
+    <string name="faq">FAQ</string>
+    <string name="see_our_faq">Veja nossas Perguntas Frequentes</string>
+    <string name="qst1">P: Receberei meus Robux?</string>
+    <string name="qst_desc1">R: Sim, você receberá seus Robux desde que assista aos anúncios.</string>
+    <string name="qst2">P: Por que minhas moedas não estão sendo salvas?</string>
+    <string name="qst_desc2">R: Suas moedas serão salvas apenas após você terminar de assistir a um vídeo de anúncio.</string>
+    <string name="qst3">P: Quando os Robux são enviados?</string>
+    <string name="qst_desc3">R: Os Robux serão enviados normalmente em 1–2 dias, mas pode haver variações.</string>
+    <string name="qst4">P: Como posso entrar em contato com vocês?</string>
+    <string name="qst_desc4">R: Preencha o formulário de contato em nosso site https://robuxrush.com</string>
+    <string name="the_referral_code_is_not_valid">O código de indicação não é válido</string>
+    <string name="feedback">Feedback</string>
+    <string name="send_us_a_feedback">Envie-nos um feedback</string>
+    <string name="feedback_desc">Digite seu feedback aqui, no máximo 512 caracteres</string>
+    <string name="feedback_sent">Feedback enviado com sucesso!</string>
+    <string name="cancel">Cancelar</string>
+    <string name="submit">Enviar</string>
+    <string name="send_feedback">Enviar Feedback</string>
+    <string name="no">Não</string>
+    <string name="congratulations_you_won_a_20_points_bonus">Parabéns! Você ganhou um bônus de 20 pontos!</string>
+</resources>

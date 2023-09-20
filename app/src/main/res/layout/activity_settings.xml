@@ -153,8 +153,8 @@
                 android:layout_height="wrap_content"
                 android:background="?android:attr/selectableItemBackground"
                 android:clickable="true"
-                android:onClick="openFAQ"
-                android:focusable="true">
+                android:focusable="true"
+                android:onClick="openFAQ">
 
                 <ImageView
                     android:id="@+id/settings_iv_faq"
@@ -163,9 +163,9 @@
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="24dp"
+                    android:importantForAccessibility="no"
                     android:src="@drawable/ic_faq"
-                    app:tint="?attr/colorOnSurface"
-                    android:importantForAccessibility="no" />
+                    app:tint="?attr/colorOnSurface" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -187,6 +187,52 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/see_our_faq"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="sendFeedback">
+
+                <ImageView
+                    android:id="@+id/settings_iv_feedback"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="24dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_feedback"
+                    app:tint="?attr/colorOnSurface" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginVertical="22dp"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_toEndOf="@id/settings_iv_feedback"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextAppearance.Material3.TitleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/feedback" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/send_us_a_feedback"
                         android:textSize="12sp" />
 
                 </LinearLayout>

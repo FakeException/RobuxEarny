@@ -9,7 +9,7 @@
     <string name="ready_desc">"\nQuando sei pronto, premi il pulsante di avvio qui sotto e inizia subito a guadagnare molti Robux!\nSe hai un codice referral di un tuo amico inseriscili qui sotto per ricevere un bonus\nPer poterti inviare i Robux non dimenticare di cliccare sulle pubblicità il più possibile.\nQuest'app è ancora in beta ma in futuro aggiungeremo molti altri giochi!\n"</string>
     <string name="current_points">Monete Correnti: %d</string>
     <string name="done">Fatto!</string>
-    <string name="load">L\'app si avvia in %d</string>
+    <string name="load">Robux Earny si avvierà in %d</string>
     <string name="redeem_robux">Riscatta Robux</string>
     <string name="start">Inizia</string>
     <string name="ticket_finish">Si prega di terminare prima il biglietto corrente.</string>
@@ -44,7 +44,6 @@
     <string name="about">Su di noi</string>
     <string name="logout">Logout</string>
     <string name="github_repository">Repository GitHub</string>
-    <string name="repository">fakeexception/RobuxEarny</string>
     <string name="discord_server">Server Discord</string>
     <string name="discord_desc">Entra nel nostro server Discord per guadagnare Robux</string>
     <string name="contact_us">Contattaci</string>
@@ -55,7 +54,7 @@
     <string name="ref_desc">Guadagna 200 monete ogni volta che qualcuno usa il tuo codice referral!</string>
     <string name="login_error">Login fallito, perfavore riprova</string>
     <string name="robuxearny_referral_code">Codice Referral di RobuxEarny</string>
-    <string name="robuxearny_referral_desc">"Questo è il mio referral code per RobuxEarny: %s, scarica l'app dal Google Play ed ottieni un bonus!"</string>
+    <string name="robuxearny_referral_desc">"Questo è il mio referral code per RobuxEarny: %s, scarica l'app dal Google Play e ottieni un bonus!"</string>
     <string name="share_referral_code">Condividi Codice Referral</string>
     <string name="you_win">Congratulazioni! Hai vinto!</string>
     <string name="faq">FAQ</string>
@@ -68,4 +67,14 @@
     <string name="qst_desc3">A: I Robux verranno inviati normalmente in 1–2 giorni, ma potrebbero esserci variazioni.</string>
     <string name="qst4">Q: Come posso contattarvi?</string>
     <string name="qst_desc4">A: Compila il modulo di contatto sul nostro sito web https://robuxrush.com</string>
+    <string name="the_referral_code_is_not_valid">Il codice referral non è valido</string>
+    <string name="feedback">Feedback</string>
+    <string name="send_us_a_feedback">Inviaci un feedback</string>
+    <string name="feedback_desc">Scrivi il tuo feedback qui, massimo 512 caratteri</string>
+    <string name="feedback_sent">Feedback inviato correttamente!</string>
+    <string name="cancel">Annulla</string>
+    <string name="submit">Invia</string>
+    <string name="send_feedback">Invia Feedback</string>
+    <string name="no">No</string>
+    <string name="congratulations_you_won_a_20_points_bonus">Congratulazioni! Hai vinto un bonus di 20 punti!</string>
 </resources>

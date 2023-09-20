@@ -31,6 +31,7 @@ public class GameActivity extends BaseActivity {
     private int totalPoints;
     private MediaPlayer mediaPlayer;
     private Vibrator vibrator;
+    private Random random;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class GameActivity extends BaseActivity {
 
         mediaPlayer = MediaPlayer.create(this, R.raw.collect);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        random = new Random();
     }
 
     public void showInterstitial(OnUserEarnedRewardListener listener) {
@@ -140,5 +142,16 @@ public class GameActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         vibrator.cancel();
+    }
+
+    public Random getRandom() {
+        return random;
+    }
+
+    public void playCollectSound() {
+        getMediaPlayer().start();
+        if (getVibrator().hasVibrator()) {
+            getVibrator().vibrate(100);
+        }
     }
 }

@@ -82,7 +82,6 @@ public class IntroSliderAdapter extends PagerAdapter {
                         .build())
                 .build();
 
-
         if (position == introSlides.size() - 1) {
             Button startButton = view.findViewById(R.id.startButton);
             startButton.setVisibility(View.VISIBLE);
@@ -99,7 +98,7 @@ public class IntroSliderAdapter extends PagerAdapter {
                             this.referrer = referrer;
                             launchSignIn();
                         } else {
-                            Toast.makeText(context, "The referral code is not valid", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, R.string.the_referral_code_is_not_valid, Toast.LENGTH_SHORT).show();
                         }
                     });
                 } else {

@@ -16,7 +16,7 @@
     <string name="done">完了！</string>
     <string name="account">アカウント</string>
     <string name="logout">ログアウト</string>
-    <string name="load">アプリは%d秒に起動します</string>
+    <string name="load">Robux Earnyは%d秒に起動します</string>
     <string name="redeem_robux">Robux引き換え</string>
     <string name="start">始めます</string>
     <string name="ticket_finish">このチケットを終わらせてください。</string>
@@ -49,7 +49,6 @@
     <string name="delete_your_robuxearny_account">RobuxEarnyのアカウントを削除します</string>
     <string name="about">RobuxEarnyについて</string>
     <string name="github_repository">GitHubレポジトリ</string>
-    <string name="repository">fakeexception/RobuxEarny</string>
     <string name="discord_server">Discordサーバー</string>
     <string name="discord_desc">RobuxEarnyのDiscordサーバーに参加します</string>
     <string name="contact_us">連絡先</string>
@@ -73,4 +72,14 @@
     <string name="qst_desc3">A: Robuxは通常1–2日で送信されますが、変動があるかもしれません。</string>
     <string name="qst4">Q: どうやって連絡すればいいですか？</string>
     <string name="qst_desc4">A: 弊社のウェブサイトhttps://robuxrush.comの連絡フォームを記入してください。</string>
+    <string name="the_referral_code_is_not_valid">紹介コードは正しくありません</string>
+    <string name="feedback">フィードバック</string>
+    <string name="send_us_a_feedback">フィードバックを送ります</string>
+    <string name="feedback_desc">ここにフィードバックを入力してください、最大512文字</string>
+    <string name="feedback_sent">フィードバックが正常に送信されました！</string>
+    <string name="cancel">キャンセル</string>
+    <string name="submit">送信する</string>
+    <string name="send_feedback">フィードバックの送信</string>
+    <string name="no">いいえ</string>
+    <string name="congratulations_you_won_a_20_points_bonus">おめでとうございます！20ポイントのボーナスを獲得しました！</string>
 </resources>

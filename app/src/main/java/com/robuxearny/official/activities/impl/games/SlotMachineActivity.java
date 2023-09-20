@@ -18,7 +18,6 @@ import com.robuxearny.official.R;
 import com.robuxearny.official.activities.GameActivity;
 import com.robuxearny.official.games.SlotMachine;
 
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -112,14 +111,14 @@ public class SlotMachineActivity extends GameActivity {
             updateTotalPointsTextView(totalPointsTextView);
 
             showInterstitial(rewardItem -> {
-                updateCoins(getTotalPoints());
-                getPrefsEditor().putInt("coins", getTotalPoints()).apply();
+
             });
 
-            getMediaPlayer().start();
-            if (getVibrator().hasVibrator()) {
-                getVibrator().vibrate(100);
-            }
+            updateCoins(getTotalPoints());
+            getPrefsEditor().putInt("coins", getTotalPoints()).apply();
+
+            playCollectSound();
+
             Toast.makeText(this, R.string.you_win, Toast.LENGTH_SHORT).show();
         }
 
@@ -127,7 +126,6 @@ public class SlotMachineActivity extends GameActivity {
     }
 
     private int generateRandomPoints() {
-        Random random = new Random();
-        return random.nextInt(20) + 1;
+        return getRandom().nextInt(21) + 20;
     }
 }

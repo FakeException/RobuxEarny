@@ -24,7 +24,6 @@ import androidx.work.ArrayCreatingInputMerger;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.auth.api.identity.Identity;
 import com.google.android.gms.auth.api.identity.SignInClient;
 import com.google.android.gms.auth.api.identity.SignInCredential;
@@ -36,9 +35,6 @@ import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
 import com.google.android.play.core.appupdate.AppUpdateOptions;
 import com.google.android.play.core.install.model.AppUpdateType;
 import com.google.android.play.core.install.model.UpdateAvailability;
-import com.google.android.ump.ConsentInformation;
-import com.google.android.ump.ConsentRequestParameters;
-import com.google.android.ump.UserMessagingPlatform;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -61,7 +57,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MainActivity extends BaseActivity implements ActivityFinishListener {
 
@@ -69,8 +64,6 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
     private SignInClient oneTapClient;
     private FirebaseAuth mAuth;
     private IntroSliderAdapter introSliderAdapter;
-    private ConsentInformation consentInformation;
-    private final AtomicBoolean isMobileAdsInitializeCalled = new AtomicBoolean(false);
     private ActivityResultLauncher<IntentSenderRequest> updateLauncher;
     private AppUpdateManager appUpdateManager;
 
@@ -130,42 +123,6 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
                     }
                 }
         );
-
-        ConsentRequestParameters params = new ConsentRequestParameters
-                .Builder()
-                .setTagForUnderAgeOfConsent(false)
-                .build();
-
-        consentInformation = UserMessagingPlatform.getConsentInformation(this);
-        consentInformation.requestConsentInfoUpdate(
-                this,
-                params,
-                () -> UserMessagingPlatform.loadAndShowConsentFormIfRequired(
-                        this,
-                        loadAndShowError -> {
-                            if (loadAndShowError != null) {
-                                // Consent gathering failed.
-                                Log.w("Ads", String.format("%s: %s",
-                                        loadAndShowError.getErrorCode(),
-                                        loadAndShowError.getMessage()));
-                            }
-
-                            // Consent has been gathered.
-                            if (consentInformation.canRequestAds()) {
-                                initializeMobileAdsSdk();
-                            }
-                        }
-                ),
-                requestConsentError -> {
-                    // Consent gathering failed.
-                    Log.w("Ads", String.format("%s: %s",
-                            requestConsentError.getErrorCode(),
-                            requestConsentError.getMessage()));
-                });
-
-        if (consentInformation.canRequestAds()) {
-            initializeMobileAdsSdk();
-        }
 
         appUpdateManager = AppUpdateManagerFactory.create(this);
 
@@ -233,14 +190,6 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
                 }
             });
         }
-    }
-
-    private void initializeMobileAdsSdk() {
-        if (isMobileAdsInitializeCalled.getAndSet(true)) {
-            return;
-        }
-
-        MobileAds.initialize(this);
     }
 
     private void saveData(String uid, int coinAmount) {

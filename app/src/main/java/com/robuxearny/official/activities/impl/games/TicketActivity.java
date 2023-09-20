@@ -9,11 +9,13 @@ package com.robuxearny.official.activities.impl.games;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.snackbar.Snackbar;
 import com.robuxearny.official.R;
 import com.robuxearny.official.activities.GameActivity;
 import com.robuxearny.official.activities.impl.MainMenuActivity;
@@ -29,7 +31,6 @@ public class TicketActivity extends GameActivity {
     private TextView totalPointsTextView;
     private Set<Integer> winningNumbers;
     private int ticketAttempts = 0;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,23 +68,23 @@ public class TicketActivity extends GameActivity {
 
         this.scratchedBlocks = new HashSet<>();
 
-        block1.setOnClickListener(view -> processBlockClick(block1));
+        block1.setOnClickListener(view -> processBlockClick(block1, view));
 
-        block2.setOnClickListener(view -> processBlockClick(block2));
+        block2.setOnClickListener(view -> processBlockClick(block2, view));
 
-        block3.setOnClickListener(view -> processBlockClick(block3));
+        block3.setOnClickListener(view -> processBlockClick(block3, view));
 
-        block4.setOnClickListener(view -> processBlockClick(block4));
+        block4.setOnClickListener(view -> processBlockClick(block4, view));
 
-        block5.setOnClickListener(view -> processBlockClick(block5));
+        block5.setOnClickListener(view -> processBlockClick(block5, view));
 
-        block6.setOnClickListener(view -> processBlockClick(block6));
+        block6.setOnClickListener(view -> processBlockClick(block6, view));
 
-        block7.setOnClickListener(view -> processBlockClick(block7));
+        block7.setOnClickListener(view -> processBlockClick(block7, view));
 
-        block8.setOnClickListener(view -> processBlockClick(block8));
+        block8.setOnClickListener(view -> processBlockClick(block8, view));
 
-        block9.setOnClickListener(view -> processBlockClick(block9));
+        block9.setOnClickListener(view -> processBlockClick(block9, view));
 
         confirmButton.setOnClickListener(view -> {
             try {
@@ -94,6 +95,16 @@ public class TicketActivity extends GameActivity {
         });
 
         updateWinningNumbersTextView();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        int coins = getPreferences().getInt("coins", 0);
+        setTotalPoints(coins);
+
+        this.totalPointsTextView = findViewById(R.id.totalPointsTextView);
+        totalPointsTextView.setText(getString(R.string.total_points, coins));
     }
 
     private void initializeGame() {
@@ -110,7 +121,7 @@ public class TicketActivity extends GameActivity {
         return numbers;
     }
 
-    private void processBlockClick(Button block) {
+    private void processBlockClick(Button block, View view) {
         if (scratchedBlocks.contains(block)) {
             return;
         }
@@ -122,10 +133,16 @@ public class TicketActivity extends GameActivity {
         if (this.winningNumbers.contains(randomNumber)) {
             int points = generateRandomPoints();
             increasePoints(points);
-            getMediaPlayer().start();
-            if (getVibrator().hasVibrator()) {
-                getVibrator().vibrate(100);
-            }
+            playCollectSound();
+        }
+
+        // Generate bonus random number
+        int randomNumberBonus = getRandom().nextInt(100);
+
+        if (randomNumberBonus <= 2) {
+            increasePoints(20);
+            playCollectSound();
+            Snackbar.make(view, R.string.congratulations_you_won_a_20_points_bonus, Snackbar.LENGTH_SHORT).show();
         }
 
         this.scratchedBlocks.add(block);
@@ -133,13 +150,11 @@ public class TicketActivity extends GameActivity {
     }
 
     private int generateRandomNumber() {
-        Random random = new Random();
-        return random.nextInt(9) + 1;
+        return getRandom().nextInt(9) + 1;
     }
 
     private int generateRandomPoints() {
-        Random random = new Random();
-        return random.nextInt(3) + 1;
+        return getRandom().nextInt(6) + 1;
     }
 
     private void updateWinningNumbersTextView() {
