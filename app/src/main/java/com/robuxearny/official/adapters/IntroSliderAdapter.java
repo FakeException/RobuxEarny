@@ -8,12 +8,18 @@ package com.robuxearny.official.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +32,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.auth.api.identity.BeginSignInRequest;
 import com.google.android.gms.auth.api.identity.SignInClient;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -85,26 +92,7 @@ public class IntroSliderAdapter extends PagerAdapter {
         if (position == introSlides.size() - 1) {
             Button startButton = view.findViewById(R.id.startButton);
             startButton.setVisibility(View.VISIBLE);
-            EditText refCode = view.findViewById(R.id.refCodeView);
-            refCode.setVisibility(View.VISIBLE);
-
-            startButton.setOnClickListener(v -> {
-
-                if (!refCode.getText().toString().isEmpty()) {
-                    String ref = refCode.getText().toString();
-                    checkRefExistence(ref, (exists, referrer) -> {
-                        if (exists) {
-                            this.refCode = ref;
-                            this.referrer = referrer;
-                            launchSignIn();
-                        } else {
-                            Toast.makeText(context, R.string.the_referral_code_is_not_valid, Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                } else {
-                    launchSignIn();
-                }
-            });
+            startButton.setOnClickListener(v -> codeInput());
         }
 
         titleTextView.setText(introSlide.getTitle());
@@ -113,6 +101,85 @@ public class IntroSliderAdapter extends PagerAdapter {
         container.addView(view);
 
         return view;
+    }
+
+    public void codeInput() {
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context);
+        builder.setTitle(R.string.ref_code);
+
+        // Create the layout for the dialog
+        LinearLayout layout = new LinearLayout(context);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setPadding(32, 32, 32, 0);
+
+        // Create an EditText for the feedback input
+        final EditText referallEditText = new EditText(context);
+
+        referallEditText.setSingleLine(false);
+        referallEditText.setHint(R.string.refcode_desc);
+        referallEditText.setImeOptions(EditorInfo.IME_FLAG_NO_ENTER_ACTION);
+        referallEditText.setGravity(Gravity.TOP | Gravity.START);
+
+        referallEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(8)});
+        referallEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Convert the text to uppercase
+                String text = s.toString().toUpperCase();
+
+                if (text.length() > 8) {
+                    text = text.substring(0, 8);
+                }
+
+                if (!text.equals(s.toString())) {
+                    referallEditText.setText(text);
+                    referallEditText.setSelection(text.length());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        layout.addView(referallEditText);
+
+        builder.setView(layout);
+
+        // Add a Submit button
+        builder.setPositiveButton(R.string.confirmation, (dialog, which) -> {
+            String refText = referallEditText.getText().toString();
+            dialog.dismiss();
+
+            if (!refText.isEmpty()) {
+
+                checkRefExistence(refText, (exists, referrer) -> {
+                    if (exists) {
+                        this.refCode = refText;
+                        this.referrer = referrer;
+                        launchSignIn();
+                    } else {
+                        Toast.makeText(context, R.string.the_referral_code_is_not_valid, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } else {
+                launchSignIn();
+            }
+        });
+
+        builder.setNegativeButton(R.string.i_don_t_have_a_code, (dialog, which) -> {
+            dialog.dismiss();
+            launchSignIn();
+        });
+
+        builder.setCancelable(false);
+
+        builder.show();
     }
 
     private void launchSignIn() {

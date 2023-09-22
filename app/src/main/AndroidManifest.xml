@@ -30,7 +30,7 @@
             android:value="ca-app-pub-6202710455352099~4109402563"/>
 
         <activity
-            android:name=".activities.impl.SplashActivity"
+            android:name=".activities.impl.MainActivity"
             android:exported="true"
             android:noHistory="true"
             >
@@ -38,12 +38,6 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <activity android:name=".activities.impl.MainActivity" android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
             </intent-filter>
         </activity>
 

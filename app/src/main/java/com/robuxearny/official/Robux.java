@@ -38,7 +38,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.messaging.FirebaseMessaging;
 import com.robuxearny.official.utils.GoogleMobileAdsConsentManager;
 
 import java.util.Date;
@@ -82,22 +81,6 @@ public class Robux extends Application
         if (currentUser != null) {
             retrieveMoney();
         }
-        
-        //requestFCMToken();
-    }
-
-    private void requestFCMToken() {
-        FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(task -> {
-                    if (!task.isSuccessful()) {
-                        Log.w("FCMToken", "Fetching FCM registration token failed", task.getException());
-                        return;
-                    }
-
-                    // Get new FCM registration token
-                    String token = task.getResult();
-                    Log.d("FCMToken", token);
-                });
     }
 
     private void createNotificationChannel() {
@@ -193,8 +176,6 @@ public class Robux extends Application
      * @param activity the activity that shows the app open ad
      */
     public void loadAd(@NonNull Activity activity) {
-        // We wrap the loadAd to enforce that other classes only interact with MyApplication
-        // class.
         appOpenAdManager.loadAd(activity);
     }
 
@@ -207,8 +188,7 @@ public class Robux extends Application
     public void showAdIfAvailable(
             @NonNull Activity activity,
             @NonNull OnShowAdCompleteListener onShowAdCompleteListener) {
-        // We wrap the showAdIfAvailable to enforce that other classes only interact with MyApplication
-        // class.
+
         appOpenAdManager.showAdIfAvailable(activity, onShowAdCompleteListener);
     }
 

@@ -7,16 +7,16 @@
 <resources>
     <string name="app_name">RobuxEarny</string>
     <string name="welcome">ようこそ！</string>
-    <string name="welcome_desc">\nRobuxEarnyへようこそ！\n短期間でRobuxを稼ぐためのアプリです！\n簡単なミニゲームをやったらすぐ稼げます、\nこのアプリは完全に無料で色んなミニゲームをやることでたくさんのRobuxを稼ぐことが出来ます！</string>
+    <string name="welcome_desc">\nRobuxEarnyへようこそ！\n短期間でRobuxを稼ぐためのアプリです！\n簡単なミニゲームをやったらすぐ稼げます、\nこのアプリは完全に無料で色んなミニゲームをやることでたくさんのRobuxを稼ぐことが出来ます！\n</string>
     <string name="coinsystem">コインシステム</string>
-    <string name="coinsystem_desc">\nこのアプリには６パックの特別なコインシステムがあります。\n各パックには、異なるRobux数には異なる量のコインが含まれています。\nミニゲームをやることでコインを得られます。\n得たコインは多かったら大量のRobuxパックを解除できます。\nそれは簡単で面白いRobuxを稼ぐ方法です！</string>
+    <string name="coinsystem_desc">\nこのアプリには６パックの特別なコインシステムがあります。\n各パックには、異なるRobux数には異なる量のコインが含まれています。\nミニゲームをやることでコインを得られます。\n得たコインは多かったら大量のRobuxパックを解除できます。\nそれは簡単で面白いRobuxを稼ぐ方法です！\n</string>
     <string name="ready">準備がいい？</string>
-    <string name="ready_desc">"\n準備ができたら以下のボタンを押してすぐRobuxを稼ぎ始めます！\n友達からの紹介コードがある場合、報酬を得るために以下に書いてください\nあなたにRobuxを送金するためにアプリ内の広告をタッチするのを忘れないでください。\nこのアプリはまだ開発中ですが、今後さらにゲームを追加していく予定です！\n"</string>
+    <string name="ready_desc">"\n準備ができたら以下のボタンを押してすぐRobuxを稼ぎ始めます！\nあなたにRobuxを送金するためにアプリ内の広告をタッチするのを忘れないでください。\nこのアプリはまだ開発中ですが、今後さらにゲームを追加していく予定です！\n"</string>
     <string name="current_points">現在のコイン： %d</string>
     <string name="done">完了！</string>
     <string name="account">アカウント</string>
     <string name="logout">ログアウト</string>
-    <string name="load">Robux Earnyは%d秒に起動します</string>
+    <string name="load">起動の広告は%d秒に表示されます</string>
     <string name="redeem_robux">Robux引き換え</string>
     <string name="start">始めます</string>
     <string name="ticket_finish">このチケットを終わらせてください。</string>
@@ -81,5 +81,8 @@
     <string name="submit">送信する</string>
     <string name="send_feedback">フィードバックの送信</string>
     <string name="no">いいえ</string>
-    <string name="congratulations_you_won_a_20_points_bonus">おめでとうございます！20ポイントのボーナスを獲得しました！</string>
+    <string name="congratulations_you_won_a_20_points_bonus">おめでとうございます！15ポイントのボーナスを獲得しました！</string>
+    <string name="ref_code">紹介コードをお持ちですか？</string>
+    <string name="refcode_desc">紹介コードをお持ちの場合、こちらに入力してボーナスを受け取るために使用してください！</string>
+    <string name="i_don_t_have_a_code">コードは持っていません</string>
 </resources>

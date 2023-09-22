@@ -24,6 +24,7 @@ import androidx.work.ArrayCreatingInputMerger;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.auth.api.identity.Identity;
 import com.google.android.gms.auth.api.identity.SignInClient;
 import com.google.android.gms.auth.api.identity.SignInCredential;
@@ -50,6 +51,7 @@ import com.robuxearny.official.adapters.IntroSliderAdapter;
 import com.robuxearny.official.data.IntroSlide;
 import com.robuxearny.official.listeners.ActivityFinishListener;
 import com.robuxearny.official.utils.Dialogs;
+import com.robuxearny.official.utils.GoogleMobileAdsConsentManager;
 import com.robuxearny.official.utils.ReferralCodeGenerator;
 import com.robuxearny.official.utils.RootChecker;
 
@@ -100,9 +102,7 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
                                                     if (!introSliderAdapter.getRefCode().isEmpty()) {
 
                                                         saveData(user.getUid(), 100);
-                                                        if (!introSliderAdapter.getReferrer().equals(mAuth.getUid())) {
-                                                            updateCoins(introSliderAdapter.getReferrer(), 200);
-                                                        }
+
                                                     } else {
                                                         saveData(user.getUid(), 0);
                                                     }
@@ -123,6 +123,28 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
                     }
                 }
         );
+
+        GoogleMobileAdsConsentManager.getInstance(this)
+                .gatherConsent(
+                        this,
+                        consentError -> {
+                            if (consentError != null) {
+                                // Consent not obtained in current session.
+                                Log.w(
+                                        "Ad consent",
+                                        String.format(
+                                                "%s: %s", consentError.getErrorCode(), consentError.getMessage()));
+                            }
+
+                            if (GoogleMobileAdsConsentManager.getInstance(this).canRequestAds()) {
+                                initializeMobileAdsSdk();
+                            }
+                        });
+
+        // This sample attempts to load ads using consent obtained in the previous session.
+        if (GoogleMobileAdsConsentManager.getInstance(this).canRequestAds()) {
+            initializeMobileAdsSdk();
+        }
 
         appUpdateManager = AppUpdateManagerFactory.create(this);
 
@@ -216,6 +238,13 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
                             .addOnSuccessListener(aVoid -> {
                                 Log.d("Firestore", "User data saved successfully.");
                                 saveReferral(uid, referral);
+
+                                if (!introSliderAdapter.getRefCode().isEmpty()) {
+                                    if (!introSliderAdapter.getReferrer().equals(uid)) {
+                                        updateCoins(introSliderAdapter.getReferrer(), 200);
+                                    }
+                                }
+
                             })
                             .addOnFailureListener(e -> {
                                 Log.e("Firestore", "Error saving user data: " + e.getMessage());
@@ -335,5 +364,11 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
                                         AppUpdateOptions.newBuilder(AppUpdateType.IMMEDIATE).build());
                             }
                         });
+    }
+
+    private void initializeMobileAdsSdk() {
+
+        // Initialize the Mobile Ads SDK.
+        MobileAds.initialize(this);
     }
 }

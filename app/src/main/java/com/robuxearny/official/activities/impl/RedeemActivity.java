@@ -46,7 +46,7 @@ public class RedeemActivity extends BaseActivity {
         mixedItems.add(new AdBanner());
         mixedItems.add(new Package("Deluxe", 3500, 25, R.drawable.robux2));
         mixedItems.add(new AdBanner());
-        mixedItems.add(new Package("Premium", 4400, 60, R.drawable.robux3));
+        mixedItems.add(new Package("Premium", 4700, 60, R.drawable.robux3));
         mixedItems.add(new AdBanner());
         mixedItems.add(new Package("Ultimate", 6900, 170, R.drawable.robux4));
         mixedItems.add(new AdBanner());

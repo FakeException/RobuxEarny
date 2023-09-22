@@ -48,30 +48,6 @@ public class Ads {
         }
     }
 
-    public static void showRewardedVideo(Activity activity, OnUserEarnedRewardListener listener) {
-        if (rewardedAd == null) {
-            return;
-        }
-        rewardedAd.setFullScreenContentCallback(new FullScreenContentCallback() {
-            @Override
-            public void onAdShowedFullScreenContent() {
-            }
-
-            @Override
-            public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
-                rewardedAd = null;
-            }
-
-            @Override
-            public void onAdDismissedFullScreenContent() {
-                rewardedAd = null;
-                loadRewardedAd(activity);
-            }
-        });
-
-        rewardedAd.show(activity, listener);
-    }
-
     public static void showRewardedVideoActivity(Activity activity, Class<?> open) {
         if (rewardedAd == null) {
             loadRewardedAd(activity);

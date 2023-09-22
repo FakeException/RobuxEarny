@@ -136,11 +136,10 @@ public class TicketActivity extends GameActivity {
             playCollectSound();
         }
 
-        // Generate bonus random number
-        int randomNumberBonus = getRandom().nextInt(100);
+        int randomNumberBonus = getRandom().nextInt(1000);
 
         if (randomNumberBonus <= 2) {
-            increasePoints(20);
+            increasePoints(15);
             playCollectSound();
             Snackbar.make(view, R.string.congratulations_you_won_a_20_points_bonus, Snackbar.LENGTH_SHORT).show();
         }

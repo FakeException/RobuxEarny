@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">RobuxEarny</string>
     <string name="welcome">Welcome!</string>
-    <string name="welcome_desc">\nWelcome to RobuxEarny! An application where you can earn Robux effortlessly!\nYou just need to play some very simple mini games, It\'s completely free and you will be able to redeem your robux by accumulating your coins!</string>
+    <string name="welcome_desc">\nWelcome to RobuxEarny! An application where you can earn Robux effortlessly!\nYou just need to play some very simple mini games, It\'s completely free and you will be able to redeem your robux by accumulating your coins!\n</string>
     <string name="coinsystem">Coin System</string>
     <string name="ready">Are you ready?</string>
     <string name="current_points">Current Coins: %d</string>
     <string name="done">Done!</string>
-    <string name="load">Robux Earny is done loading in %d</string>
+    <string name="load">Loading startup ad in %d seconds</string>
     <string name="splash_activity_image_text" translatable="false">Splash Activity Image</string>
     <string name="splash_activity_text" translatable="false">RobuxEarny</string>
     <string name="redeem_robux">Redeem Robux</string>
@@ -22,8 +22,8 @@
     <string name="invite_a_friend">Invite a friend</string>
     <string name="settings">Settings</string>
     <string name="description">The best and fastest app for earning Robux</string>
-    <string name="coinsystem_desc">\nThis app has a special coin system with six packages.\nEach package comes with a different amount of coins that corresponds to a different amount of Robux. By playing our mini-games, you can earn coins. The more coins you earn, the more packages you can redeem. This means you\'ll have more chances to earn Robux! It\'s a simple way to earn Robux and have fun along the way!</string>
-    <string name="ready_desc">"\nWhen you are ready press the start button below and start right now to earn a lot of Robux!\nIf you have a referral code from a friend write it down there for receiving a bonus\nIn order to send you the Robux don't forget to click on the ads as much as you can.\nThis app is still in beta but in the future we will add much more games!\n"</string>
+    <string name="coinsystem_desc">\nThis app has a special coin system with six packages.\nEach package comes with a different amount of coins that corresponds to a different amount of Robux. By playing our mini-games, you can earn coins. The more coins you earn, the more packages you can redeem. This means you\'ll have more chances to earn Robux! It\'s a simple way to earn Robux and have fun along the way!\n</string>
+    <string name="ready_desc">"\nWhen you are ready press the start button below and start right now to earn a lot of Robux!\nIn order to send you the Robux don't forget to click on the ads as much as you can.\nThis app is still in beta but in the future we will add much more games!\n"</string>
     <string name="winning_numbers">Winning numbers: %s</string>
     <string name="delivery">Delivery: 1–2 days</string>
     <string name="basic_package" translatable="false">Basic Package</string>
@@ -86,5 +86,8 @@
     <string name="submit">Submit</string>
     <string name="send_feedback">Send Feedback</string>
     <string name="no">No</string>
-    <string name="congratulations_you_won_a_20_points_bonus">Congratulations! You won a 20 points bonus!</string>
+    <string name="congratulations_you_won_a_20_points_bonus">Congratulations! You won a 15 points bonus!</string>
+    <string name="ref_code">Do you have a referral code?</string>
+    <string name="refcode_desc">If you have a referral code write it here for receiving a bonus!</string>
+    <string name="i_don_t_have_a_code">I don\'t have a code</string>
 </resources>

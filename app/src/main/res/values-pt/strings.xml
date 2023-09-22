@@ -7,12 +7,12 @@
 <resources>
     <string name="app_name">RobuxEarny</string>
     <string name="welcome">Bem-vindo!</string>
-    <string name="welcome_desc">\nBem-vindo ao RobuxEarny! Uma aplicação onde pode ganhar Robux facilmente!\nBasta jogar alguns jogos simples, é totalmente gratuito e poderá resgatar os seus Robux acumulando moedas!</string>
+    <string name="welcome_desc">\nBem-vindo ao RobuxEarny! Uma aplicação onde pode ganhar Robux facilmente!\nBasta jogar alguns jogos simples, é totalmente gratuito e poderá resgatar os seus Robux acumulando moedas!\n</string>
     <string name="coinsystem">Sistema de Moedas</string>
     <string name="ready">Está pronto?</string>
     <string name="current_points">Moedas Atuais: %d</string>
     <string name="done">Concluído!</string>
-    <string name="load">Robux Earny está a concluir o carregamento em %d</string>
+    <string name="load">A carregar o anúncio inicial em %d segundos</string>
     <string name="redeem_robux">Resgatar Robux</string>
     <string name="start">Iniciar</string>
     <string name="ticket_finish">Por favor, termine o seu bilhete atual primeiro.</string>
@@ -24,8 +24,8 @@
     <string name="invite_a_friend">Convide um amigo</string>
     <string name="settings">Definições</string>
     <string name="description">A melhor e mais rápida aplicação para ganhar Robux</string>
-    <string name="coinsystem_desc">\nEsta aplicação possui um sistema de moedas especial com seis pacotes.\nCada pacote inclui uma quantidade diferente de moedas que corresponde a uma quantidade diferente de Robux. Ao jogar os nossos jogos simples, pode ganhar moedas. Quanto mais moedas ganhar, mais pacotes pode resgatar. Isso significa que terá mais hipóteses de ganhar Robux! É uma maneira simples de ganhar Robux e divertir-se no processo!</string>
-    <string name="ready_desc">"\nQuando estiver pronto, pressione o botão iniciar abaixo e comece agora mesmo a ganhar muitos Robux!\nSe tiver um código de referência de um amigo, escreva-o lá para receber um bónus.\nPara que possamos enviar os Robux, não se esqueça de clicar nos anúncios o máximo possível.\nEsta aplicação ainda está em beta, mas no futuro adicionaremos muitos mais jogos!\n"</string>
+    <string name="coinsystem_desc">\nEsta aplicação possui um sistema de moedas especial com seis pacotes.\nCada pacote inclui uma quantidade diferente de moedas que corresponde a uma quantidade diferente de Robux. Ao jogar os nossos jogos simples, pode ganhar moedas. Quanto mais moedas ganhar, mais pacotes pode resgatar. Isso significa que terá mais hipóteses de ganhar Robux! É uma maneira simples de ganhar Robux e divertir-se no processo!\n</string>
+    <string name="ready_desc">"\nQuando estiver pronto, pressione o botão iniciar abaixo e comece agora mesmo a ganhar muitos Robux!\nPara que possamos enviar os Robux, não se esqueça de clicar nos anúncios o máximo possível.\nEsta aplicação ainda está em beta, mas no futuro adicionaremos muitos mais jogos!\n"</string>
     <string name="winning_numbers">Números Vencedores: %s</string>
     <string name="delivery">Entrega: 1–2 dias</string>
     <string name="price">Preço: %d Moedas</string>
@@ -81,6 +81,9 @@
     <string name="submit">Submeter</string>
     <string name="send_feedback">Enviar Feedback</string>
     <string name="no">Não</string>
-    <string name="congratulations_you_won_a_20_points_bonus">Parabéns! Você ganhou um bônus de 20 pontos!</string>
+    <string name="congratulations_you_won_a_20_points_bonus">Parabéns! Você ganhou um bônus de 15 pontos!</string>
+    <string name="ref_code">Você tem um código de indicação?</string>
+    <string name="refcode_desc">Se você tiver um código de indicação, escreva-o aqui para receber um bônus!</string>
+    <string name="i_don_t_have_a_code">Eu não tenho um código</string>
 </resources>
 

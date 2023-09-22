@@ -15,8 +15,8 @@ android {
         applicationId = "com.robuxearny.official"
         minSdk = 24
         targetSdk = 33
-        versionCode = 15
-        versionName = "2.1"
+        versionCode = 19
+        versionName = "2.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         compileSdkPreview = "UpsideDownCake"
@@ -45,7 +45,7 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.lifecycle:lifecycle-common:2.6.2")
     implementation("androidx.lifecycle:lifecycle-process:2.6.2")
-    implementation(platform("com.google.firebase:firebase-bom:32.2.3"))
+    implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10")
     implementation("com.google.android.gms:play-services-ads:22.4.0")

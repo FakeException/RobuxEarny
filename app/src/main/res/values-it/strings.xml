@@ -2,14 +2,14 @@
 <resources>
     <string name="app_name">RobuxEarny</string>
     <string name="welcome">Benvenuto!</string>
-    <string name="welcome_desc">\nBenvenuto su RobuxEarny!\nUn\'applicazione dove puoi guadagnare Robux in pochissimo tempo!\nDevi solamente giocare a dei semplici minigiochi,\nè completamente gratuito e potrai riscattare i tuoi Robux accumulando le tue monete!</string>
+    <string name="welcome_desc">\nBenvenuto su RobuxEarny!\nUn\'applicazione dove puoi guadagnare Robux in pochissimo tempo!\nDevi solamente giocare a dei semplici minigiochi,\nè completamente gratuito e potrai riscattare i tuoi Robux accumulando le tue monete!\n</string>
     <string name="coinsystem">Sistema Monete</string>
-    <string name="coinsystem_desc">\nQuest\'app ha un sistema speciale di monete con sei pacchetti.\nOgni pacchetto contiene una quantità diversa di monete che corrispondono a un numero diverso di Robux.\nGiocando i nostri minigiochi, si possono guadagnare monete.\nPiù monete si guadagnano, più pacchetti si possono sbloccare.\nQuesto significa che avrai più possibilità di guadagnare Robux!\nÈ un modo semplice per guadagnare Robux e divertirsi!</string>
+    <string name="coinsystem_desc">\nQuest\'app ha un sistema speciale di monete con sei pacchetti.\nOgni pacchetto contiene una quantità diversa di monete che corrispondono a un numero diverso di Robux.\nGiocando i nostri minigiochi, si possono guadagnare monete.\nPiù monete si guadagnano, più pacchetti si possono sbloccare.\nQuesto significa che avrai più possibilità di guadagnare Robux!\nÈ un modo semplice per guadagnare Robux e divertirsi!\n</string>
     <string name="ready">Sei pronto?</string>
-    <string name="ready_desc">"\nQuando sei pronto, premi il pulsante di avvio qui sotto e inizia subito a guadagnare molti Robux!\nSe hai un codice referral di un tuo amico inseriscili qui sotto per ricevere un bonus\nPer poterti inviare i Robux non dimenticare di cliccare sulle pubblicità il più possibile.\nQuest'app è ancora in beta ma in futuro aggiungeremo molti altri giochi!\n"</string>
+    <string name="ready_desc">"\nQuando sei pronto, premi il pulsante di avvio qui sotto e inizia subito a guadagnare molti Robux!\nPer poterti inviare i Robux non dimenticare di cliccare sulle pubblicità il più possibile.\nQuest'app è ancora in beta ma in futuro aggiungeremo molti altri giochi!\n"</string>
     <string name="current_points">Monete Correnti: %d</string>
     <string name="done">Fatto!</string>
-    <string name="load">Robux Earny si avvierà in %d</string>
+    <string name="load">L\'annuncio di avvio apparirà in %d secondi</string>
     <string name="redeem_robux">Riscatta Robux</string>
     <string name="start">Inizia</string>
     <string name="ticket_finish">Si prega di terminare prima il biglietto corrente.</string>
@@ -76,5 +76,8 @@
     <string name="submit">Invia</string>
     <string name="send_feedback">Invia Feedback</string>
     <string name="no">No</string>
-    <string name="congratulations_you_won_a_20_points_bonus">Congratulazioni! Hai vinto un bonus di 20 punti!</string>
+    <string name="congratulations_you_won_a_20_points_bonus">Congratulazioni! Hai vinto un bonus di 15 punti!</string>
+    <string name="ref_code">Hai un codice di referral?</string>
+    <string name="refcode_desc">Se hai un codice di referral, scrivilo qui per ricevere un bonus!</string>
+    <string name="i_don_t_have_a_code">Non ho un codice</string>
 </resources>

@@ -9,7 +9,6 @@ package com.robuxearny.official.utils;
 import android.app.Activity;
 import android.content.Context;
 
-import com.google.android.ump.ConsentDebugSettings;
 import com.google.android.ump.ConsentForm.OnConsentFormDismissedListener;
 import com.google.android.ump.ConsentInformation;
 import com.google.android.ump.ConsentInformation.PrivacyOptionsRequirementStatus;
@@ -70,19 +69,9 @@ public final class GoogleMobileAdsConsentManager {
      * Helper method to call the UMP SDK methods to request consent information and load/present a
      * consent form if necessary.
      */
-    public void gatherConsent(
-            Activity activity, OnConsentGatheringCompleteListener onConsentGatheringCompleteListener) {
-        // For testing purposes, you can force a DebugGeography of EEA or NOT_EEA.
-        ConsentDebugSettings debugSettings = new ConsentDebugSettings.Builder(activity)
-                // .setDebugGeography(ConsentDebugSettings.DebugGeography.DEBUG_GEOGRAPHY_EEA)
-                // Check your logcat output for the hashed device ID e.g.
-                // "Use new ConsentDebugSettings.Builder().addTestDeviceHashedId("ABCDEF012345")" to use
-                // the debug functionality.
-                .addTestDeviceHashedId("TEST-DEVICE-HASHED-ID")
-                .build();
+    public void gatherConsent(Activity activity, OnConsentGatheringCompleteListener onConsentGatheringCompleteListener) {
 
         ConsentRequestParameters params = new ConsentRequestParameters.Builder()
-                .setConsentDebugSettings(debugSettings)
                 .build();
 
         // Requesting an update to consent information should be called on every app launch.

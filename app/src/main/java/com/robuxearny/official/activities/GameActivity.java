@@ -22,7 +22,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.robuxearny.official.R;
 import com.robuxearny.official.utils.Ads;
 
-import java.util.Map;
 import java.util.Random;
 
 public class GameActivity extends BaseActivity {
@@ -71,38 +70,6 @@ public class GameActivity extends BaseActivity {
                 }
             }
 
-        });
-    }
-
-    public void getCurrentUserCoins(TextView totalPointsView) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Log.d("Coins", "Current UID: " + uid);
-
-        db.collection("users").document(uid).get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                DocumentSnapshot document = task.getResult();
-                if (document.exists()) {
-                    Map<String, Object> data = document.getData();
-                    Log.d("Coins", "Document Data: " + data);
-
-                    Long coinsLong = document.getLong("coins");
-                    if (coinsLong != null) {
-                        long coins = coinsLong;
-                        this.totalPoints = (int) coins;
-                        updateTotalPointsTextView(totalPointsView);
-                        Log.d("Coins", "Current User Coins: " + coins);
-                    } else {
-                        this.totalPoints = 0;
-                        Log.d("Coins", "Coins field does not exist in the document.");
-                    }
-                } else {
-                    this.totalPoints = 0;
-                    Log.d("Coins", "Document does not exist");
-                }
-            } else {
-                this.totalPoints = 0;
-                Log.d("Coins", "Error fetching document: " + task.getException());
-            }
         });
     }
 
