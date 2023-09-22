@@ -19,9 +19,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 import com.robuxearny.official.R;
 import com.robuxearny.official.utils.Ads;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 
 public class GameActivity extends BaseActivity {
@@ -62,11 +66,25 @@ public class GameActivity extends BaseActivity {
                 DocumentSnapshot document = task.getResult();
                 if (document.exists()) {
 
-                    userRef.update("coins", newCoins).addOnSuccessListener(obj -> {
-                        Log.d("Coins", "Coins updated");
-                    }).addOnFailureListener(exc -> {
-                        Log.d("Coins", exc.getMessage());
-                    });
+                    if (document.contains("ads")) {
+                        int currentValue = Objects.requireNonNull(document.getLong("ads")).intValue();
+
+                        userRef.update("ads", currentValue + 1)
+                                .addOnSuccessListener(obj -> Log.d("AdsView", "Ads view update"))
+                                .addOnFailureListener(exc -> Log.d("AdsView", "Error: " + exc.getMessage()));
+                    } else {
+                        Map<String, Object> newData = new HashMap<>();
+                        newData.put("ads", 1);
+
+                        userRef.set(newData, SetOptions.merge())
+                                .addOnSuccessListener(obj -> Log.d("AdsView", "New field added successfully."))
+                                .addOnFailureListener(obj -> Log.d("AdsView", "Error adding new field: " + obj.getMessage()));
+                    }
+
+                    userRef.update("coins", newCoins)
+                            .addOnSuccessListener(obj -> Log.d("Coins", "Coins updated"))
+                            .addOnFailureListener(exc -> Log.d("Coins", "Error: " + exc.getMessage()));
+
                 }
             }
 

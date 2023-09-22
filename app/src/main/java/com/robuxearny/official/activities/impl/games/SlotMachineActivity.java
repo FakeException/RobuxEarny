@@ -98,7 +98,7 @@ public class SlotMachineActivity extends GameActivity {
 
         // Check if the maximum attempts have been reached or if it's time to switch randomly
         int MAX_SLOT_ATTEMPTS = 5;
-        if (slotAttempts >= MAX_SLOT_ATTEMPTS || shouldSwitchRandomly(MAX_SLOT_ATTEMPTS)) {
+        if (slotAttempts >= MAX_SLOT_ATTEMPTS) {
             Intent slot = new Intent(this, TicketActivity.class);
             startActivity(slot);
             finish();
@@ -106,20 +106,20 @@ public class SlotMachineActivity extends GameActivity {
 
         if (slotMachine.checkWin(this)) {
 
-            increasePoints(generateRandomPoints());
-
-            updateTotalPointsTextView(totalPointsTextView);
-
             showInterstitial(rewardItem -> {
 
+                increasePoints(generateRandomPoints());
+
+                updateTotalPointsTextView(totalPointsTextView);
+
+                updateCoins(getTotalPoints());
+                getPrefsEditor().putInt("coins", getTotalPoints()).apply();
+
+                playCollectSound();
+
+                Toast.makeText(this, R.string.you_win, Toast.LENGTH_SHORT).show();
             });
 
-            updateCoins(getTotalPoints());
-            getPrefsEditor().putInt("coins", getTotalPoints()).apply();
-
-            playCollectSound();
-
-            Toast.makeText(this, R.string.you_win, Toast.LENGTH_SHORT).show();
         }
 
         spinButton.setEnabled(true);

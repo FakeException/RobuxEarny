@@ -75,7 +75,10 @@ public class PurchaseActivity extends BaseActivity {
                             // Handle success
                             Toast.makeText(this, getString(R.string.request), Toast.LENGTH_LONG).show();
 
-                            updateCoins(user.getUid(), coins - cost);
+                            int newCoins = coins - cost;
+                            updateCoins(user.getUid(), newCoins);
+                            getPrefsEditor().putInt("coins", newCoins).apply();
+
                             Intent menu = new Intent(this, MainMenuActivity.class);
                             startActivity(menu);
                             finish();
@@ -86,7 +89,7 @@ public class PurchaseActivity extends BaseActivity {
                         });
             }
         });
-        builder.setNegativeButton("No", ((dialogInterface, i) -> dialogInterface.cancel()));
+        builder.setNegativeButton(R.string.no, ((dialogInterface, i) -> dialogInterface.cancel()));
         builder.setCancelable(false);
         builder.show();
     }
@@ -102,9 +105,7 @@ public class PurchaseActivity extends BaseActivity {
 
                     userRef.update("coins", newCoins).addOnSuccessListener(obj -> {
                         Log.d("Coins", "Coins updated");
-                    }).addOnFailureListener(exc -> {
-                        Log.d("Coins", exc.getMessage());
-                    });
+                    }).addOnFailureListener(exc -> Log.d("Coins", exc.getMessage()));
                 }
             }
 

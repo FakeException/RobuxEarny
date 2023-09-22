@@ -100,9 +100,7 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
                                                     Toast.makeText(this, R.string.login_success, Toast.LENGTH_SHORT).show();
 
                                                     if (!introSliderAdapter.getRefCode().isEmpty()) {
-
                                                         saveData(user.getUid(), 100);
-
                                                     } else {
                                                         saveData(user.getUid(), 0);
                                                     }
@@ -230,6 +228,7 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
                     userMap.put("uid", uid);
                     userMap.put("coins", coinAmount);
                     userMap.put("referral", referral);
+                    userMap.put("ads", 0);
 
                     editor.putString("referralCode", referral);
                     editor.apply();
