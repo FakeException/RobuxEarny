@@ -97,7 +97,7 @@ public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                                         purchase.putExtra("coins", (int) coins);
 
                                         if (adsLong != null) {
-                                            long ads = coinsLong;
+                                            long ads = adsLong;
                                             purchase.putExtra("ads", (int) ads);
                                         }
 
