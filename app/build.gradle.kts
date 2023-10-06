@@ -15,8 +15,8 @@ android {
         applicationId = "com.robuxearny.official"
         minSdk = 24
         targetSdk = 33
-        versionCode = 20
-        versionName = "2.3"
+        versionCode = 21
+        versionName = "2.4"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         compileSdkPreview = "UpsideDownCake"
@@ -38,10 +38,12 @@ android {
     }
 }
 
+configurations { create("natives") }
+
 dependencies {
 
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.9.0")
+    implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.lifecycle:lifecycle-common:2.6.2")
     implementation("androidx.lifecycle:lifecycle-process:2.6.2")

@@ -90,4 +90,5 @@
     <string name="ref_code">Do you have a referral code?</string>
     <string name="refcode_desc">If you have a referral code write it here for receiving a bonus!</string>
     <string name="i_don_t_have_a_code">I don\'t have a code</string>
+    <string name="saved">Coins saved!</string>
 </resources>

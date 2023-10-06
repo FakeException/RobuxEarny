@@ -85,5 +85,6 @@
     <string name="ref_code">Você tem um código de indicação?</string>
     <string name="refcode_desc">Se você tiver um código de indicação, escreva-o aqui para receber um bônus!</string>
     <string name="i_don_t_have_a_code">Eu não tenho um código</string>
+    <string name="saved">Moedas guardadas!</string>
 </resources>
 

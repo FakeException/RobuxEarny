@@ -80,4 +80,5 @@
     <string name="ref_code">Hai un codice di referral?</string>
     <string name="refcode_desc">Se hai un codice di referral, scrivilo qui per ricevere un bonus!</string>
     <string name="i_don_t_have_a_code">Non ho un codice</string>
+    <string name="saved">Monete salvate!</string>
 </resources>

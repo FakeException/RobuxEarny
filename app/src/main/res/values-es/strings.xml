@@ -88,4 +88,5 @@
     <string name="ref_code">¿Tienes un código de referencia?</string>
     <string name="refcode_desc">Si tienes un código de referencia, escríbelo aquí para recibir un bono.</string>
     <string name="i_don_t_have_a_code">No tengo un código</string>
+    <string name="saved">¡Monedas ahorradas!</string>
 </resources>

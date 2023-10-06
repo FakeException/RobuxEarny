@@ -20,7 +20,9 @@ import com.robuxearny.official.R;
 import com.robuxearny.official.activities.GameActivity;
 import com.robuxearny.official.activities.impl.MainMenuActivity;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
@@ -31,6 +33,8 @@ public class TicketActivity extends GameActivity {
     private TextView totalPointsTextView;
     private Set<Integer> winningNumbers;
     private int ticketAttempts = 0;
+
+    private List<Button> blockButtons;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,37 +58,24 @@ public class TicketActivity extends GameActivity {
 
         initializeGame();
 
-        final Button block1 = findViewById(R.id.block1);
-        final Button block2 = findViewById(R.id.block2);
-        final Button block3 = findViewById(R.id.block3);
-        final Button block4 = findViewById(R.id.block4);
-        final Button block5 = findViewById(R.id.block5);
-        final Button block6 = findViewById(R.id.block6);
-        final Button block7 = findViewById(R.id.block7);
-        final Button block8 = findViewById(R.id.block8);
-        final Button block9 = findViewById(R.id.block9);
+        blockButtons = new ArrayList<>();
+        blockButtons.add((Button) findViewById(R.id.block1));
+        blockButtons.add((Button) findViewById(R.id.block2));
+        blockButtons.add((Button) findViewById(R.id.block3));
+        blockButtons.add((Button) findViewById(R.id.block4));
+        blockButtons.add((Button) findViewById(R.id.block5));
+        blockButtons.add((Button) findViewById(R.id.block6));
+        blockButtons.add((Button) findViewById(R.id.block7));
+        blockButtons.add((Button) findViewById(R.id.block8));
+        blockButtons.add((Button) findViewById(R.id.block9));
 
         setupBanners(findViewById(R.id.adView), findViewById(R.id.adView2), findViewById(R.id.adView3), findViewById(R.id.adView4));
 
         this.scratchedBlocks = new HashSet<>();
 
-        block1.setOnClickListener(view -> processBlockClick(block1, view));
-
-        block2.setOnClickListener(view -> processBlockClick(block2, view));
-
-        block3.setOnClickListener(view -> processBlockClick(block3, view));
-
-        block4.setOnClickListener(view -> processBlockClick(block4, view));
-
-        block5.setOnClickListener(view -> processBlockClick(block5, view));
-
-        block6.setOnClickListener(view -> processBlockClick(block6, view));
-
-        block7.setOnClickListener(view -> processBlockClick(block7, view));
-
-        block8.setOnClickListener(view -> processBlockClick(block8, view));
-
-        block9.setOnClickListener(view -> processBlockClick(block9, view));
+        for (Button block : blockButtons) {
+            block.setOnClickListener(view -> processBlockClick(block, view));
+        }
 
         confirmButton.setOnClickListener(view -> {
             try {
@@ -136,6 +127,13 @@ public class TicketActivity extends GameActivity {
             playCollectSound();
         }
 
+        bonus(view);
+
+        this.scratchedBlocks.add(block);
+        updateTotalPointsTextView(totalPointsTextView);
+    }
+
+    private void bonus(View view) {
         int randomNumberBonus = getRandom().nextInt(1000);
 
         if (randomNumberBonus <= 2) {
@@ -143,9 +141,6 @@ public class TicketActivity extends GameActivity {
             playCollectSound();
             Snackbar.make(view, R.string.congratulations_you_won_a_20_points_bonus, Snackbar.LENGTH_SHORT).show();
         }
-
-        this.scratchedBlocks.add(block);
-        updateTotalPointsTextView(totalPointsTextView);
     }
 
     private int generateRandomNumber() {
@@ -176,16 +171,10 @@ public class TicketActivity extends GameActivity {
 
             ticketAttempts++;
 
-            showInterstitial(rewardItem -> {
-                updateCoins(getTotalPoints());
-                getPrefsEditor().putInt("coins", getTotalPoints()).apply();
+            blockButtons.forEach(button -> {
+                button.setText(getString(R.string.x));
+                button.setTextColor(Color.WHITE);
             });
-
-            for (int i = 1; i <= 9; i++) {
-                Button block = findViewById(getResources().getIdentifier("block" + i, "id", getPackageName()));
-                block.setText(getString(R.string.x));
-                block.setTextColor(Color.WHITE);
-            }
 
             // Check if the maximum attempts have been reached or if it's time to switch randomly
             int MAX_TICKET_ATTEMPTS = 7;
@@ -193,9 +182,16 @@ public class TicketActivity extends GameActivity {
                 showInterstitial(rewardItem -> {
                     updateCoins(getTotalPoints());
                     getPrefsEditor().putInt("coins", getTotalPoints()).apply();
+                    Toast.makeText(this, getString(R.string.saved), Toast.LENGTH_SHORT).show();
 
                     Intent slot = new Intent(this, SlotMachineActivity.class);
                     startActivity(slot);
+                });
+            } else {
+                showInterstitial(rewardItem -> {
+                    updateCoins(getTotalPoints());
+                    getPrefsEditor().putInt("coins", getTotalPoints()).apply();
+                    Toast.makeText(this, getString(R.string.saved), Toast.LENGTH_SHORT).show();
                 });
             }
 

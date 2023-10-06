@@ -245,9 +245,7 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
                                 }
 
                             })
-                            .addOnFailureListener(e -> {
-                                Log.e("Firestore", "Error saving user data: " + e.getMessage());
-                            });
+                            .addOnFailureListener(e -> Log.e("Firestore", "Error saving user data: " + e.getMessage()));
                 } else {
 
                     editor.putString("referralCode", document.getString("referral"));
@@ -277,12 +275,8 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
                     userMap.put("uid", uid);
 
                     codeDocRef.set(userMap)
-                            .addOnSuccessListener(aVoid -> {
-                                Log.d("Firestore", "User data saved successfully.");
-                            })
-                            .addOnFailureListener(e -> {
-                                Log.e("Firestore", "Error saving user data: " + e.getMessage());
-                            });
+                            .addOnSuccessListener(aVoid -> Log.d("Firestore", "User data saved successfully."))
+                            .addOnFailureListener(e -> Log.e("Firestore", "Error saving user data: " + e.getMessage()));
                 }
             }
         });
@@ -329,11 +323,9 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
                 DocumentSnapshot document = task.getResult();
                 if (document.exists()) {
 
-                    userRef.update("coins", FieldValue.increment(newCoins)).addOnSuccessListener(obj -> {
-                        Log.d("Coins", "Coins updated");
-                    }).addOnFailureListener(exc -> {
-                        Log.d("Coins", exc.getMessage());
-                    });
+                    userRef.update("coins", FieldValue.increment(newCoins))
+                            .addOnSuccessListener(obj -> Log.d("Coins", "Coins updated"))
+                            .addOnFailureListener(exc -> Log.d("Coins", exc.getMessage()));
                 }
             }
 

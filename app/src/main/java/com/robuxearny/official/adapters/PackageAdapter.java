@@ -85,6 +85,7 @@ public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
                                 Long coinsLong = document.getLong("coins");
+                                Long adsLong = document.getLong("ads");
                                 if (coinsLong != null) {
                                     long coins = coinsLong;
                                     if ((int) coins >= currentPackage.getCost()) {
@@ -94,6 +95,11 @@ public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                                         purchase.putExtra("price", currentPackage.getCost());
                                         purchase.putExtra("robux", currentPackage.getRedeem());
                                         purchase.putExtra("coins", (int) coins);
+
+                                        if (adsLong != null) {
+                                            long ads = coinsLong;
+                                            purchase.putExtra("ads", (int) ads);
+                                        }
 
                                         context.startActivity(purchase);
                                         context.finish();

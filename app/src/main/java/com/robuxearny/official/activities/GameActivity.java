@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 import com.robuxearny.official.R;
@@ -25,7 +26,6 @@ import com.robuxearny.official.utils.Ads;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Random;
 
 public class GameActivity extends BaseActivity {
@@ -67,9 +67,8 @@ public class GameActivity extends BaseActivity {
                 if (document.exists()) {
 
                     if (document.contains("ads")) {
-                        int currentValue = Objects.requireNonNull(document.getLong("ads")).intValue();
 
-                        userRef.update("ads", currentValue + 1)
+                        userRef.update("ads", FieldValue.increment(1))
                                 .addOnSuccessListener(obj -> Log.d("AdsView", "Ads view update"))
                                 .addOnFailureListener(exc -> Log.d("AdsView", "Error: " + exc.getMessage()));
                     } else {

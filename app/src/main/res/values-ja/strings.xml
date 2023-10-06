@@ -85,4 +85,5 @@
     <string name="ref_code">紹介コードをお持ちですか？</string>
     <string name="refcode_desc">紹介コードをお持ちの場合、こちらに入力してボーナスを受け取るために使用してください！</string>
     <string name="i_don_t_have_a_code">コードは持っていません</string>
+    <string name="saved">コインが保存されました！</string>
 </resources>

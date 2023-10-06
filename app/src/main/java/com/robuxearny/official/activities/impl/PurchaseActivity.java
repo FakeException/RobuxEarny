@@ -33,6 +33,7 @@ public class PurchaseActivity extends BaseActivity {
     private int cost;
     private int coins;
     private int robux;
+    private int ads;
     private EditText gamepass;
 
     @Override
@@ -44,6 +45,7 @@ public class PurchaseActivity extends BaseActivity {
 
         cost = getIntent().getIntExtra("price", 0);
         coins = getIntent().getIntExtra("coins", 0);
+        ads = getIntent().getIntExtra("ads", 0);
 
         robux = Math.round(getIntent().getIntExtra("robux", 0) / 0.70F);
 
@@ -66,7 +68,7 @@ public class PurchaseActivity extends BaseActivity {
                 FirebaseFunctions functions = FirebaseFunctions.getInstance();
 
                 Map<String, Object> data = new HashMap<>();
-                data.put("messageContent", "Email: " + user.getEmail() + " Robux: " + robux + " Gamepass: " + gamepass.getText());
+                data.put("messageContent", "Email: " + user.getEmail() + " Robux: " + robux + " Gamepass: " + gamepass.getText() + " Watched ads: " + ads);
 
                 functions
                         .getHttpsCallable("redeem")
@@ -103,9 +105,11 @@ public class PurchaseActivity extends BaseActivity {
                 DocumentSnapshot document = task.getResult();
                 if (document.exists()) {
 
-                    userRef.update("coins", newCoins).addOnSuccessListener(obj -> {
-                        Log.d("Coins", "Coins updated");
-                    }).addOnFailureListener(exc -> Log.d("Coins", exc.getMessage()));
+                    userRef.update("coins", newCoins).addOnSuccessListener(obj ->
+                            Log.d("Coins", "Coins updated")).addOnFailureListener(exc -> Log.d("Coins", exc.getMessage()));
+
+                    userRef.update("ads", 0).addOnSuccessListener(obj ->
+                            Log.d("Ads", "Ads updated")).addOnFailureListener(exc -> Log.d("Ads", exc.getMessage()));
                 }
             }
 

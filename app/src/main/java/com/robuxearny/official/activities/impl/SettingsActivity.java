@@ -70,6 +70,8 @@ public class SettingsActivity extends BaseActivity {
                             // Handle success
                             FirebaseAuth.getInstance().signOut();
                             Toast.makeText(this, R.string.account_deleted, Toast.LENGTH_LONG).show();
+                            SharedPreferences.Editor editor = getPrefsEditor();
+                            editor.putInt("coins", 0).apply();
                             Intent main = new Intent(this, MainActivity.class);
                             main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(main);

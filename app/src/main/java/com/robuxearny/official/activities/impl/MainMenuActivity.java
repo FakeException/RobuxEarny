@@ -24,8 +24,7 @@ import com.robuxearny.official.activities.impl.games.TicketActivity;
 import com.robuxearny.official.utils.Ads;
 
 public class MainMenuActivity extends BaseActivity {
-
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
