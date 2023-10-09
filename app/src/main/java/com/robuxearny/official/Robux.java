@@ -12,7 +12,6 @@ import android.app.Application.ActivityLifecycleCallbacks;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,6 +23,7 @@ import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ProcessLifecycleOwner;
 
+import com.appodeal.ads.Appodeal;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.FullScreenContentCallback;
@@ -34,14 +34,10 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.appcheck.FirebaseAppCheck;
 import com.google.firebase.appcheck.debug.DebugAppCheckProviderFactory;
 import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.makeopinion.cpxresearchlib.CPXResearch;
 import com.robuxearny.official.utils.GoogleMobileAdsConsentManager;
 
 import java.util.Date;
-import java.util.Map;
 
 /** Application class that initializes, loads and show ads when activities change states. */
 public class Robux extends Application
@@ -49,6 +45,7 @@ public class Robux extends Application
 
     private AppOpenAdManager appOpenAdManager;
     private Activity currentActivity;
+    private CPXResearch cpxResearch;
 
     @Override
     public void onCreate() {
@@ -57,6 +54,12 @@ public class Robux extends Application
 
         // Initialize Firebase
         FirebaseApp.initializeApp(this);
+
+        Appodeal.setBannerViewId(R.id.appodealBannerView);
+
+        Appodeal.initialize(this, "697e9088ec11bcc717870003a0bf6510f5d203f744b36e9b", Appodeal.BANNER | Appodeal.INTERSTITIAL | Appodeal.REWARDED_VIDEO, errors -> {
+            // Appodeal initialization finished
+        });
 
         boolean isDebug = ((getApplicationInfo().flags &
                 ApplicationInfo.FLAG_DEBUGGABLE) != 0);
@@ -75,12 +78,6 @@ public class Robux extends Application
         appOpenAdManager = new AppOpenAdManager();
 
         createNotificationChannel();
-
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        if (currentUser != null) {
-            retrieveMoney();
-        }
     }
 
     private void createNotificationChannel() {
@@ -98,36 +95,6 @@ public class Robux extends Application
             NotificationManager notificationManager = getApplicationContext().getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
-    }
-
-    public void retrieveMoney() {
-        SharedPreferences preferences = getSharedPreferences("RobuxEarny", Context.MODE_PRIVATE);
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        if (user != null) {
-            String uid = user.getUid();
-
-            Log.d("Coins", "Current UID: " + uid);
-
-            db.collection("users").document(uid).get().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Map<String, Object> data = document.getData();
-                        Log.d("Coins", "Document Data: " + data);
-
-                        Long coinsLong = document.getLong("coins");
-                        if (coinsLong != null) {
-                            long coins = coinsLong;
-                            preferences.edit().putInt("coins", (int) coins).apply();
-                        }
-                    }
-                }
-            });
-        }
-
     }
 
     /**

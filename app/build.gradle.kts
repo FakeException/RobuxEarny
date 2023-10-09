@@ -15,8 +15,8 @@ android {
         applicationId = "com.robuxearny.official"
         minSdk = 24
         targetSdk = 33
-        versionCode = 22
-        versionName = "2.4"
+        versionCode = 24
+        versionName = "2.6"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         compileSdkPreview = "UpsideDownCake"
@@ -68,6 +68,8 @@ dependencies {
     implementation("com.google.android.ump:user-messaging-platform:2.1.0")
     implementation("com.google.android.play:app-update:2.1.0")
     implementation("com.google.firebase:firebase-messaging")
+    implementation("com.appodeal.ads:sdk:3.1.3.1")
+    implementation("com.github.MakeOpinionGmbH:cpx-research-SDK-Android:1.5.9")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }

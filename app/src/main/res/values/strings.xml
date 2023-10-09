@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RobuxEarny</string>
+    <string name="app_name" translatable="false">Robux Earny</string>
     <string name="welcome">Welcome!</string>
     <string name="welcome_desc">\nWelcome to RobuxEarny! An application where you can earn Robux effortlessly!\nYou just need to play some very simple mini games, It\'s completely free and you will be able to redeem your robux by accumulating your coins!\n</string>
     <string name="coinsystem">Coin System</string>
@@ -91,4 +91,7 @@
     <string name="refcode_desc">If you have a referral code write it here for receiving a bonus!</string>
     <string name="i_don_t_have_a_code">I don\'t have a code</string>
     <string name="saved">Coins saved!</string>
+    <string name="survey_desc">Complete surveys and the coins corresponding to the earned Robux will be added to your Robux Earny account!</string>
+    <string name="earn_faster">Earn More</string>
+    <string name="current_coins">Current Coins: %d</string>
 </resources>

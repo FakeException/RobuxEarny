@@ -14,6 +14,7 @@ dependencyResolutionManagement {
         mavenCentral()
         jcenter()
         maven("https://jitpack.io")
+        maven("https://artifactory.appodeal.com/appodeal")
     }
 }
 

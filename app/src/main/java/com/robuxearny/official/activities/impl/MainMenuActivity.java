@@ -7,7 +7,9 @@
 package com.robuxearny.official.activities.impl;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,10 +20,16 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.content.ContextCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.robuxearny.official.R;
 import com.robuxearny.official.activities.BaseActivity;
 import com.robuxearny.official.activities.impl.games.TicketActivity;
 import com.robuxearny.official.utils.Ads;
+
+import java.util.Map;
 
 public class MainMenuActivity extends BaseActivity {
     
@@ -29,8 +37,6 @@ public class MainMenuActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-
-        Ads.loadRewardedAd(this);
 
         setupBanners(findViewById(R.id.adView), findViewById(R.id.adView2), findViewById(R.id.adView3));
 
@@ -53,7 +59,7 @@ public class MainMenuActivity extends BaseActivity {
     }
 
     public void redeem(View view) {
-        Ads.showRewardedVideoActivity(this, RedeemActivity.class);
+        openRedeem();
     }
 
     public void openSettings(View view) {
@@ -62,5 +68,39 @@ public class MainMenuActivity extends BaseActivity {
 
     public void invite(View view) {
         startActivity(new Intent(this, ReferralActivity.class));
+    }
+
+    public void earnMore(View view) {
+        startActivity(new Intent(this, SurveyActivity.class));
+    }
+
+    public void openRedeem() {
+        SharedPreferences preferences = getSharedPreferences("RobuxEarny", Context.MODE_PRIVATE);
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user != null) {
+            String uid = user.getUid();
+
+            Log.d("Coins", "Current UID: " + uid);
+
+            db.collection("users").document(uid).get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Map<String, Object> data = document.getData();
+                        Log.d("Coins", "Document Data: " + data);
+
+                        Long coinsLong = document.getLong("coins");
+                        if (coinsLong != null) {
+                            long coins = coinsLong;
+                            preferences.edit().putInt("coins", (int) coins).apply();
+                            Ads.showRewardedVideoActivity(this, RedeemActivity.class);
+                        }
+                    }
+                }
+            });
+        }
     }
 }

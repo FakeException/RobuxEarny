@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.appodeal.ads.Appodeal;
+import com.appodeal.ads.RewardedVideoCallbacks;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.snackbar.Snackbar;
 import com.robuxearny.official.R;
@@ -59,15 +61,15 @@ public class TicketActivity extends GameActivity {
         initializeGame();
 
         blockButtons = new ArrayList<>();
-        blockButtons.add((Button) findViewById(R.id.block1));
-        blockButtons.add((Button) findViewById(R.id.block2));
-        blockButtons.add((Button) findViewById(R.id.block3));
-        blockButtons.add((Button) findViewById(R.id.block4));
-        blockButtons.add((Button) findViewById(R.id.block5));
-        blockButtons.add((Button) findViewById(R.id.block6));
-        blockButtons.add((Button) findViewById(R.id.block7));
-        blockButtons.add((Button) findViewById(R.id.block8));
-        blockButtons.add((Button) findViewById(R.id.block9));
+        blockButtons.add(findViewById(R.id.block1));
+        blockButtons.add(findViewById(R.id.block2));
+        blockButtons.add(findViewById(R.id.block3));
+        blockButtons.add(findViewById(R.id.block4));
+        blockButtons.add(findViewById(R.id.block5));
+        blockButtons.add(findViewById(R.id.block6));
+        blockButtons.add(findViewById(R.id.block7));
+        blockButtons.add(findViewById(R.id.block8));
+        blockButtons.add(findViewById(R.id.block9));
 
         setupBanners(findViewById(R.id.adView), findViewById(R.id.adView2), findViewById(R.id.adView3), findViewById(R.id.adView4));
 
@@ -148,7 +150,7 @@ public class TicketActivity extends GameActivity {
     }
 
     private int generateRandomPoints() {
-        return getRandom().nextInt(6) + 1;
+        return getRandom().nextInt(6) + 2;
     }
 
     private void updateWinningNumbersTextView() {
@@ -160,6 +162,11 @@ public class TicketActivity extends GameActivity {
         }
         String numbers = getString(R.string.winning_numbers, numbersBuilder.toString());
         winningNumbersTextView.setText(numbers);
+    }
+
+    private void save() {
+        updateCoins(getTotalPoints());
+        Toast.makeText(getApplicationContext(), getString(R.string.saved), Toast.LENGTH_SHORT).show();
     }
 
     private void confirmTicket() throws ExecutionException, InterruptedException {
@@ -176,22 +183,101 @@ public class TicketActivity extends GameActivity {
                 button.setTextColor(Color.WHITE);
             });
 
+            getPrefsEditor().putInt("coins", getTotalPoints()).apply();
+
             // Check if the maximum attempts have been reached or if it's time to switch randomly
             int MAX_TICKET_ATTEMPTS = 7;
             if (ticketAttempts >= MAX_TICKET_ATTEMPTS || shouldSwitchRandomly(MAX_TICKET_ATTEMPTS)) {
-                showInterstitial(rewardItem -> {
-                    updateCoins(getTotalPoints());
-                    getPrefsEditor().putInt("coins", getTotalPoints()).apply();
-                    Toast.makeText(this, getString(R.string.saved), Toast.LENGTH_SHORT).show();
 
-                    Intent slot = new Intent(this, SlotMachineActivity.class);
-                    startActivity(slot);
+                if (Appodeal.canShow(Appodeal.REWARDED_VIDEO)) {
+                    Appodeal.show(this, Appodeal.REWARDED_VIDEO);
+                } else {
+                    showInterstitial((rewardItem) -> {
+                        save();
+                        Intent slot = new Intent(getApplicationContext(), SlotMachineActivity.class);
+                        startActivity(slot);
+                    });
+                }
+
+                Appodeal.setRewardedVideoCallbacks(new RewardedVideoCallbacks() {
+                    @Override
+                    public void onRewardedVideoLoaded(boolean isPrecache) {
+                        // Called when rewarded video is loaded
+                    }
+                    @Override
+                    public void onRewardedVideoFailedToLoad() {
+                        // Called when rewarded video failed to load
+                    }
+                    @Override
+                    public void onRewardedVideoShown() {
+                        // Called when rewarded video is shown
+                    }
+                    @Override
+                    public void onRewardedVideoShowFailed() {
+                        // Called when rewarded video show failed
+                    }
+                    @Override
+                    public void onRewardedVideoClicked() {
+                        // Called when rewarded video is clicked
+                    }
+                    @Override
+                    public void onRewardedVideoFinished(double amount, String name) {
+                        save();
+
+                        Intent slot = new Intent(getApplicationContext(), SlotMachineActivity.class);
+                        startActivity(slot);
+                    }
+                    @Override
+                    public void onRewardedVideoClosed(boolean finished) {
+                        // Called when rewarded video is closed
+                    }
+                    @Override
+                    public void onRewardedVideoExpired() {
+                        // Called when rewarded video is expired
+                    }
                 });
+
             } else {
-                showInterstitial(rewardItem -> {
-                    updateCoins(getTotalPoints());
-                    getPrefsEditor().putInt("coins", getTotalPoints()).apply();
-                    Toast.makeText(this, getString(R.string.saved), Toast.LENGTH_SHORT).show();
+
+                if (Appodeal.canShow(Appodeal.REWARDED_VIDEO)) {
+                    Appodeal.show(this, Appodeal.REWARDED_VIDEO);
+                } else {
+                    showInterstitial((rewardItem) -> save());
+                }
+
+                Appodeal.setRewardedVideoCallbacks(new RewardedVideoCallbacks() {
+                    @Override
+                    public void onRewardedVideoLoaded(boolean isPrecache) {
+                        // Called when rewarded video is loaded
+                    }
+                    @Override
+                    public void onRewardedVideoFailedToLoad() {
+                        // Called when rewarded video failed to load
+                    }
+                    @Override
+                    public void onRewardedVideoShown() {
+                        // Called when rewarded video is shown
+                    }
+                    @Override
+                    public void onRewardedVideoShowFailed() {
+                        // Called when rewarded video show failed
+                    }
+                    @Override
+                    public void onRewardedVideoClicked() {
+                        // Called when rewarded video is clicked
+                    }
+                    @Override
+                    public void onRewardedVideoFinished(double amount, String name) {
+                        save();
+                    }
+                    @Override
+                    public void onRewardedVideoClosed(boolean finished) {
+                        // Called when rewarded video is closed
+                    }
+                    @Override
+                    public void onRewardedVideoExpired() {
+                        // Called when rewarded video is expired
+                    }
                 });
             }
 

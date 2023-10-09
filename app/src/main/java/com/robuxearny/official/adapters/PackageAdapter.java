@@ -39,10 +39,12 @@ public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     private final Activity context;
     private final List<Object> items;
+    private final int coins;
 
-    public PackageAdapter(Activity context, List<Object> items) {
+    public PackageAdapter(Activity context, List<Object> items, int coins) {
         this.context = context;
         this.items = items;
+        this.coins = coins;
     }
 
     @NonNull
@@ -69,6 +71,7 @@ public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             PackageViewHolder packageViewHolder = (PackageViewHolder) holder;
             Package currentPackage = (Package) items.get(position);
             packageViewHolder.titleTextView.setText(currentPackage.getTitle());
+            packageViewHolder.currentCoins.setText(context.getString(R.string.current_coins, coins));
             packageViewHolder.redeemPriceTextView.setText(context.getString(R.string.price, currentPackage.getCost()));
             packageViewHolder.redeemRobuxTextView.setText(context.getString(R.string.redeem_amount, currentPackage.getRedeem()));
             packageViewHolder.icon.setImageResource(currentPackage.getIcon());
@@ -141,6 +144,7 @@ public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     static class PackageViewHolder extends RecyclerView.ViewHolder {
         TextView titleTextView;
+        TextView currentCoins;
         TextView redeemPriceTextView;
         TextView redeemRobuxTextView;
         Button redeemButton;
@@ -149,6 +153,7 @@ public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         PackageViewHolder(@NonNull View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.package_name);
+            currentCoins = itemView.findViewById(R.id.currentCoins);
             redeemPriceTextView = itemView.findViewById(R.id.price);
             redeemRobuxTextView = itemView.findViewById(R.id.redeem_amount);
             redeemButton = itemView.findViewById(R.id.redeemButton);

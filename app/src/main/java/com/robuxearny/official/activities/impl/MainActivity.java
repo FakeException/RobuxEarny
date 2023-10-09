@@ -7,6 +7,7 @@
 package com.robuxearny.official.activities.impl;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -24,7 +25,6 @@ import androidx.work.ArrayCreatingInputMerger;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.auth.api.identity.Identity;
 import com.google.android.gms.auth.api.identity.SignInClient;
 import com.google.android.gms.auth.api.identity.SignInCredential;
@@ -51,7 +51,6 @@ import com.robuxearny.official.adapters.IntroSliderAdapter;
 import com.robuxearny.official.data.IntroSlide;
 import com.robuxearny.official.listeners.ActivityFinishListener;
 import com.robuxearny.official.utils.Dialogs;
-import com.robuxearny.official.utils.GoogleMobileAdsConsentManager;
 import com.robuxearny.official.utils.ReferralCodeGenerator;
 import com.robuxearny.official.utils.RootChecker;
 
@@ -122,27 +121,6 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
                 }
         );
 
-        GoogleMobileAdsConsentManager.getInstance(this)
-                .gatherConsent(
-                        this,
-                        consentError -> {
-                            if (consentError != null) {
-                                // Consent not obtained in current session.
-                                Log.w(
-                                        "Ad consent",
-                                        String.format(
-                                                "%s: %s", consentError.getErrorCode(), consentError.getMessage()));
-                            }
-
-                            if (GoogleMobileAdsConsentManager.getInstance(this).canRequestAds()) {
-                                initializeMobileAdsSdk();
-                            }
-                        });
-
-        // This sample attempts to load ads using consent obtained in the previous session.
-        if (GoogleMobileAdsConsentManager.getInstance(this).canRequestAds()) {
-            initializeMobileAdsSdk();
-        }
 
         appUpdateManager = AppUpdateManagerFactory.create(this);
 
@@ -171,6 +149,8 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         if (currentUser != null) {
+
+            retrieveMoney();
 
             ((Robux) getApplication())
                     .showAdIfAvailable(
@@ -207,6 +187,35 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
 
                 @Override
                 public void onPageScrollStateChanged(int state) {
+                }
+            });
+        }
+    }
+
+    public void retrieveMoney() {
+        SharedPreferences preferences = getSharedPreferences("RobuxEarny", Context.MODE_PRIVATE);
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user != null) {
+            String uid = user.getUid();
+
+            Log.d("Coins", "Current UID: " + uid);
+
+            db.collection("users").document(uid).get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Map<String, Object> data = document.getData();
+                        Log.d("Coins", "Document Data: " + data);
+
+                        Long coinsLong = document.getLong("coins");
+                        if (coinsLong != null) {
+                            long coins = coinsLong;
+                            preferences.edit().putInt("coins", (int) coins).apply();
+                        }
+                    }
                 }
             });
         }
@@ -355,11 +364,5 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
                                         AppUpdateOptions.newBuilder(AppUpdateType.IMMEDIATE).build());
                             }
                         });
-    }
-
-    private void initializeMobileAdsSdk() {
-
-        // Initialize the Mobile Ads SDK.
-        MobileAds.initialize(this);
     }
 }

@@ -20,6 +20,11 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <com.appodeal.ads.BannerView
+        android:id="@+id/appodealBannerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
         android:layout_width="wrap_content"

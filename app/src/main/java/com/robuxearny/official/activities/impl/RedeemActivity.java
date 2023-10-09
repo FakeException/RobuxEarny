@@ -28,6 +28,8 @@ public class RedeemActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_redeem);
 
+        int coins = getPreferences().getInt("coins", 0);
+
         MaterialToolbar tbToolBar = findViewById(R.id.redeem_tb_toolbar);
         tbToolBar.setNavigationOnClickListener(v -> finish());
 
@@ -36,7 +38,7 @@ public class RedeemActivity extends BaseActivity {
 
         List<Object> packages = createMixedItemList();
 
-        PackageAdapter adapter = new PackageAdapter(this, packages);
+        PackageAdapter adapter = new PackageAdapter(this, packages, coins);
         recyclerView.setAdapter(adapter);
     }
 

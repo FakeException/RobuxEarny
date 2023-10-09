@@ -41,9 +41,6 @@ public class GameActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        Ads.loadRewardedAd(this);
-        Ads.loadAd(this);
-
         if (currentUser != null) {
             uid = currentUser.getUid();
         }

@@ -12,6 +12,11 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <com.appodeal.ads.BannerView
+            android:id="@+id/appodealBannerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,7 +80,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="35dp"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/play"
@@ -86,6 +91,17 @@
                             android:text="@string/play"
                             app:icon="@drawable/ic_money"
                              />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/earnmore"
+                            style="@style/Widget.Material3.Button.Icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="earnMore"
+                            android:text="@string/earn_faster"
+                            app:icon="@drawable/ic_money"
+                            app:iconTint="@color/gold"
+                            />
 
                     </LinearLayout>
 

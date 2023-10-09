@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">RobuxEarny</string>
     <string name="welcome">Benvenuto!</string>
     <string name="welcome_desc">\nBenvenuto su RobuxEarny!\nUn\'applicazione dove puoi guadagnare Robux in pochissimo tempo!\nDevi solamente giocare a dei semplici minigiochi,\nè completamente gratuito e potrai riscattare i tuoi Robux accumulando le tue monete!\n</string>
     <string name="coinsystem">Sistema Monete</string>
@@ -81,4 +80,7 @@
     <string name="refcode_desc">Se hai un codice di referral, scrivilo qui per ricevere un bonus!</string>
     <string name="i_don_t_have_a_code">Non ho un codice</string>
     <string name="saved">Monete salvate!</string>
+    <string name="survey_desc">Completa i sondaggi e le monete corrispondenti ai Robux guadagnati verranno aggiunte al tuo account Robux Earny!</string>
+    <string name="earn_faster">Guadagna di più</string>
+    <string name="current_coins">Monete Attuali: %d</string>
 </resources>

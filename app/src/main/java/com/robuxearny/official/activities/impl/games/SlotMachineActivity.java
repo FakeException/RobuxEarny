@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.appodeal.ads.Appodeal;
+import com.appodeal.ads.RewardedVideoCallbacks;
 import com.robuxearny.official.R;
 import com.robuxearny.official.activities.GameActivity;
 import com.robuxearny.official.games.SlotMachine;
@@ -112,18 +114,60 @@ public class SlotMachineActivity extends GameActivity {
 
             getPrefsEditor().putInt("coins", getTotalPoints()).apply();
 
-            showInterstitial(rewardItem -> {
+            if (Appodeal.canShow(Appodeal.REWARDED_VIDEO)) {
+                Appodeal.show(this, Appodeal.REWARDED_VIDEO);
+            } else {
+                showInterstitial((rewardItem -> {
+                    save();
+                }));
+            }
 
-                updateCoins(getTotalPoints());
-
-                playCollectSound();
-
-                Toast.makeText(this, R.string.you_win, Toast.LENGTH_SHORT).show();
+            Appodeal.setRewardedVideoCallbacks(new RewardedVideoCallbacks() {
+                @Override
+                public void onRewardedVideoLoaded(boolean isPrecache) {
+                    // Called when rewarded video is loaded
+                }
+                @Override
+                public void onRewardedVideoFailedToLoad() {
+                    // Called when rewarded video failed to load
+                }
+                @Override
+                public void onRewardedVideoShown() {
+                    // Called when rewarded video is shown
+                }
+                @Override
+                public void onRewardedVideoShowFailed() {
+                    // Called when rewarded video show failed
+                }
+                @Override
+                public void onRewardedVideoClicked() {
+                    // Called when rewarded video is clicked
+                }
+                @Override
+                public void onRewardedVideoFinished(double amount, String name) {
+                    save();
+                }
+                @Override
+                public void onRewardedVideoClosed(boolean finished) {
+                    // Called when rewarded video is closed
+                }
+                @Override
+                public void onRewardedVideoExpired() {
+                    // Called when rewarded video is expired
+                }
             });
 
         }
 
         spinButton.setEnabled(true);
+    }
+
+    private void save() {
+        updateCoins(getTotalPoints());
+
+        playCollectSound();
+
+        Toast.makeText(getApplicationContext(), R.string.you_win, Toast.LENGTH_SHORT).show();
     }
 
     private int generateRandomPoints() {
