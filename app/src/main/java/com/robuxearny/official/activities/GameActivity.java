@@ -13,7 +13,6 @@ import android.os.Vibrator;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.OnUserEarnedRewardListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -22,7 +21,6 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 import com.robuxearny.official.R;
-import com.robuxearny.official.utils.Ads;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -48,10 +46,6 @@ public class GameActivity extends BaseActivity {
         mediaPlayer = MediaPlayer.create(this, R.raw.collect);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         random = new Random();
-    }
-
-    public void showInterstitial(OnUserEarnedRewardListener listener) {
-        Ads.showInterstitial(this, listener);
     }
 
     public void updateCoins(int newCoins) {

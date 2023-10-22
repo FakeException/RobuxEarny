@@ -116,10 +116,6 @@ public class SlotMachineActivity extends GameActivity {
 
             if (Appodeal.canShow(Appodeal.REWARDED_VIDEO)) {
                 Appodeal.show(this, Appodeal.REWARDED_VIDEO);
-            } else {
-                showInterstitial((rewardItem -> {
-                    save();
-                }));
             }
 
             Appodeal.setRewardedVideoCallbacks(new RewardedVideoCallbacks() {

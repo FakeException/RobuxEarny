@@ -15,8 +15,8 @@ android {
         applicationId = "com.robuxearny.official"
         minSdk = 24
         targetSdk = 33
-        versionCode = 25
-        versionName = "2.6"
+        versionCode = 27
+        versionName = "2.7"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         compileSdkPreview = "UpsideDownCake"
@@ -47,13 +47,13 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.lifecycle:lifecycle-common:2.6.2")
     implementation("androidx.lifecycle:lifecycle-process:2.6.2")
-    implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
+    implementation(platform("com.google.firebase:firebase-bom:32.4.0"))
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10")
     implementation("com.google.android.gms:play-services-ads:22.4.0")
     implementation("com.google.android.gms:play-services-auth:20.7.0")
     implementation("com.scottyab:rootbeer-lib:0.1.0")
-    implementation("com.google.guava:guava:32.1.2-jre")
+    implementation("com.google.guava:guava:32.1.3-jre")
     implementation("com.google.firebase:firebase-firestore")
     implementation("com.squareup.okhttp3:okhttp:4.11.0")
     implementation("com.google.code.gson:gson:2.10.1")
@@ -72,4 +72,5 @@ dependencies {
     implementation("com.github.MakeOpinionGmbH:cpx-research-SDK-Android:1.5.9")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation("com.android.volley:volley:1.2.1")
 }

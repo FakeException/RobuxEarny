@@ -191,12 +191,6 @@ public class TicketActivity extends GameActivity {
 
                 if (Appodeal.canShow(Appodeal.REWARDED_VIDEO)) {
                     Appodeal.show(this, Appodeal.REWARDED_VIDEO);
-                } else {
-                    showInterstitial((rewardItem) -> {
-                        save();
-                        Intent slot = new Intent(getApplicationContext(), SlotMachineActivity.class);
-                        startActivity(slot);
-                    });
                 }
 
                 Appodeal.setRewardedVideoCallbacks(new RewardedVideoCallbacks() {
@@ -241,8 +235,6 @@ public class TicketActivity extends GameActivity {
 
                 if (Appodeal.canShow(Appodeal.REWARDED_VIDEO)) {
                     Appodeal.show(this, Appodeal.REWARDED_VIDEO);
-                } else {
-                    showInterstitial((rewardItem) -> save());
                 }
 
                 Appodeal.setRewardedVideoCallbacks(new RewardedVideoCallbacks() {

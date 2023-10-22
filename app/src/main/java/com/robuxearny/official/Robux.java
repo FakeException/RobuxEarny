@@ -23,7 +23,6 @@ import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ProcessLifecycleOwner;
 
-import com.appodeal.ads.Appodeal;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.FullScreenContentCallback;
@@ -34,8 +33,6 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.appcheck.FirebaseAppCheck;
 import com.google.firebase.appcheck.debug.DebugAppCheckProviderFactory;
 import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory;
-import com.makeopinion.cpxresearchlib.CPXResearch;
-import com.robuxearny.official.utils.GoogleMobileAdsConsentManager;
 
 import java.util.Date;
 
@@ -45,7 +42,6 @@ public class Robux extends Application
 
     private AppOpenAdManager appOpenAdManager;
     private Activity currentActivity;
-    private CPXResearch cpxResearch;
 
     @Override
     public void onCreate() {
@@ -54,12 +50,6 @@ public class Robux extends Application
 
         // Initialize Firebase
         FirebaseApp.initializeApp(this);
-
-        Appodeal.setBannerViewId(R.id.appodealBannerView);
-
-        Appodeal.initialize(this, "697e9088ec11bcc717870003a0bf6510f5d203f744b36e9b", Appodeal.BANNER | Appodeal.INTERSTITIAL | Appodeal.REWARDED_VIDEO, errors -> {
-            // Appodeal initialization finished
-        });
 
         boolean isDebug = ((getApplicationInfo().flags &
                 ApplicationInfo.FLAG_DEBUGGABLE) != 0);
@@ -275,9 +265,7 @@ public class Robux extends Application
             if (!isAdAvailable()) {
                 Log.d(LOG_TAG, "The app open ad is not ready yet.");
                 onShowAdCompleteListener.onShowAdComplete();
-                if (GoogleMobileAdsConsentManager.getInstance(activity).canRequestAds()) {
-                    loadAd(currentActivity);
-                }
+                loadAd(currentActivity);
                 return;
             }
 

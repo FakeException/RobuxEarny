@@ -28,7 +28,7 @@ public class CPX {
 
         CPXConfiguration config = new CPXConfigurationBuilder("20130",
                 id,
-                "secrettttttt",
+                "vubKNg9JfCUeAWbvgoEO5NY0PaL0g9qt",
                 style)
                 .build();
 

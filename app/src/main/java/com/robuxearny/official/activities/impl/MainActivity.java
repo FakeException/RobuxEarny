@@ -25,6 +25,7 @@ import androidx.work.ArrayCreatingInputMerger;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
+import com.appodeal.ads.Appodeal;
 import com.google.android.gms.auth.api.identity.Identity;
 import com.google.android.gms.auth.api.identity.SignInClient;
 import com.google.android.gms.auth.api.identity.SignInCredential;
@@ -74,6 +75,12 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
         SplashScreen.installSplashScreen(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
+
+        Appodeal.setBannerViewId(R.id.appodealBannerView);
+
+        Appodeal.initialize(this, "697e9088ec11bcc717870003a0bf6510f5d203f744b36e9b", Appodeal.BANNER | Appodeal.INTERSTITIAL | Appodeal.REWARDED_VIDEO, errors -> {
+            // Appodeal initialization finished
+        });
 
         OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(RootChecker.class).setInputMerger(ArrayCreatingInputMerger.class).build();
         WorkManager.getInstance(this).enqueue(workRequest);
