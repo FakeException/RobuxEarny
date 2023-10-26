@@ -12,8 +12,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -46,7 +48,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.robuxearny.official.R;
-import com.robuxearny.official.Robux;
 import com.robuxearny.official.activities.BaseActivity;
 import com.robuxearny.official.adapters.IntroSliderAdapter;
 import com.robuxearny.official.data.IntroSlide;
@@ -76,14 +77,8 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
 
-        Appodeal.setBannerViewId(R.id.appodealBannerView);
-
-        Appodeal.initialize(this, "697e9088ec11bcc717870003a0bf6510f5d203f744b36e9b", Appodeal.BANNER | Appodeal.INTERSTITIAL | Appodeal.REWARDED_VIDEO, errors -> {
-            // Appodeal initialization finished
-        });
-
-        OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(RootChecker.class).setInputMerger(ArrayCreatingInputMerger.class).build();
-        WorkManager.getInstance(this).enqueue(workRequest);
+        setupUpdateManager();
+        rootChecker();
 
         oneTapClient = Identity.getSignInClient(this);
         mAuth = FirebaseAuth.getInstance();
@@ -128,75 +123,53 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
                 }
         );
 
+        Appodeal.setBannerViewId(R.id.appodealBannerView);
 
-        appUpdateManager = AppUpdateManagerFactory.create(this);
+        Appodeal.initialize(this, "697e9088ec11bcc717870003a0bf6510f5d203f744b36e9b", Appodeal.BANNER | Appodeal.INTERSTITIAL | Appodeal.REWARDED_VIDEO, errors -> {
 
-        Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
+            ProgressBar loadingIndicator = findViewById(R.id.loading_indicator);
+            loadingIndicator.setVisibility(View.GONE);
 
-        updateLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartIntentSenderForResult(),
-                result -> {
-                    // handle callback
-                    if (result.getResultCode() != RESULT_OK) {
-                        Log.d("Update", "Update flow failed! Result code: " + result.getResultCode());
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+            if (currentUser != null) {
+
+                retrieveMoney();
+
+                Intent intent = new Intent(this, MainMenuActivity.class);
+                startActivity(intent);
+                finish();
+
+            } else {
+                ViewPager viewPager = findViewById(R.id.viewPager);
+                indicatorLayout = findViewById(R.id.indicatorLayout);
+
+                List<IntroSlide> introSlides = new ArrayList<>();
+                introSlides.add(new IntroSlide(getString(R.string.welcome), getString(R.string.welcome_desc)));
+                introSlides.add(new IntroSlide(getString(R.string.coinsystem), getString(R.string.coinsystem_desc)));
+                introSlides.add(new IntroSlide(getString(R.string.ready), getString(R.string.ready_desc)));
+
+                introSliderAdapter = new IntroSliderAdapter(this, introSlides, oneTapLauncher, oneTapClient);
+                viewPager.setAdapter(introSliderAdapter);
+
+                setupIndicator(introSlides.size());
+
+                viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                    @Override
+                    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                    }
+
+                    @Override
+                    public void onPageSelected(int position) {
+                        setIndicator(position);
+                    }
+
+                    @Override
+                    public void onPageScrollStateChanged(int state) {
                     }
                 });
-
-        appUpdateInfoTask.addOnSuccessListener(appUpdateInfo -> {
-            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
-                appUpdateManager.startUpdateFlowForResult(
-                        appUpdateInfo,
-                        updateLauncher,
-                        AppUpdateOptions.newBuilder(AppUpdateType.IMMEDIATE)
-                                .setAllowAssetPackDeletion(true)
-                                .build());
             }
         });
-
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        if (currentUser != null) {
-
-            retrieveMoney();
-
-            ((Robux) getApplication())
-                    .showAdIfAvailable(
-                            this,
-                            () -> {
-                                Intent intent = new Intent(this, MainMenuActivity.class);
-                                startActivity(intent);
-                                finish();
-                            });
-
-        } else {
-            ViewPager viewPager = findViewById(R.id.viewPager);
-            indicatorLayout = findViewById(R.id.indicatorLayout);
-
-            List<IntroSlide> introSlides = new ArrayList<>();
-            introSlides.add(new IntroSlide(getString(R.string.welcome), getString(R.string.welcome_desc)));
-            introSlides.add(new IntroSlide(getString(R.string.coinsystem), getString(R.string.coinsystem_desc)));
-            introSlides.add(new IntroSlide(getString(R.string.ready), getString(R.string.ready_desc)));
-
-            introSliderAdapter = new IntroSliderAdapter(this, introSlides, oneTapLauncher, oneTapClient);
-            viewPager.setAdapter(introSliderAdapter);
-
-            setupIndicator(introSlides.size());
-
-            viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                @Override
-                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                }
-
-                @Override
-                public void onPageSelected(int position) {
-                    setIndicator(position);
-                }
-
-                @Override
-                public void onPageScrollStateChanged(int state) {
-                }
-            });
-        }
     }
 
     public void retrieveMoney() {
@@ -276,6 +249,38 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
                 }
             }
         });
+    }
+
+    private void setupUpdateManager() {
+
+        appUpdateManager = AppUpdateManagerFactory.create(this);
+
+        Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
+
+        updateLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartIntentSenderForResult(),
+                result -> {
+                    // handle callback
+                    if (result.getResultCode() != RESULT_OK) {
+                        Log.d("Update", "Update flow failed! Result code: " + result.getResultCode());
+                    }
+                });
+
+        appUpdateInfoTask.addOnSuccessListener(appUpdateInfo -> {
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
+                appUpdateManager.startUpdateFlowForResult(
+                        appUpdateInfo,
+                        updateLauncher,
+                        AppUpdateOptions.newBuilder(AppUpdateType.IMMEDIATE)
+                                .setAllowAssetPackDeletion(true)
+                                .build());
+            }
+        });
+    }
+
+    private void rootChecker() {
+        OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(RootChecker.class).setInputMerger(ArrayCreatingInputMerger.class).build();
+        WorkManager.getInstance(this).enqueue(workRequest);
     }
 
     private void saveReferral(String uid, String code) {

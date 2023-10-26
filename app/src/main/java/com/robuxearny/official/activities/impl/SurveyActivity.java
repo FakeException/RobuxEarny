@@ -57,31 +57,31 @@ public class SurveyActivity extends AppCompatActivity implements CPXResearchList
 
     @Override
     public void onSurveysDidClose() {
-        Log.d("CPXDEMO", "Surveys did close.");
+        Log.d("CPX", "Surveys did close.");
     }
 
     @Override
     public void onSurveysDidOpen() {
-        Log.d("CPXDEMO", "Surveys did open.");
+        Log.d("CPX", "Surveys did open.");
     }
 
     @Override
     public void onSurveysUpdated() {
         List<SurveyItem> surveys = app.getCpxResearch().getSurveys();
-        Log.d("CPXDEMO", "Surveys updated: " + surveys);
+        Log.d("CPX", "Surveys updated: " + surveys);
     }
 
     @Override
-    public void onSurveyDidClose() { Log.d("CPXDEMO", "Single survey closed."); }
+    public void onSurveyDidClose() { Log.d("CPX", "Single survey closed."); }
 
     @Override
-    public void onSurveyDidOpen() { Log.d("CPXDEMO", "Single survey opened."); }
+    public void onSurveyDidOpen() { Log.d("CPX", "Single survey opened."); }
 
     @Override
     public void onTransactionsUpdated(List<TransactionItem> unpaidTransactions) {
-        Log.d("CPXDEMO", String.format("Transactions updated with %d items", unpaidTransactions.size()));
+        Log.d("CPX", String.format("Transactions updated with %d items", unpaidTransactions.size()));
         for (int i = 0; i < unpaidTransactions.size(); i++) {
-            Log.d("CPXDEMO", unpaidTransactions.get(i).getEarningPublisher());
+            Log.d("CPX", unpaidTransactions.get(i).getEarningPublisher());
         }
     }
 }
