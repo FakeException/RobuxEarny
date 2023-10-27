@@ -94,4 +94,5 @@
     <string name="survey_desc">Complete surveys and the coins corresponding to the earned Robux will be added to your Robux Earny account!</string>
     <string name="earn_faster">Earn More</string>
     <string name="current_coins">Current Coins: %d</string>
+    <string name="invalid_link">Please enter a valid link.</string>
 </resources>

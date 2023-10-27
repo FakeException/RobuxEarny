@@ -88,4 +88,5 @@
     <string name="survey_desc">アンケートを完了し、獲得したRobuxに対応するコインがRobux Earnyアカウントに追加されます！</string>
     <string name="earn_faster">もっと稼ぐ</string>
     <string name="current_coins">現在のコイン：%d</string>
+    <string name="invalid_link">有効なリンクを入力してください。</string>
 </resources>

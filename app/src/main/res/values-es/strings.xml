@@ -91,4 +91,5 @@
     <string name="survey_desc">¡Completa encuestas y las monedas correspondientes a los Robux ganados se agregarán a tu cuenta de Robux Earny!</string>
     <string name="earn_faster">Gana Más</string>
     <string name="current_coins">Monedas Actuales: %d</string>
+    <string name="invalid_link">Por favor, ingresa un enlace válido.</string>
 </resources>

@@ -154,6 +154,8 @@ public class SettingsActivity extends BaseActivity {
         builder.setPositiveButton(R.string.submit, (dialog, which) -> {
             String feedbackText = feedbackEditText.getText().toString();
 
+            if (feedbackText.isEmpty()) return;
+
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             if (user != null) {
                 FirebaseFunctions functions = FirebaseFunctions.getInstance();

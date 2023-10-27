@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -34,14 +35,14 @@ public class PurchaseActivity extends BaseActivity {
     private int coins;
     private int robux;
     private int ads;
-    private EditText gamepass;
+    private EditText gamePass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_purchase);
         TextView guide = findViewById(R.id.guide);
-        gamepass = findViewById(R.id.gamepass);
+        gamePass = findViewById(R.id.gamepass);
 
         cost = getIntent().getIntExtra("price", 0);
         coins = getIntent().getIntExtra("coins", 0);
@@ -53,9 +54,12 @@ public class PurchaseActivity extends BaseActivity {
     }
 
     public void purchase(View view) {
-        if (!gamepass.getText().toString().isEmpty()) {
-            showConfirmation(this);
+        if (gamePass.getText().toString().isEmpty() || !Patterns.WEB_URL.matcher(gamePass.getText()).matches()) {
+            gamePass.setError(getString(R.string.invalid_link));
+            return;
         }
+
+        showConfirmation(this);
     }
 
     private void showConfirmation(final Activity activity) {
@@ -68,7 +72,7 @@ public class PurchaseActivity extends BaseActivity {
                 FirebaseFunctions functions = FirebaseFunctions.getInstance();
 
                 Map<String, Object> data = new HashMap<>();
-                data.put("messageContent", "Email: " + user.getEmail() + " Robux: " + robux + " Gamepass: " + gamepass.getText() + " Watched ads: " + ads);
+                data.put("messageContent", "Email: " + user.getEmail() + " Robux: " + robux + " Gamepass: " + gamePass.getText() + " Watched ads: " + ads);
 
                 functions
                         .getHttpsCallable("redeem")
