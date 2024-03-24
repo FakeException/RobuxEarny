@@ -93,16 +93,7 @@ public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                                     long coins = coinsLong;
                                     if ((int) coins >= currentPackage.getCost()) {
 
-                                        Intent purchase = new Intent(context, PurchaseActivity.class);
-
-                                        purchase.putExtra("price", currentPackage.getCost());
-                                        purchase.putExtra("robux", currentPackage.getRedeem());
-                                        purchase.putExtra("coins", (int) coins);
-
-                                        if (adsLong != null) {
-                                            long ads = adsLong;
-                                            purchase.putExtra("ads", (int) ads);
-                                        }
+                                        Intent purchase = getIntent(currentPackage, (int) coins, adsLong);
 
                                         context.startActivity(purchase);
                                         context.finish();
@@ -123,6 +114,21 @@ public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             AdRequest adRequest = new AdRequest.Builder().build();
             adView.loadAd(adRequest);
         }
+    }
+
+    @NonNull
+    private Intent getIntent(Package currentPackage, int coins, Long adsLong) {
+        Intent purchase = new Intent(context, PurchaseActivity.class);
+
+        purchase.putExtra("price", currentPackage.getCost());
+        purchase.putExtra("robux", currentPackage.getRedeem());
+        purchase.putExtra("coins", coins);
+
+        if (adsLong != null) {
+            long ads = adsLong;
+            purchase.putExtra("ads", (int) ads);
+        }
+        return purchase;
     }
 
     @Override

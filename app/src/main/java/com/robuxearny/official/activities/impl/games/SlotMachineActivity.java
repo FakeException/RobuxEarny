@@ -112,8 +112,6 @@ public class SlotMachineActivity extends GameActivity {
 
             updateTotalPointsTextView(totalPointsTextView);
 
-            getPrefsEditor().putInt("coins", getTotalPoints()).apply();
-
             if (Appodeal.canShow(Appodeal.REWARDED_VIDEO)) {
                 Appodeal.show(this, Appodeal.REWARDED_VIDEO);
             }
@@ -159,6 +157,7 @@ public class SlotMachineActivity extends GameActivity {
     }
 
     private void save() {
+        getPrefsEditor().putInt("coins", getTotalPoints()).apply();
         updateCoins(getTotalPoints());
 
         playCollectSound();

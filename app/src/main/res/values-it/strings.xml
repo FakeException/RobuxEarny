@@ -84,4 +84,8 @@
     <string name="earn_faster">Guadagna di più</string>
     <string name="current_coins">Monete Attuali: %d</string>
     <string name="invalid_link">Inserisci un link valido, per favore.</string>
+    <string name="ad_load_fail">Impossibile caricare la pubblicità, premi di nuovo il pulsante.</string>
+    <string name="email_hint">Inserisci la tua email</string>
+    <string name="password_hint">Inserisci la tua password</string>
+    <string name="login_with_google">Accedi con Google</string>
 </resources>

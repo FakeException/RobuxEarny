@@ -95,4 +95,8 @@
     <string name="earn_faster">Earn More</string>
     <string name="current_coins">Current Coins: %d</string>
     <string name="invalid_link">Please enter a valid link.</string>
+    <string name="ad_load_fail">The ad failed to load, please press the button again.</string>
+    <string name="email_hint">Enter your email</string>
+    <string name="password_hint">Enter your password</string>
+    <string name="login_with_google">Login with Google</string>
 </resources>

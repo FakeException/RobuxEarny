@@ -186,6 +186,8 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
             db.collection("users").document(uid).get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
+                    Log.d("Coins", "Document Data: " + document);
+
                     if (document.exists()) {
                         Map<String, Object> data = document.getData();
                         Log.d("Coins", "Document Data: " + data);

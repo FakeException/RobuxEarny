@@ -21,6 +21,7 @@
 #-renamesourcefileattribute SourceFile
 -keep class com.makeopinion.cpxresearchlib.** { *; }
 -dontwarn org.bouncycastle.jsse.BCSSLSocket
+-keep class com.google.android.gms.internal.ads.** { *; }
 -dontwarn org.bouncycastle.jsse.BCSSLParameters
 -dontwarn org.bouncycastle.jsse.provider.BouncyCastleJsseProvider
 -dontwarn org.conscrypt.*

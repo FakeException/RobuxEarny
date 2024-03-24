@@ -92,4 +92,6 @@
     <string name="earn_faster">Gana Más</string>
     <string name="current_coins">Monedas Actuales: %d</string>
     <string name="invalid_link">Por favor, ingresa un enlace válido.</string>
+    <string name="ad_load_fail">El anuncio no se cargó correctamente, por favor presiona el botón de nuevo.</string>
+    <string name="login_with_google">Login With Google</string>
 </resources>

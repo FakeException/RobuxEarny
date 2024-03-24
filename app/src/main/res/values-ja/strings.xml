@@ -89,4 +89,6 @@
     <string name="earn_faster">もっと稼ぐ</string>
     <string name="current_coins">現在のコイン：%d</string>
     <string name="invalid_link">有効なリンクを入力してください。</string>
+    <string name="ad_load_fail">広告の読み込みに失敗しました、ボタンを再度押してください。</string>
+    <string name="login_with_google">Googleでログイン</string>
 </resources>

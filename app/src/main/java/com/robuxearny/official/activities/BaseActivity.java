@@ -17,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.appodeal.ads.Appodeal;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.robuxearny.official.network.NetworkChangeReceiver;
 
 public class BaseActivity extends AppCompatActivity {
     private BroadcastReceiver networkReceiver;
@@ -29,7 +28,7 @@ public class BaseActivity extends AppCompatActivity {
         Appodeal.show(this, Appodeal.BANNER_VIEW);
 
         this.preferences = getSharedPreferences("RobuxEarny", Context.MODE_PRIVATE);
-        this.networkReceiver = new NetworkChangeReceiver(this);
+       // this.networkReceiver = new NetworkChangeReceiver(this);
     }
 
     public void setupBanners(AdView... ads) {
@@ -42,13 +41,13 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        registerNetworkReceiver();
+        //registerNetworkReceiver();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        unregisterNetworkReceiver();
+        //unregisterNetworkReceiver();
     }
 
     private void registerNetworkReceiver() {

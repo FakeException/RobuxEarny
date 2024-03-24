@@ -89,5 +89,7 @@
     <string name="earn_faster">Ganhe Mais</string>
     <string name="current_coins">Moedas Atuais: %d</string>
     <string name="invalid_link">Por favor, insira um link válido.</string>
+    <string name="ad_load_fail">A propaganda não conseguiu carregar, por favor pressione o botão novamente.</string>
+    <string name="login_with_google">Login With Google</string>
 </resources>
 

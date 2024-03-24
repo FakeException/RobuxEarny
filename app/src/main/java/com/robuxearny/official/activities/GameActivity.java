@@ -49,6 +49,7 @@ public class GameActivity extends BaseActivity {
     }
 
     public void updateCoins(int newCoins) {
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference userRef = db.collection("users").document(uid);
 
