@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.appodeal.ads.Appodeal;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.robuxearny.official.R;
 import com.robuxearny.official.activities.BaseActivity;
@@ -25,7 +26,10 @@ public class ReferralActivity extends BaseActivity {
         MaterialToolbar tbToolBar = findViewById(R.id.referral_tb_toolbar);
         tbToolBar.setNavigationOnClickListener(v -> finish());
 
-        setupBanners(findViewById(R.id.adView), findViewById(R.id.adView2), findViewById(R.id.adView3));
+        Appodeal.show(this, Appodeal.BANNER_BOTTOM);
+        Appodeal.show(this, Appodeal.BANNER_TOP);
+        Appodeal.show(this, Appodeal.BANNER_LEFT);
+        Appodeal.show(this, Appodeal.BANNER_RIGHT);
 
         TextView codeView = findViewById(R.id.referralCodeTextView);
 

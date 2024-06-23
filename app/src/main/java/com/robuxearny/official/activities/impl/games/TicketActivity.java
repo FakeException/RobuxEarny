@@ -73,7 +73,10 @@ public class TicketActivity extends GameActivity {
         blockButtons.add(findViewById(R.id.block8));
         blockButtons.add(findViewById(R.id.block9));
 
-        setupBanners(findViewById(R.id.adView), findViewById(R.id.adView2), findViewById(R.id.adView3), findViewById(R.id.adView4));
+        Appodeal.show(this, Appodeal.BANNER_BOTTOM);
+        Appodeal.show(this, Appodeal.BANNER_TOP);
+        Appodeal.show(this, Appodeal.BANNER_LEFT);
+        Appodeal.show(this, Appodeal.BANNER_RIGHT);
 
         this.scratchedBlocks = new HashSet<>();
 

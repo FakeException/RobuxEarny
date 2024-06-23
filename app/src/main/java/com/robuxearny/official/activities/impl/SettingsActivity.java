@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.appodeal.ads.Appodeal;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
@@ -44,7 +45,8 @@ public class SettingsActivity extends BaseActivity {
         MaterialToolbar tbToolBar = findViewById(R.id.settings_tb_toolbar);
         tbToolBar.setNavigationOnClickListener(v -> finish());
 
-        setupBanners(findViewById(R.id.adView), findViewById(R.id.adView2));
+        Appodeal.show(this, Appodeal.BANNER_BOTTOM);
+        Appodeal.show(this, Appodeal.BANNER_TOP);
     }
 
     public void deleteAccount(View view) {

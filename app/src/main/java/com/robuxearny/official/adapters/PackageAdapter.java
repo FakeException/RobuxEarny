@@ -19,8 +19,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -54,10 +52,6 @@ public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             View itemView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.package_card, parent, false);
             return new PackageViewHolder(itemView);
-        } else if (viewType == VIEW_TYPE_AD_BANNER) {
-            View itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.ad_view, parent, false);
-            return new AdBannerViewHolder(itemView);
         }
 
         throw new IllegalArgumentException("Invalid view type");
@@ -107,12 +101,6 @@ public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 }
 
             });
-        } else if (viewType == VIEW_TYPE_AD_BANNER) {
-            AdBannerViewHolder adBannerViewHolder = (AdBannerViewHolder) holder;
-
-            AdView adView = adBannerViewHolder.adView;
-            AdRequest adRequest = new AdRequest.Builder().build();
-            adView.loadAd(adRequest);
         }
     }
 
@@ -164,15 +152,6 @@ public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             redeemRobuxTextView = itemView.findViewById(R.id.redeem_amount);
             redeemButton = itemView.findViewById(R.id.redeemButton);
             icon = itemView.findViewById(R.id.robux_image);
-        }
-    }
-
-    static class AdBannerViewHolder extends RecyclerView.ViewHolder {
-        AdView adView;
-
-        AdBannerViewHolder(@NonNull View itemView) {
-            super(itemView);
-            adView = itemView.findViewById(R.id.adView);
         }
     }
 }

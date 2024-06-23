@@ -6,7 +6,6 @@
 
 package com.robuxearny.official.activities.impl;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,7 +15,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.IntentSenderRequest;
@@ -28,10 +26,6 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 import com.appodeal.ads.Appodeal;
-import com.google.android.gms.auth.api.identity.Identity;
-import com.google.android.gms.auth.api.identity.SignInClient;
-import com.google.android.gms.auth.api.identity.SignInCredential;
-import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.android.play.core.appupdate.AppUpdateInfo;
 import com.google.android.play.core.appupdate.AppUpdateManager;
@@ -39,13 +33,9 @@ import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
 import com.google.android.play.core.appupdate.AppUpdateOptions;
 import com.google.android.play.core.install.model.AppUpdateType;
 import com.google.android.play.core.install.model.UpdateAvailability;
-import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.robuxearny.official.R;
 import com.robuxearny.official.activities.BaseActivity;
@@ -53,19 +43,16 @@ import com.robuxearny.official.adapters.IntroSliderAdapter;
 import com.robuxearny.official.data.IntroSlide;
 import com.robuxearny.official.listeners.ActivityFinishListener;
 import com.robuxearny.official.utils.Dialogs;
-import com.robuxearny.official.utils.ReferralCodeGenerator;
 import com.robuxearny.official.utils.RootChecker;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends BaseActivity implements ActivityFinishListener {
 
     private LinearLayout indicatorLayout;
-    private SignInClient oneTapClient;
-    private FirebaseAuth mAuth;
+
     private IntroSliderAdapter introSliderAdapter;
     private ActivityResultLauncher<IntentSenderRequest> updateLauncher;
     private AppUpdateManager appUpdateManager;
@@ -80,55 +67,13 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
         setupUpdateManager();
         rootChecker();
 
-        oneTapClient = Identity.getSignInClient(this);
-        mAuth = FirebaseAuth.getInstance();
-
-        ActivityResultLauncher<IntentSenderRequest> oneTapLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartIntentSenderForResult(),
-                result -> {
-                    if (result.getResultCode() == Activity.RESULT_OK) {
-                        try {
-                            SignInCredential credential = oneTapClient.getSignInCredentialFromIntent(result.getData());
-                            String idToken = credential.getGoogleIdToken();
-                            if (idToken != null) {
-                                AuthCredential authCredential = GoogleAuthProvider.getCredential(credential.getGoogleIdToken(), null);
-
-                                mAuth.signInWithCredential(authCredential)
-                                        .addOnCompleteListener(this, task -> {
-                                            if (task.isSuccessful()) {
-                                                if (mAuth.getCurrentUser() != null) {
-                                                    FirebaseUser user = mAuth.getCurrentUser();
-                                                    Toast.makeText(this, R.string.login_success, Toast.LENGTH_SHORT).show();
-
-                                                    if (!introSliderAdapter.getRefCode().isEmpty()) {
-                                                        saveData(user.getUid(), 100);
-                                                    } else {
-                                                        saveData(user.getUid(), 0);
-                                                    }
-
-                                                    Intent intent = new Intent(this, MainMenuActivity.class);
-                                                    startActivity(intent);
-                                                    finish();
-                                                }
-
-                                            } else {
-                                                Toast.makeText(this, R.string.login_error, Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
-                            }
-                        } catch (ApiException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-        );
-
-        Appodeal.setBannerViewId(R.id.appodealBannerView);
-
         Appodeal.initialize(this, "697e9088ec11bcc717870003a0bf6510f5d203f744b36e9b", Appodeal.BANNER | Appodeal.INTERSTITIAL | Appodeal.REWARDED_VIDEO, errors -> {
 
             ProgressBar loadingIndicator = findViewById(R.id.loading_indicator);
             loadingIndicator.setVisibility(View.GONE);
+
+            Appodeal.show(this, Appodeal.BANNER_BOTTOM); // Display banner at the bottom of the screen
+            Appodeal.show(this, Appodeal.BANNER_TOP);    // Display banner at the top of the screen
 
             FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -149,7 +94,7 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
                 introSlides.add(new IntroSlide(getString(R.string.coinsystem), getString(R.string.coinsystem_desc)));
                 introSlides.add(new IntroSlide(getString(R.string.ready), getString(R.string.ready_desc)));
 
-                introSliderAdapter = new IntroSliderAdapter(this, introSlides, oneTapLauncher, oneTapClient);
+                introSliderAdapter = new IntroSliderAdapter(this, introSlides);
                 viewPager.setAdapter(introSliderAdapter);
 
                 setupIndicator(introSlides.size());
@@ -203,56 +148,6 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
         }
     }
 
-    private void saveData(String uid, int coinAmount) {
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference userDocRef = db.collection("users").document(uid);
-
-        SharedPreferences.Editor editor = getPrefsEditor();
-
-        userDocRef.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                DocumentSnapshot document = task.getResult();
-                if (!document.exists()) {
-                    Map<String, Object> userMap = new HashMap<>();
-                    String referral = ReferralCodeGenerator.generateReferralCode();
-                    userMap.put("uid", uid);
-                    userMap.put("coins", coinAmount);
-                    userMap.put("referral", referral);
-                    userMap.put("ads", 0);
-
-                    editor.putString("referralCode", referral);
-                    editor.apply();
-
-                    userDocRef.set(userMap)
-                            .addOnSuccessListener(aVoid -> {
-                                Log.d("Firestore", "User data saved successfully.");
-                                saveReferral(uid, referral);
-
-                                if (!introSliderAdapter.getRefCode().isEmpty()) {
-                                    if (!introSliderAdapter.getReferrer().equals(uid)) {
-                                        updateCoins(introSliderAdapter.getReferrer(), 200);
-                                    }
-                                }
-
-                            })
-                            .addOnFailureListener(e -> Log.e("Firestore", "Error saving user data: " + e.getMessage()));
-                } else {
-
-                    editor.putString("referralCode", document.getString("referral"));
-
-                    Long coinsLong = document.getLong("coins");
-                    if (coinsLong != null) {
-                        long coins = coinsLong;
-                        editor.putInt("coins", (int) coins);
-                    }
-
-                    editor.apply();
-                }
-            }
-        });
-    }
-
     private void setupUpdateManager() {
 
         appUpdateManager = AppUpdateManagerFactory.create(this);
@@ -285,25 +180,7 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
         WorkManager.getInstance(this).enqueue(workRequest);
     }
 
-    private void saveReferral(String uid, String code) {
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference codeDocRef = db.collection("referralCodes").document(code);
-
-        codeDocRef.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                DocumentSnapshot document = task.getResult();
-                if (!document.exists()) {
-                    Map<String, Object> userMap = new HashMap<>();
-                    userMap.put("uid", uid);
-
-                    codeDocRef.set(userMap)
-                            .addOnSuccessListener(aVoid -> Log.d("Firestore", "User data saved successfully."))
-                            .addOnFailureListener(e -> Log.e("Firestore", "Error saving user data: " + e.getMessage()));
-                }
-            }
-        });
-    }
 
     private void setupIndicator(int count) {
         ImageView[] indicators = new ImageView[count];
@@ -335,25 +212,6 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
                 indicator.setImageResource(R.drawable.indicator_inactive);
             }
         }
-    }
-
-    public void updateCoins(String uid, int newCoins) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference userRef = db.collection("users").document(uid);
-
-        userRef.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                DocumentSnapshot document = task.getResult();
-                if (document.exists()) {
-
-                    userRef.update("coins", FieldValue.increment(newCoins))
-                            .addOnSuccessListener(obj -> Log.d("Coins", "Coins updated"))
-                            .addOnFailureListener(exc -> Log.d("Coins", exc.getMessage()));
-                }
-            }
-
-        });
-
     }
 
     @Override

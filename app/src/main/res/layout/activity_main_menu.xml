@@ -12,11 +12,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.appodeal.ads.BannerView
-            android:id="@+id/appodealBannerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -123,14 +118,6 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <com.google.android.gms.ads.AdView
-            android:id="@+id/adView"
-            app:adSize="BANNER"
-            app:adUnitId="ca-app-pub-6202710455352099/6361829689"
-            android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/redeem_robux"
             style="@style/Widget.Material3.Button.TextButton.Icon"
@@ -174,22 +161,6 @@
             android:text="@string/settings"
             app:icon="@drawable/ic_settings"
             app:iconPadding="15dp" />
-
-        <com.google.android.gms.ads.AdView
-            android:id="@+id/adView2"
-            app:adSize="BANNER"
-            app:adUnitId="ca-app-pub-6202710455352099/6361829689"
-            android:layout_width="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_height="wrap_content" />
-
-        <com.google.android.gms.ads.AdView
-            android:id="@+id/adView3"
-            app:adSize="BANNER"
-            app:adUnitId="ca-app-pub-6202710455352099/6361829689"
-            android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

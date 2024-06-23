@@ -20,6 +20,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.content.ContextCompat;
 
+import com.appodeal.ads.Appodeal;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -38,7 +39,10 @@ public class MainMenuActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
-        setupBanners(findViewById(R.id.adView), findViewById(R.id.adView2), findViewById(R.id.adView3));
+        Appodeal.show(this, Appodeal.BANNER_BOTTOM);
+        Appodeal.show(this, Appodeal.BANNER_TOP);
+        Appodeal.show(this, Appodeal.BANNER_LEFT);
+        Appodeal.show(this, Appodeal.BANNER_RIGHT);
 
         ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), result -> {
             if (result) {

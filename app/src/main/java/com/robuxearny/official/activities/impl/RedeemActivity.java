@@ -18,6 +18,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.appodeal.ads.Appodeal;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.robuxearny.official.R;
 import com.robuxearny.official.activities.BaseActivity;
@@ -40,6 +41,11 @@ public class RedeemActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_redeem);
+
+        Appodeal.show(this, Appodeal.BANNER_BOTTOM);
+        Appodeal.show(this, Appodeal.BANNER_TOP);
+        Appodeal.show(this, Appodeal.BANNER_LEFT);
+        Appodeal.show(this, Appodeal.BANNER_RIGHT);
 
         List<Object> packagesList = new ArrayList<>();
         int coins = getPreferences().getInt("coins", 0);

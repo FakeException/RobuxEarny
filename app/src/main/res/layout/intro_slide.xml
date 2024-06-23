@@ -29,14 +29,6 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-
-        <com.google.android.gms.ads.AdView
-            android:id="@+id/adView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            ads:adSize="BANNER"
-            ads:adUnitId="ca-app-pub-6202710455352099/6361829689" />
-
         <com.google.android.material.card.MaterialCardView
             style="@style/Widget.Material3.CardView.Elevated"
             android:layout_width="match_parent"
@@ -76,11 +68,5 @@
             android:textSize="20sp"
             android:visibility="invisible" />
 
-        <com.google.android.gms.ads.AdView
-            android:id="@+id/adView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            ads:adSize="BANNER"
-            ads:adUnitId="ca-app-pub-6202710455352099/6361829689" />
     </LinearLayout>
 </RelativeLayout>

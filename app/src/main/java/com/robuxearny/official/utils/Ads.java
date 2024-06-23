@@ -40,7 +40,6 @@ public class Ads {
     }
 
     public static void showRewardedVideoActivity(Activity activity, Class<?> open) {
-        System.out.println("Niggers");
         if (rewardedAd == null) {
             loadRewardedAd(activity);
             Intent act = new Intent(activity, open);

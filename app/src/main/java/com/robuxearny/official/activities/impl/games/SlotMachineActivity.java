@@ -43,7 +43,10 @@ public class SlotMachineActivity extends GameActivity {
         setTotalPoints(points);
         totalPointsTextView.setText(getString(R.string.total_points, points));
 
-        setupBanners(findViewById(R.id.adView), findViewById(R.id.adView2), findViewById(R.id.adView3), findViewById(R.id.adView4));
+        Appodeal.show(this, Appodeal.BANNER_BOTTOM);
+        Appodeal.show(this, Appodeal.BANNER_TOP);
+        Appodeal.show(this, Appodeal.BANNER_LEFT);
+        Appodeal.show(this, Appodeal.BANNER_RIGHT);
 
         // Initialize the slot machine and views
         slotMachine = new SlotMachine(this);
@@ -116,6 +119,8 @@ public class SlotMachineActivity extends GameActivity {
                 Appodeal.show(this, Appodeal.REWARDED_VIDEO);
             }
 
+            save();
+
             Appodeal.setRewardedVideoCallbacks(new RewardedVideoCallbacks() {
                 @Override
                 public void onRewardedVideoLoaded(boolean isPrecache) {
@@ -139,7 +144,7 @@ public class SlotMachineActivity extends GameActivity {
                 }
                 @Override
                 public void onRewardedVideoFinished(double amount, String name) {
-                    save();
+
                 }
                 @Override
                 public void onRewardedVideoClosed(boolean finished) {

@@ -20,25 +20,6 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <com.appodeal.ads.BannerView
-        android:id="@+id/appodealBannerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-6202710455352099/6361829689" />
-
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-6202710455352099/6361829689" />
-
     <TextView
         android:id="@+id/winningNumbersTextView"
         android:layout_width="wrap_content"
@@ -179,20 +160,5 @@
         android:layout_height="wrap_content"
         android:text="@string/new_ticket"
         android:textSize="20sp" />
-
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-6202710455352099/6361829689" />
-
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-6202710455352099/6361829689" />
-
 
 </LinearLayout>
