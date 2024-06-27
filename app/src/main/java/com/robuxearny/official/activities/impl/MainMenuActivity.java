@@ -41,8 +41,6 @@ public class MainMenuActivity extends BaseActivity {
 
         Appodeal.show(this, Appodeal.BANNER_BOTTOM);
         Appodeal.show(this, Appodeal.BANNER_TOP);
-        Appodeal.show(this, Appodeal.BANNER_LEFT);
-        Appodeal.show(this, Appodeal.BANNER_RIGHT);
 
         ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), result -> {
             if (result) {

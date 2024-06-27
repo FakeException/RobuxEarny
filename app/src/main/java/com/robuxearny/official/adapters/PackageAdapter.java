@@ -25,7 +25,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.robuxearny.official.R;
 import com.robuxearny.official.activities.impl.PurchaseActivity;
-import com.robuxearny.official.data.AdBanner;
 import com.robuxearny.official.data.Package;
 
 import java.util.List;
@@ -33,7 +32,6 @@ import java.util.List;
 public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int VIEW_TYPE_PACKAGE = 1;
-    private static final int VIEW_TYPE_AD_BANNER = 2;
 
     private final Activity context;
     private final List<Object> items;
@@ -124,8 +122,6 @@ public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         Object item = items.get(position);
         if (item instanceof Package) {
             return VIEW_TYPE_PACKAGE;
-        } else if (item instanceof AdBanner) {
-            return VIEW_TYPE_AD_BANNER;
         }
 
         throw new IllegalArgumentException("Invalid item type");

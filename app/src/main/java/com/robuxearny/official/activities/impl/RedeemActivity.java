@@ -23,7 +23,6 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.robuxearny.official.R;
 import com.robuxearny.official.activities.BaseActivity;
 import com.robuxearny.official.adapters.PackageAdapter;
-import com.robuxearny.official.data.AdBanner;
 import com.robuxearny.official.data.Package;
 
 import org.json.JSONArray;
@@ -81,7 +80,6 @@ public class RedeemActivity extends BaseActivity {
 
                     int resID = getResources().getIdentifier(image, "drawable", getPackageName());
 
-                    packagesList.add(new AdBanner());
                     packagesList.add(new Package(name, price, quantity, resID));
 
                 }

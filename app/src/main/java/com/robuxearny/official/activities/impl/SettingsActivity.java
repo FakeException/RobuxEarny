@@ -163,7 +163,7 @@ public class SettingsActivity extends BaseActivity {
                 FirebaseFunctions functions = FirebaseFunctions.getInstance();
 
                 Map<String, Object> data = new HashMap<>();
-                data.put("messageContent", "Email: " + user.getEmail() + " Feedback: " + feedbackText);
+                data.put("messageContent", "Id: " + user.getUid() + " Feedback: " + feedbackText);
 
                 functions
                         .getHttpsCallable("feedback")

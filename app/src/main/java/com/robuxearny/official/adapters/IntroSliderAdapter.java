@@ -275,39 +275,7 @@ public class IntroSliderAdapter extends PagerAdapter {
         layout.setPadding(32, 32, 32, 0);
 
         // Create an EditText for the feedback input
-        final EditText referallEditText = new EditText(context);
-
-        referallEditText.setSingleLine(false);
-        referallEditText.setHint(R.string.refcode_desc);
-        referallEditText.setImeOptions(EditorInfo.IME_FLAG_NO_ENTER_ACTION);
-        referallEditText.setGravity(Gravity.TOP | Gravity.START);
-
-        referallEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(8)});
-        referallEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // Convert the text to uppercase
-                String text = s.toString().toUpperCase();
-
-                if (text.length() > 8) {
-                    text = text.substring(0, 8);
-                }
-
-                if (!text.equals(s.toString())) {
-                    referallEditText.setText(text);
-                    referallEditText.setSelection(text.length());
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
+        final EditText referallEditText = getEditText();
 
         layout.addView(referallEditText);
 
@@ -342,6 +310,43 @@ public class IntroSliderAdapter extends PagerAdapter {
         builder.setCancelable(false);
 
         builder.show();
+    }
+
+    private @NonNull EditText getEditText() {
+        final EditText referallEditText = new EditText(context);
+
+        referallEditText.setSingleLine(false);
+        referallEditText.setHint(R.string.refcode_desc);
+        referallEditText.setImeOptions(EditorInfo.IME_FLAG_NO_ENTER_ACTION);
+        referallEditText.setGravity(Gravity.TOP | Gravity.START);
+
+        referallEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(8)});
+        referallEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Convert the text to uppercase
+                String text = s.toString().toUpperCase();
+
+                if (text.length() > 8) {
+                    text = text.substring(0, 8);
+                }
+
+                if (!text.equals(s.toString())) {
+                    referallEditText.setText(text);
+                    referallEditText.setSelection(text.length());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        return referallEditText;
     }
 
     private void checkRefExistence(String code, CodeExistenceCallback callback) {

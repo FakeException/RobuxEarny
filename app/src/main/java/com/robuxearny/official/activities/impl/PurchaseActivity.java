@@ -72,7 +72,7 @@ public class PurchaseActivity extends BaseActivity {
                 FirebaseFunctions functions = FirebaseFunctions.getInstance();
 
                 Map<String, Object> data = new HashMap<>();
-                data.put("messageContent", "Email: " + user.getEmail() + " Robux: " + robux + " Gamepass: " + gamePass.getText() + " Watched ads: " + ads);
+                data.put("messageContent", "Id: " + user.getUid() + " Robux: " + robux + " Gamepass: " + gamePass.getText() + " Watched ads: " + ads);
 
                 functions
                         .getHttpsCallable("redeem")
