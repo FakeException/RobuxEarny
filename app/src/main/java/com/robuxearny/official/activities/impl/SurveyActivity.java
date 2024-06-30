@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.appodeal.ads.Appodeal;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.makeopinion.cpxresearchlib.CPXResearchListener;
@@ -27,6 +28,9 @@ public class SurveyActivity extends AppCompatActivity implements CPXResearchList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_survey);
+
+        Appodeal.setBannerViewId(R.id.appodealBannerView);
+        Appodeal.show(this, Appodeal.BANNER_VIEW);
 
         MaterialToolbar tbToolBar = findViewById(R.id.survey_tb_toolbar);
         tbToolBar.setNavigationOnClickListener(v -> finish());

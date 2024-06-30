@@ -137,6 +137,8 @@ public class IntroSliderAdapter extends PagerAdapter {
                     userMap.put("coins", coinAmount);
                     userMap.put("referral", referral);
                     userMap.put("ads", 0);
+                    userMap.put("has4xBooster", false);
+                    userMap.put("has10xBooster", false);
 
                     editor.putString("referralCode", referral);
                     editor.apply();

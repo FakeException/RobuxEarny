@@ -6,6 +6,11 @@
     android:orientation="vertical"
     tools:context=".activities.impl.RedeemActivity">
 
+    <com.appodeal.ads.BannerView
+        android:id="@+id/appodealBannerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -29,7 +34,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
             <!-- Loading Indicator -->
             <ProgressBar
                 android:id="@+id/loading_indicator"

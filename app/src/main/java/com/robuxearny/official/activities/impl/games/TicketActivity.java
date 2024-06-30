@@ -52,6 +52,9 @@ public class TicketActivity extends GameActivity {
             finish();
         });
 
+        // Check for boosters
+
+
         int coins = getPreferences().getInt("coins", 0);
         setTotalPoints(coins);
 
@@ -73,10 +76,8 @@ public class TicketActivity extends GameActivity {
         blockButtons.add(findViewById(R.id.block8));
         blockButtons.add(findViewById(R.id.block9));
 
-        Appodeal.show(this, Appodeal.BANNER_BOTTOM);
-        Appodeal.show(this, Appodeal.BANNER_TOP);
-        Appodeal.show(this, Appodeal.BANNER_LEFT);
-        Appodeal.show(this, Appodeal.BANNER_RIGHT);
+        Appodeal.setBannerViewId(R.id.appodealBannerView);
+        Appodeal.show(this, Appodeal.BANNER_VIEW);
 
         this.scratchedBlocks = new HashSet<>();
 
@@ -150,7 +151,19 @@ public class TicketActivity extends GameActivity {
     }
 
     private int generateRandomPoints() {
-        return getRandom().nextInt(6) + 2;
+        int basePoints = getRandom().nextInt(6) + 2;
+
+        if (isHas10xBooster() && isHas4xBooster()) {
+            return basePoints * 14;
+        } else {
+            if (isHas4xBooster()) {
+                return basePoints * 4;
+            } else if (isHas10xBooster()) {
+                return basePoints * 10;
+            } else {
+                return basePoints;
+            }
+        }
     }
 
     private void updateWinningNumbersTextView() {

@@ -43,10 +43,8 @@ public class SlotMachineActivity extends GameActivity {
         setTotalPoints(points);
         totalPointsTextView.setText(getString(R.string.total_points, points));
 
-        Appodeal.show(this, Appodeal.BANNER_BOTTOM);
-        Appodeal.show(this, Appodeal.BANNER_TOP);
-        Appodeal.show(this, Appodeal.BANNER_LEFT);
-        Appodeal.show(this, Appodeal.BANNER_RIGHT);
+        Appodeal.setBannerViewId(R.id.appodealBannerView);
+        Appodeal.show(this, Appodeal.BANNER_VIEW);
 
         // Initialize the slot machine and views
         slotMachine = new SlotMachine(this);
@@ -78,7 +76,7 @@ public class SlotMachineActivity extends GameActivity {
 
         // Start spinning the reels
         final Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
+        timer.schedule(new TimerTask() {
             private int spinCount = 0;
 
             @Override
@@ -171,6 +169,18 @@ public class SlotMachineActivity extends GameActivity {
     }
 
     private int generateRandomPoints() {
-        return getRandom().nextInt(21) + 20;
+        int basePoints = getRandom().nextInt(21) + 20;
+
+        if (isHas10xBooster() && isHas4xBooster()) {
+            return basePoints * 14;
+        } else {
+            if (isHas4xBooster()) {
+                return basePoints * 4;
+            } else if (isHas10xBooster()) {
+                return basePoints * 10;
+            } else {
+                return basePoints;
+            }
+        }
     }
 }

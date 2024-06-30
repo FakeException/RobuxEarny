@@ -161,4 +161,9 @@
         android:text="@string/new_ticket"
         android:textSize="20sp" />
 
+    <com.appodeal.ads.BannerView
+        android:id="@+id/appodealBannerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>

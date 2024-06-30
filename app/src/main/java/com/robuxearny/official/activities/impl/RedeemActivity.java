@@ -1,9 +1,3 @@
-/*
- * Created by FakeException on 8/11/23, 2:29 PM
- * Copyright (c) 2023. All rights reserved.
- * Last modified 8/11/23, 1:27 AM
- */
-
 package com.robuxearny.official.activities.impl;
 
 import android.os.Bundle;
@@ -24,27 +18,39 @@ import com.robuxearny.official.R;
 import com.robuxearny.official.activities.BaseActivity;
 import com.robuxearny.official.adapters.PackageAdapter;
 import com.robuxearny.official.data.Package;
+import com.robuxearny.official.decorators.SpacesItemDecoration;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class RedeemActivity extends BaseActivity {
 
     private static final String JSON_URL = "https://robuxrush.com/packages.json";
+    private static final Map<String, Integer> drawableMap = new HashMap<>();
+
+    static {
+        drawableMap.put("robux", R.drawable.robux);
+        drawableMap.put("robux2", R.drawable.robux2);
+        drawableMap.put("robux3", R.drawable.robux3);
+        drawableMap.put("robux4", R.drawable.robux4);
+        drawableMap.put("robux5", R.drawable.robux5);
+        drawableMap.put("robux6", R.drawable.robux6);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_redeem);
 
-        Appodeal.show(this, Appodeal.BANNER_BOTTOM);
-        Appodeal.show(this, Appodeal.BANNER_TOP);
-        Appodeal.show(this, Appodeal.BANNER_LEFT);
-        Appodeal.show(this, Appodeal.BANNER_RIGHT);
+        Appodeal.setBannerViewId(R.id.appodealBannerView);
+        Appodeal.show(this, Appodeal.BANNER_VIEW);
 
         List<Object> packagesList = new ArrayList<>();
         int coins = getPreferences().getInt("coins", 0);
@@ -54,22 +60,21 @@ public class RedeemActivity extends BaseActivity {
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.addItemDecoration(new SpacesItemDecoration(50));
 
         PackageAdapter adapter = new PackageAdapter(this, packagesList, coins);
         recyclerView.setAdapter(adapter);
 
-        // Get references to loading indicator and RecyclerView
         ProgressBar loadingIndicator = findViewById(R.id.loading_indicator);
         recyclerView.setVisibility(View.GONE);
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
-        // Create a JSON request to fetch the packages
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET, JSON_URL, null, response -> {
             try {
                 JSONArray packages = response.getJSONArray("packages");
-                int startPosition = packagesList.size(); // Get the current size
+                int startPosition = packagesList.size();
 
                 for (int i = 0; i < packages.length(); i++) {
                     JSONObject packageObj = packages.getJSONObject(i);
@@ -78,10 +83,13 @@ public class RedeemActivity extends BaseActivity {
                     int quantity = packageObj.getInt("quantity");
                     String image = packageObj.getString("imageResource");
 
-                    int resID = getResources().getIdentifier(image, "drawable", getPackageName());
+                    int resID = Objects.requireNonNull(drawableMap.getOrDefault(image, 0)); // Unbox safely
 
-                    packagesList.add(new Package(name, price, quantity, resID));
-
+                    if (resID != 0) {
+                        packagesList.add(new Package(name, price, quantity, resID));
+                    } else {
+                        Log.e("RedeemActivity", "Resource not found for image: " + image);
+                    }
                 }
 
                 adapter.notifyItemRangeInserted(startPosition, packagesList.size() - startPosition);
@@ -89,15 +97,11 @@ public class RedeemActivity extends BaseActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             } finally {
-                // Hide the loading indicator and show the RecyclerView
                 loadingIndicator.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.VISIBLE);
             }
         }, error -> Log.e("Volley Error", error.toString()));
 
-        // Add the request to the queue
         requestQueue.add(jsonObjectRequest);
     }
-
-
 }

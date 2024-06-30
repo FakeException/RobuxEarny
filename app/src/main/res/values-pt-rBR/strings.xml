@@ -91,4 +91,7 @@
     <string name="invalid_link">Por favor, insira um link válido.</string>
     <string name="ad_load_fail">O anúncio não conseguiu carregar, por favor pressione o botão novamente.</string>
     <string name="login_with_google">Login With Google</string>
+    <string name="boosters">Boosters</string>
+    <string name="buy">Comprar</string>
+    <string name="price2">Preço: %s</string>
 </resources>

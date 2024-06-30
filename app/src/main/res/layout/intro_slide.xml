@@ -5,6 +5,11 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
+    <com.appodeal.ads.BannerView
+        android:id="@+id/appodealBannerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <LinearLayout
         android:id="@+id/appNameBar"
         android:layout_width="match_parent"

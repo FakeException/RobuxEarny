@@ -23,30 +23,56 @@ import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ProcessLifecycleOwner;
 
+import com.android.billingclient.api.AcknowledgePurchaseParams;
+import com.android.billingclient.api.BillingClient;
+import com.android.billingclient.api.BillingClientStateListener;
+import com.android.billingclient.api.BillingResult;
+import com.android.billingclient.api.PendingPurchasesParams;
+import com.android.billingclient.api.ProductDetails;
+import com.android.billingclient.api.Purchase;
+import com.android.billingclient.api.PurchasesUpdatedListener;
+import com.android.billingclient.api.QueryProductDetailsParams;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.appopen.AppOpenAd;
 import com.google.android.gms.ads.appopen.AppOpenAd.AppOpenAdLoadCallback;
+import com.google.common.collect.ImmutableList;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.appcheck.FirebaseAppCheck;
 import com.google.firebase.appcheck.debug.DebugAppCheckProviderFactory;
 import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.robuxearny.official.utils.BoosterUtils;
 
 import java.util.Date;
+import java.util.List;
 
-/** Application class that initializes, loads and show ads when activities change states. */
+/**
+ * Application class that initializes, loads and show ads when activities change states.
+ */
 public class Robux extends Application
         implements ActivityLifecycleCallbacks, DefaultLifecycleObserver {
 
     private AppOpenAdManager appOpenAdManager;
     private Activity currentActivity;
 
+    private BillingClient billingClient;
+
+    private static Robux instance;
+
+    private List<ProductDetails> productDetailsList;
+
     @Override
     public void onCreate() {
         super.onCreate();
+        instance = this;
+
+
         this.registerActivityLifecycleCallbacks(this);
+
 
         // Initialize Firebase
         FirebaseApp.initializeApp(this);
@@ -68,6 +94,99 @@ public class Robux extends Application
         appOpenAdManager = new AppOpenAdManager();
 
         createNotificationChannel();
+
+        final PurchasesUpdatedListener purchasesUpdatedListener = (billingResult, purchases) -> {
+            if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK && purchases != null) {
+                for (Purchase purchase : purchases) {
+
+                    Log.d("Purchase", "Response is OK");
+                    handlePurchase(purchase);
+                }
+            } else {
+
+                Log.d("Purchase", "Response NOT OK");
+            }
+        };
+
+        billingClient = BillingClient.newBuilder(this)
+                .enablePendingPurchases(PendingPurchasesParams.newBuilder().enableOneTimeProducts().build())
+                .setListener(purchasesUpdatedListener)
+                // Configure other settings.
+                .build();
+
+        billingClient.startConnection(new BillingClientStateListener() {
+            @Override
+            public void onBillingSetupFinished(@NonNull BillingResult billingResult) {
+                if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                    loadProducts();
+                }
+            }
+
+            @Override
+            public void onBillingServiceDisconnected() {
+                // Try to restart the connection on the next request to
+                // Google Play by calling the startConnection() method.
+            }
+        });
+    }
+
+    private void handlePurchase(Purchase purchases) {
+        if (!purchases.isAcknowledged()) {
+            billingClient.acknowledgePurchase(AcknowledgePurchaseParams
+                    .newBuilder()
+                    .setPurchaseToken(purchases.getPurchaseToken())
+                    .build(), billingResult -> {
+
+                if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                    if (user != null) {
+                        for (String pur : purchases.getProducts()) {
+                            Log.d("Booster", pur + " purchased successfully");
+
+                            if (pur.equalsIgnoreCase("booster_4x")) {
+                                BoosterUtils.enableBoost4x(user.getUid());
+                            } else {
+                                BoosterUtils.enableBoost10x(user.getUid());
+                            }
+                        }
+                    } else {
+                        Log.d("Booster", "Couldn't enable boost");
+                    }
+                }
+            });
+        }
+    }
+
+    public static Robux getInstance() {
+        return instance;
+    }
+
+    public BillingClient getBillingClient() {
+        return this.billingClient;
+    }
+
+    public void loadProducts() {
+
+        QueryProductDetailsParams queryProductDetailsParams =
+                QueryProductDetailsParams.newBuilder()
+                        .setProductList(
+                                ImmutableList.of(
+                                        QueryProductDetailsParams.Product.newBuilder()
+                                                .setProductId("booster_4x")
+                                                .setProductType(BillingClient.ProductType.INAPP)
+                                                .build(),
+                                        QueryProductDetailsParams.Product.newBuilder()
+                                                .setProductId("booster_10x")
+                                                .setProductType(BillingClient.ProductType.INAPP)
+                                                .build()))
+                        .build();
+
+        Robux.getInstance().getBillingClient().queryProductDetailsAsync(
+                queryProductDetailsParams,
+                (billingResult2, productDetailsList) -> this.productDetailsList = productDetailsList
+        );
     }
 
     private void createNotificationChannel() {
@@ -97,9 +216,12 @@ public class Robux extends Application
         appOpenAdManager.showAdIfAvailable(currentActivity);
     }
 
-    /** ActivityLifecycleCallback methods. */
+    /**
+     * ActivityLifecycleCallback methods.
+     */
     @Override
-    public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {}
+    public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
+    }
 
     @Override
     public void onActivityStarted(@NonNull Activity activity) {
@@ -113,19 +235,24 @@ public class Robux extends Application
     }
 
     @Override
-    public void onActivityResumed(@NonNull Activity activity) {}
+    public void onActivityResumed(@NonNull Activity activity) {
+    }
 
     @Override
-    public void onActivityPaused(@NonNull Activity activity) {}
+    public void onActivityPaused(@NonNull Activity activity) {
+    }
 
     @Override
-    public void onActivityStopped(@NonNull Activity activity) {}
+    public void onActivityStopped(@NonNull Activity activity) {
+    }
 
     @Override
-    public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState) {}
+    public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState) {
+    }
 
     @Override
-    public void onActivityDestroyed(@NonNull Activity activity) {}
+    public void onActivityDestroyed(@NonNull Activity activity) {
+    }
 
     /**
      * Load an app open ad.
@@ -139,7 +266,7 @@ public class Robux extends Application
     /**
      * Shows an app open ad.
      *
-     * @param activity the activity that shows the app open ad
+     * @param activity                 the activity that shows the app open ad
      * @param onShowAdCompleteListener the listener to be notified when an app open ad is complete
      */
     public void showAdIfAvailable(
@@ -157,7 +284,9 @@ public class Robux extends Application
         void onShowAdComplete();
     }
 
-    /** Inner class that loads and shows app open ads. */
+    /**
+     * Inner class that loads and shows app open ads.
+     */
     private class AppOpenAdManager {
 
         private static final String LOG_TAG = "AppOpenAdManager";
@@ -167,11 +296,16 @@ public class Robux extends Application
         private boolean isLoadingAd = false;
         private boolean isShowingAd = false;
 
-        /** Keep track of the time an app open ad is loaded to ensure you don't show an expired ad. */
+        /**
+         * Keep track of the time an app open ad is loaded to ensure you don't show an expired ad.
+         */
         private long loadTime = 0;
 
-        /** Constructor. */
-        public AppOpenAdManager() {}
+        /**
+         * Constructor.
+         */
+        public AppOpenAdManager() {
+        }
 
         /**
          * Load an ad.
@@ -218,14 +352,18 @@ public class Robux extends Application
                     });
         }
 
-        /** Check if ad was loaded more than n hours ago. */
+        /**
+         * Check if ad was loaded more than n hours ago.
+         */
         private boolean wasLoadTimeLessThanNHoursAgo() {
             long dateDifference = (new Date()).getTime() - loadTime;
             long numMilliSecondsPerHour = 3600000;
             return (dateDifference < (numMilliSecondsPerHour * (long) 4));
         }
 
-        /** Check if ad exists and can be shown. */
+        /**
+         * Check if ad exists and can be shown.
+         */
         private boolean isAdAvailable() {
             // Ad references in the app open beta will time out after four hours, but this time limit
             // may change in future beta versions. For details, see:
@@ -249,7 +387,7 @@ public class Robux extends Application
         /**
          * Show the ad if one isn't already showing.
          *
-         * @param activity the activity that shows the app open ad
+         * @param activity                 the activity that shows the app open ad
          * @param onShowAdCompleteListener the listener to be notified when an app open ad is complete
          */
         private void showAdIfAvailable(
@@ -308,5 +446,9 @@ public class Robux extends Application
             isShowingAd = true;
             appOpenAd.show(activity);
         }
+    }
+
+    public List<ProductDetails> getProductDetailsList() {
+        return productDetailsList;
     }
 }

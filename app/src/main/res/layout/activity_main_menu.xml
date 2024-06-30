@@ -12,6 +12,11 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <com.appodeal.ads.BannerView
+            android:id="@+id/appodealBannerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -119,12 +124,27 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/redeem_robux"
+            android:id="@+id/boosters"
             style="@style/Widget.Material3.Button.TextButton.Icon"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginHorizontal="50dp"
             android:layout_marginTop="35dp"
+            android:allowClickWhenDisabled="true"
+            android:gravity="start|center_vertical"
+            android:onClick="boosters"
+            android:text="@string/boosters"
+            app:icon="@drawable/ic_boost"
+            app:iconPadding="15dp"
+            tools:targetApi="s" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/redeem_robux"
+            style="@style/Widget.Material3.Button.TextButton.Icon"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginTop="9dp"
             android:allowClickWhenDisabled="true"
             android:gravity="start|center_vertical"
             android:onClick="redeem"
@@ -161,6 +181,11 @@
             android:text="@string/settings"
             app:icon="@drawable/ic_settings"
             app:iconPadding="15dp" />
+
+        <com.appodeal.ads.BannerView
+            android:id="@+id/appodealBannerView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

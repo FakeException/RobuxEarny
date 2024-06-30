@@ -30,6 +30,7 @@
     <string name="deluxe_package" translatable="false">Deluxe Package</string>
     <string name="premium_package" translatable="false">Premium Package</string>
     <string name="price">Price: %d Coins</string>
+    <string name="price2">Price: %s</string>
     <string name="not_enough">You don\'t have enough coins :(</string>
     <string name="redeem_amount" translatable="false">Robux: %d Robux</string>
     <string name="redeem">Redeem</string>
@@ -99,4 +100,6 @@
     <string name="email_hint">Enter your email</string>
     <string name="password_hint">Enter your password</string>
     <string name="login_with_google">Login with Google</string>
+    <string name="boosters">Boosters</string>
+    <string name="buy">Buy</string>
 </resources>

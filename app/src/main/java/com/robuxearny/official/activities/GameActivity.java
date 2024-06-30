@@ -19,11 +19,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.SetOptions;
 import com.robuxearny.official.R;
+import com.robuxearny.official.utils.BoosterUtils;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 public class GameActivity extends BaseActivity {
@@ -33,6 +31,7 @@ public class GameActivity extends BaseActivity {
     private MediaPlayer mediaPlayer;
     private Vibrator vibrator;
     private Random random;
+    private boolean has4xBooster, has10xBooster;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +45,9 @@ public class GameActivity extends BaseActivity {
         mediaPlayer = MediaPlayer.create(this, R.raw.collect);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         random = new Random();
+
+        BoosterUtils.checkHas4xBooster(getUid(), result -> has4xBooster = result);
+        BoosterUtils.checkHas10xBooster(getUid(), result -> has10xBooster = result);
     }
 
     public void updateCoins(int newCoins) {
@@ -58,19 +60,9 @@ public class GameActivity extends BaseActivity {
                 DocumentSnapshot document = task.getResult();
                 if (document.exists()) {
 
-                    if (document.contains("ads")) {
-
-                        userRef.update("ads", FieldValue.increment(1))
-                                .addOnSuccessListener(obj -> Log.d("AdsView", "Ads view update"))
-                                .addOnFailureListener(exc -> Log.d("AdsView", "Error: " + exc.getMessage()));
-                    } else {
-                        Map<String, Object> newData = new HashMap<>();
-                        newData.put("ads", 1);
-
-                        userRef.set(newData, SetOptions.merge())
-                                .addOnSuccessListener(obj -> Log.d("AdsView", "New field added successfully."))
-                                .addOnFailureListener(obj -> Log.d("AdsView", "Error adding new field: " + obj.getMessage()));
-                    }
+                    userRef.update("ads", FieldValue.increment(1))
+                            .addOnSuccessListener(obj -> Log.d("AdsView", "Ads view update"))
+                            .addOnFailureListener(exc -> Log.d("AdsView", "Error: " + exc.getMessage()));
 
                     userRef.update("coins", newCoins)
                             .addOnSuccessListener(obj -> Log.d("Coins", "Coins updated"))
@@ -129,5 +121,17 @@ public class GameActivity extends BaseActivity {
         if (getVibrator().hasVibrator()) {
             getVibrator().vibrate(100);
         }
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public boolean isHas4xBooster() {
+        return has4xBooster;
+    }
+
+    public boolean isHas10xBooster() {
+        return has10xBooster;
     }
 }

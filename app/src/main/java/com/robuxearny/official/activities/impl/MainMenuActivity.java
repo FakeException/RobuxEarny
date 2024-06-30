@@ -39,8 +39,8 @@ public class MainMenuActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
-        Appodeal.show(this, Appodeal.BANNER_BOTTOM);
-        Appodeal.show(this, Appodeal.BANNER_TOP);
+        Appodeal.setBannerViewId(R.id.appodealBannerView);
+        Appodeal.show(this, Appodeal.BANNER_VIEW);
 
         ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), result -> {
             if (result) {
@@ -62,6 +62,10 @@ public class MainMenuActivity extends BaseActivity {
 
     public void redeem(View view) {
         openRedeem();
+    }
+
+    public void boosters(View view) {
+        startActivity(new Intent(this, BoostersActivity.class));
     }
 
     public void openSettings(View view) {

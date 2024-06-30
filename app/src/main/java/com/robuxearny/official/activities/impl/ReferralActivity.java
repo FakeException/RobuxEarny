@@ -26,10 +26,8 @@ public class ReferralActivity extends BaseActivity {
         MaterialToolbar tbToolBar = findViewById(R.id.referral_tb_toolbar);
         tbToolBar.setNavigationOnClickListener(v -> finish());
 
-        Appodeal.show(this, Appodeal.BANNER_BOTTOM);
-        Appodeal.show(this, Appodeal.BANNER_TOP);
-        Appodeal.show(this, Appodeal.BANNER_LEFT);
-        Appodeal.show(this, Appodeal.BANNER_RIGHT);
+        Appodeal.setBannerViewId(R.id.appodealBannerView);
+        Appodeal.show(this, Appodeal.BANNER_VIEW);
 
         TextView codeView = findViewById(R.id.referralCodeTextView);
 

@@ -45,8 +45,8 @@ public class SettingsActivity extends BaseActivity {
         MaterialToolbar tbToolBar = findViewById(R.id.settings_tb_toolbar);
         tbToolBar.setNavigationOnClickListener(v -> finish());
 
-        Appodeal.show(this, Appodeal.BANNER_BOTTOM);
-        Appodeal.show(this, Appodeal.BANNER_TOP);
+        Appodeal.setBannerViewId(R.id.appodealBannerView);
+        Appodeal.show(this, Appodeal.BANNER_VIEW);
     }
 
     public void deleteAccount(View view) {

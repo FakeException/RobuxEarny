@@ -88,4 +88,6 @@
     <string name="email_hint">Inserisci la tua email</string>
     <string name="password_hint">Inserisci la tua password</string>
     <string name="login_with_google">Accedi con Google</string>
+    <string name="boosters">Boosters</string>
+    <string name="buy">Acquista</string>
 </resources>

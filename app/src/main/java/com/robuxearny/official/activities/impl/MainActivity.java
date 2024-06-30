@@ -72,8 +72,7 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
             ProgressBar loadingIndicator = findViewById(R.id.loading_indicator);
             loadingIndicator.setVisibility(View.GONE);
 
-            Appodeal.show(this, Appodeal.BANNER_BOTTOM); // Display banner at the bottom of the screen
-            Appodeal.show(this, Appodeal.BANNER_TOP);    // Display banner at the top of the screen
+            Appodeal.show(this, Appodeal.BANNER_VIEW);
 
             FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
