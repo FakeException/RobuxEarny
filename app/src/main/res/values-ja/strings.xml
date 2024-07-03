@@ -55,7 +55,7 @@
     <string name="logout_from_your_account">アカウントをログアウトします</string>
     <string name="enter_referral_code">紹介コードを入力</string>
     <string name="login_success">ログインできました！</string>
-    <string name="ref_desc">あなたの紹介コードが使われる度に２００コインを取得します！</string>
+    <string name="ref_desc">あなたの紹介コードが使われる度に６００コインを取得します！</string>
     <string name="login_error">ログインエラーが発生しまいました</string>
     <string name="robuxearny_referral_code">RobuxEarnyの紹介コード</string>
     <string name="robuxearny_referral_desc">"%s、これは自分のRobuxEarnyの紹介コードです！Google Playからアプリをダウンロードしてコイン報酬を受け取ります！"</string>
@@ -94,4 +94,10 @@
     <string name="boosters">ブースター</string>
     <string name="buy">購入する</string>
     <string name="price2">値段: %s</string>
+    <string name="boost">ブースターの購入に成功しました！</string>
+    <string name="five_star_review">5つ星のレビューを残してください！</string>
+    <string name="logo">Logo</string>
+    <string name="close">閉じる</string>
+    <string name="review">評価する</string>
+    <string name="review_message">Play ストアで5つ星評価をして、当社のアプリの向上にご協力ください。 その見返りに、350コインをプレゼントします！</string>
 </resources>

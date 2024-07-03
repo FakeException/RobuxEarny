@@ -55,7 +55,7 @@
     <string name="share">Compartilhe seu código</string>
     <string name="enter_referral_code">Digite o Código de Indicação</string>
     <string name="login_success">Login bem-sucedido!</string>
-    <string name="ref_desc">Ganhe 200 moedas toda vez que alguém usar seu código de indicação!</string>
+    <string name="ref_desc">Ganhe 600 moedas toda vez que alguém usar seu código de indicação!</string>
     <string name="login_error">Erro no login, por favor, tente novamente</string>
     <string name="robuxearny_referral_code">Código de Indicação do RobuxEarny</string>
     <string name="robuxearny_referral_desc">"Este é o meu código de indicação do RobuxEarny: %s, baixe o aplicativo no Google Play e ganhe um bônus de moedas!"</string>
@@ -94,4 +94,10 @@
     <string name="boosters">Boosters</string>
     <string name="buy">Comprar</string>
     <string name="price2">Preço: %s</string>
+    <string name="boost">Booster comprado com sucesso!</string>
+    <string name="five_star_review">Deixe uma avaliação de 5 estrelas!</string>
+    <string name="logo">Logo</string>
+    <string name="close">Fechar</string>
+    <string name="review">Avaliar</string>
+    <string name="review_message">Ajude-nos a melhorar nosso aplicativo avaliando-nos com 5 estrelas na Play Store. Em troca, você receberá 350 moedas!</string>
 </resources>

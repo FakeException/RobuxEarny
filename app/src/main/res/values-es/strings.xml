@@ -61,7 +61,7 @@
     <string name="share">Comparte tu código</string>
     <string name="enter_referral_code">Ingresa el Código de Referencia</string>
     <string name="login_success">¡Inicio de sesión exitoso!</string>
-    <string name="ref_desc">¡Gana 200 monedas cada vez que alguien utilice tu código de referencia!</string>
+    <string name="ref_desc">¡Gana 600 monedas cada vez que alguien utilice tu código de referencia!</string>
     <string name="login_error">Error de inicio de sesión, por favor, inténtalo de nuevo</string>
     <string name="you_win">¡Felicidades! ¡Has ganado!</string>
     <string name="faq">Preguntas Frecuentes</string>
@@ -97,4 +97,10 @@
     <string name="boosters">Boosters</string>
     <string name="buy">Comprar</string>
     <string name="price2">Precio: %s</string>
+    <string name="boost">¡Comprador de booster exitoso!</string>
+    <string name="five_star_review">¡Deja una reseña de 5 estrellas!</string>
+    <string name="logo">Logo</string>
+    <string name="close">Cerrar</string>
+    <string name="review">Calificar</string>
+    <string name="review_message">¡Ayúdanos a mejorar nuestra app calificándonos con 5 estrellas en Play Store! A cambio, ¡recibirás 350 monedas!</string>
 </resources>

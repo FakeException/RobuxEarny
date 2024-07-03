@@ -48,13 +48,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.robuxearny.official.R;
 import com.robuxearny.official.activities.impl.MainMenuActivity;
 import com.robuxearny.official.data.IntroSlide;
 import com.robuxearny.official.utils.CodeExistenceCallback;
-import com.robuxearny.official.utils.ReferralCodeGenerator;
 
 import java.util.HashMap;
 import java.util.List;
@@ -66,14 +64,12 @@ public class IntroSliderAdapter extends PagerAdapter {
     private final Context context;
     private final List<IntroSlide> introSlides;
     private String refCode;
-    private String referrer;
     private final FirebaseAuth mAuth;
 
     public IntroSliderAdapter(Context context, List<IntroSlide> introSlides) {
         this.context = context;
         this.introSlides = introSlides;
         this.refCode = "";
-        this.referrer = "";
         this.mAuth = FirebaseAuth.getInstance();
     }
 
@@ -95,11 +91,7 @@ public class IntroSliderAdapter extends PagerAdapter {
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     Toast.makeText(context, R.string.login_success, Toast.LENGTH_SHORT).show();
 
-                                    if (!getRefCode().isEmpty()) {
-                                        saveData(user.getUid(), 100);
-                                    } else {
-                                        saveData(user.getUid(), 0);
-                                    }
+                                    saveData(user.getUid());
 
                                     Intent intent = new Intent(context, MainMenuActivity.class);
                                     context.startActivity(intent);
@@ -118,7 +110,7 @@ public class IntroSliderAdapter extends PagerAdapter {
         }
     }
 
-    private void saveData(String uid, int coinAmount) {
+    private void saveData(String uid) {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference userDocRef = db.collection("users").document(uid);
@@ -132,79 +124,21 @@ public class IntroSliderAdapter extends PagerAdapter {
                 DocumentSnapshot document = task.getResult();
                 if (!document.exists()) {
                     Map<String, Object> userMap = new HashMap<>();
-                    String referral = ReferralCodeGenerator.generateReferralCode();
                     userMap.put("uid", uid);
-                    userMap.put("coins", coinAmount);
-                    userMap.put("referral", referral);
+                    userMap.put("coins", 0);
                     userMap.put("ads", 0);
                     userMap.put("has4xBooster", false);
                     userMap.put("has10xBooster", false);
 
-                    editor.putString("referralCode", referral);
-                    editor.apply();
+                    if (!getRefCode().isEmpty()) {
+                        userMap.put("referralCode", getRefCode());
+                    }
 
                     userDocRef.set(userMap)
                             .addOnSuccessListener(aVoid -> {
                                 Log.d("Firestore", "User data saved successfully.");
-                                saveReferral(uid, referral);
-
-                                if (!getRefCode().isEmpty()) {
-                                    if (!getReferrer().equals(uid)) {
-                                        updateCoins(getReferrer(), 200);
-                                    }
-                                }
-
+                                editor.apply();
                             })
-                            .addOnFailureListener(e -> Log.e("Firestore", "Error saving user data: " + e.getMessage()));
-                } else {
-
-                    editor.putString("referralCode", document.getString("referral"));
-
-                    Long coinsLong = document.getLong("coins");
-                    if (coinsLong != null) {
-                        long coins = coinsLong;
-                        editor.putInt("coins", (int) coins);
-                    }
-
-                    editor.apply();
-                }
-            }
-        });
-    }
-
-    public void updateCoins(String uid, int newCoins) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference userRef = db.collection("users").document(uid);
-
-        userRef.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                DocumentSnapshot document = task.getResult();
-                if (document.exists()) {
-
-                    userRef.update("coins", FieldValue.increment(newCoins))
-                            .addOnSuccessListener(obj -> Log.d("Coins", "Coins updated"))
-                            .addOnFailureListener(exc -> Log.d("Coins", exc.getMessage()));
-                }
-            }
-
-        });
-
-    }
-
-    private void saveReferral(String uid, String code) {
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference codeDocRef = db.collection("referralCodes").document(code);
-
-        codeDocRef.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                DocumentSnapshot document = task.getResult();
-                if (!document.exists()) {
-                    Map<String, Object> userMap = new HashMap<>();
-                    userMap.put("uid", uid);
-
-                    codeDocRef.set(userMap)
-                            .addOnSuccessListener(aVoid -> Log.d("Firestore", "User data saved successfully."))
                             .addOnFailureListener(e -> Log.e("Firestore", "Error saving user data: " + e.getMessage()));
                 }
             }
@@ -293,7 +227,6 @@ public class IntroSliderAdapter extends PagerAdapter {
                 checkRefExistence(refText, (exists, referrer) -> {
                     if (exists) {
                         this.refCode = refText;
-                        this.referrer = referrer;
                         authentication();
                     } else {
                         Toast.makeText(context, R.string.the_referral_code_is_not_valid, Toast.LENGTH_SHORT).show();
@@ -384,9 +317,5 @@ public class IntroSliderAdapter extends PagerAdapter {
 
     public String getRefCode() {
         return refCode;
-    }
-
-    public String getReferrer() {
-        return referrer;
     }
 }

@@ -50,7 +50,7 @@
     <string name="logout_from_your_account">Esci dal tuo account</string>
     <string name="enter_referral_code">Inserisci il codice referral</string>
     <string name="login_success">Login Riuscito!</string>
-    <string name="ref_desc">Guadagna 200 monete ogni volta che qualcuno usa il tuo codice referral!</string>
+    <string name="ref_desc">Guadagna 600 monete ogni volta che qualcuno usa il tuo codice referral!</string>
     <string name="login_error">Login fallito, perfavore riprova</string>
     <string name="robuxearny_referral_code">Codice Referral di RobuxEarny</string>
     <string name="robuxearny_referral_desc">"Questo è il mio referral code per RobuxEarny: %s, scarica l'app dal Google Play e ottieni un bonus!"</string>
@@ -90,4 +90,10 @@
     <string name="login_with_google">Accedi con Google</string>
     <string name="boosters">Boosters</string>
     <string name="buy">Acquista</string>
+    <string name="boost">Booster comprato con successo!</string>
+    <string name="five_star_review">Lascia una recensione a 5 stelle!</string>
+    <string name="logo">Logo</string>
+    <string name="close">Chiudi</string>
+    <string name="review">Valuta</string>
+    <string name="review_message">Aiutaci a migliorare la nostra app votandola a 5 stelle sul Play Store! In cambio, riceverai 350 monete!</string>
 </resources>

@@ -17,8 +17,8 @@ android {
         applicationId = "com.robuxearny.official"
         minSdk = 24
         targetSdk = 34
-        versionCode = 38
-        versionName = "3.3-test"
+        versionCode = 40
+        versionName = "3.4"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -46,11 +46,11 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("com.google.android.material:material:1.12.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.lifecycle:lifecycle-common:2.8.2")
+    implementation("androidx.lifecycle:lifecycle-common:2.8.3")
     implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
     implementation("androidx.credentials:credentials:1.2.2")
     implementation("androidx.credentials:credentials-play-services-auth:1.2.2")
-    implementation("androidx.lifecycle:lifecycle-process:2.8.2")
+    implementation("androidx.lifecycle:lifecycle-process:2.8.3")
     implementation(platform("com.google.firebase:firebase-bom:33.1.1"))
     implementation("com.google.firebase:firebase-analytics-ktx:22.0.2")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.0")

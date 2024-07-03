@@ -28,6 +28,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.robuxearny.official.R;
 import com.robuxearny.official.activities.BaseActivity;
 import com.robuxearny.official.activities.impl.games.TicketActivity;
+import com.robuxearny.official.popup.ReviewPopup;
 import com.robuxearny.official.utils.Ads;
 
 import java.util.Map;
@@ -53,6 +54,16 @@ public class MainMenuActivity extends BaseActivity {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
             }
+        }
+
+        SharedPreferences sharedPreferences = getSharedPreferences("review", Context.MODE_PRIVATE);
+        int usages = sharedPreferences.getInt("usages", 0);
+        usages++;
+        sharedPreferences.edit().putInt("review", usages).apply();
+
+        if (usages == 4) {
+            ReviewPopup reviewPopup = new ReviewPopup(this);
+            reviewPopup.showPopup();
         }
     }
 

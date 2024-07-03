@@ -16,6 +16,7 @@ import android.content.pm.ApplicationInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -150,6 +151,7 @@ public class Robux extends Application
                             } else {
                                 BoosterUtils.enableBoost10x(user.getUid());
                             }
+                            Toast.makeText(getApplicationContext(), getString(R.string.boost), Toast.LENGTH_LONG).show();
                         }
                     } else {
                         Log.d("Booster", "Couldn't enable boost");

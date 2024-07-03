@@ -54,6 +54,12 @@ public class BoostersActivity extends BaseActivity {
 
         List<ProductDetails> productDetailsList = Robux.getInstance().getProductDetailsList();
 
+        if (productDetailsList == null || productDetailsList.isEmpty()) {
+            finish();
+            return;
+            // nigger not having google play installed
+        }
+
         int startPosition = productDetailsList.size();
 
         for (ProductDetails productDetails : productDetailsList) {
