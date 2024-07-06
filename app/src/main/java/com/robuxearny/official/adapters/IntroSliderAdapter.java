@@ -52,8 +52,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.robuxearny.official.R;
 import com.robuxearny.official.activities.impl.MainMenuActivity;
 import com.robuxearny.official.data.IntroSlide;
-import com.robuxearny.official.interfaces.ReferralCodeCallback;
 import com.robuxearny.official.interfaces.CodeExistenceCallback;
+import com.robuxearny.official.utils.ReferralUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -140,7 +140,7 @@ public class IntroSliderAdapter extends PagerAdapter {
                                 Log.d("Firestore", "User data saved successfully.");
                                 editor.apply();
 
-                                saveUserReferral(db, uid, (referralCode) -> {
+                                ReferralUtils.saveUserReferral(db, uid, (referralCode) -> {
                                     if (referralCode != null) {
                                         // Store in SharedPreferences
                                         editor.putString("myReferralCode", referralCode).apply();
@@ -153,7 +153,7 @@ public class IntroSliderAdapter extends PagerAdapter {
                             })
                             .addOnFailureListener(e -> Log.e("Firestore", "Error saving user data: " + e.getMessage()));
                 } else {
-                    saveUserReferral(db, uid, (referralCode) -> {
+                    ReferralUtils.saveUserReferral(db, uid, (referralCode) -> {
                         if (referralCode != null) {
                             // Store in SharedPreferences
                             editor.putString("myReferralCode", referralCode).apply();
@@ -168,26 +168,7 @@ public class IntroSliderAdapter extends PagerAdapter {
         });
     }
 
-    private void saveUserReferral(FirebaseFirestore db, String uid, ReferralCodeCallback callback) {
-        db.collection("referralCodes")
-                .whereEqualTo("uid", uid)
-                .get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    if (!queryDocumentSnapshots.isEmpty()) {
-                        DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
-                        String referralCode = documentSnapshot.getId();
-                        callback.onReferralCodeRetrieved(referralCode);
-                    } else {
-                        // Handle the case where no referral code is found for the user
-                        callback.onReferralCodeRetrieved(null);
-                    }
-                })
-                .addOnFailureListener(e -> {
-                    // Handle errors in fetching the referral code
-                    Log.e("Referral", "Error retrieving referral code: ", e);
-                    callback.onReferralCodeRetrieved(null);
-                });
-    }
+
 
     public void authentication() {
         CredentialManager credentialManager = CredentialManager.create(this.context);
