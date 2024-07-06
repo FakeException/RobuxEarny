@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.robuxearny.official.R;
-import com.robuxearny.official.data.Booster;
+import com.robuxearny.official.models.Booster;
 import com.robuxearny.official.utils.BoosterUtils;
 
 import java.util.List;

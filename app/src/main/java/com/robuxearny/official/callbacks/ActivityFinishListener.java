@@ -4,7 +4,7 @@
  * Last modified 8/5/23, 11:58 AM
  */
 
-package com.robuxearny.official.interfaces;
+package com.robuxearny.official.callbacks;
 
 public interface ActivityFinishListener {
     void onActivityFinishRequested();

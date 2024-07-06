@@ -51,8 +51,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.robuxearny.official.R;
 import com.robuxearny.official.activities.impl.MainMenuActivity;
-import com.robuxearny.official.data.IntroSlide;
-import com.robuxearny.official.interfaces.CodeExistenceCallback;
+import com.robuxearny.official.models.IntroSlide;
+import com.robuxearny.official.callbacks.CodeExistenceCallback;
 import com.robuxearny.official.utils.ReferralUtils;
 
 import java.util.HashMap;

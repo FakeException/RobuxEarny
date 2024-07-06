@@ -4,7 +4,7 @@
  * Last modified 6/28/24, 10:50 PM
  */
 
-package com.robuxearny.official.data;
+package com.robuxearny.official.models;
 
 import android.view.View;
 

@@ -4,7 +4,7 @@
  * Last modified 8/5/23, 11:58 AM
  */
 
-package com.robuxearny.official.data;
+package com.robuxearny.official.models;
 
 public class IntroSlide {
 

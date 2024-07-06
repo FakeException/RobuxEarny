@@ -21,7 +21,7 @@ import com.robuxearny.official.R;
 import com.robuxearny.official.Robux;
 import com.robuxearny.official.activities.BaseActivity;
 import com.robuxearny.official.adapters.BoosterAdapter;
-import com.robuxearny.official.data.Booster;
+import com.robuxearny.official.models.Booster;
 import com.robuxearny.official.decorators.SpacesItemDecoration;
 
 import java.util.ArrayList;

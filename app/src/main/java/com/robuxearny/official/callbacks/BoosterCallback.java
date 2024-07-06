@@ -4,7 +4,7 @@
  * Last modified 7/6/24, 5:00 PM
  */
 
-package com.robuxearny.official.interfaces;
+package com.robuxearny.official.callbacks;
 
 public interface BoosterCallback<T> {
     void onResult(T result);

@@ -10,7 +10,7 @@ import android.util.Log;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.robuxearny.official.interfaces.ReferralCodeCallback;
+import com.robuxearny.official.callbacks.ReferralCodeCallback;
 
 public class ReferralUtils {
 

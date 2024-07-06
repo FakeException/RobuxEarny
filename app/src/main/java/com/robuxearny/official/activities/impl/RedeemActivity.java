@@ -8,46 +8,33 @@ import android.widget.ProgressBar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.appodeal.ads.Appodeal;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.robuxearny.official.R;
 import com.robuxearny.official.activities.BaseActivity;
 import com.robuxearny.official.adapters.PackageAdapter;
-import com.robuxearny.official.data.Package;
+import com.robuxearny.official.callbacks.PackageCallback;
 import com.robuxearny.official.decorators.SpacesItemDecoration;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.robuxearny.official.models.Package;
+import com.robuxearny.official.utils.BackendUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class RedeemActivity extends BaseActivity {
 
-    private static final String JSON_URL = "https://robuxrush.com/packages.json";
-    private static final Map<String, Integer> drawableMap = new HashMap<>();
-
-    static {
-        drawableMap.put("robux", R.drawable.robux);
-        drawableMap.put("robux2", R.drawable.robux2);
-        drawableMap.put("robux3", R.drawable.robux3);
-        drawableMap.put("robux4", R.drawable.robux4);
-        drawableMap.put("robux5", R.drawable.robux5);
-        drawableMap.put("robux6", R.drawable.robux6);
-    }
+    private RecyclerView recyclerView;
+    private PackageAdapter adapter;
+    private ProgressBar loadingIndicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_redeem);
+
+        final String JSON_URL = getString(R.string.api_url) + "packages.json";
 
         Appodeal.setBannerViewId(R.id.appodealBannerView);
         Appodeal.show(this, Appodeal.BANNER_VIEW);
@@ -58,50 +45,40 @@ public class RedeemActivity extends BaseActivity {
         MaterialToolbar tbToolBar = findViewById(R.id.redeem_tb_toolbar);
         tbToolBar.setNavigationOnClickListener(v -> finish());
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new SpacesItemDecoration(50));
 
-        PackageAdapter adapter = new PackageAdapter(this, packagesList, coins);
+        adapter = new PackageAdapter(this, packagesList, coins);
         recyclerView.setAdapter(adapter);
 
-        ProgressBar loadingIndicator = findViewById(R.id.loading_indicator);
+        loadingIndicator = findViewById(R.id.loading_indicator);
         recyclerView.setVisibility(View.GONE);
+        loadingIndicator.setVisibility(View.VISIBLE);
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        BackendUtils.fetchPackages(this, new PackageCallback() {
+            @Override
+            public void onPackagesLoaded(List<Package> packages) {
+                if (packages != null) {
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                Request.Method.GET, JSON_URL, null, response -> {
-            try {
-                JSONArray packages = response.getJSONArray("packages");
-                int startPosition = packagesList.size();
+                    int startPosition = packagesList.size();
 
-                for (int i = 0; i < packages.length(); i++) {
-                    JSONObject packageObj = packages.getJSONObject(i);
-                    String name = packageObj.getString("name");
-                    int price = packageObj.getInt("price");
-                    int quantity = packageObj.getInt("quantity");
-                    String image = packageObj.getString("imageResource");
-
-                    int resID = Objects.requireNonNull(drawableMap.getOrDefault(image, 0)); // Unbox safely
-
-                    if (resID != 0) {
-                        packagesList.add(new Package(name, price, quantity, resID));
-                    } else {
-                        Log.e("RedeemActivity", "Resource not found for image: " + image);
+                    for (Package packageObj : packages) {
+                        packagesList.add(packageObj);
                     }
+
+                    // Notify the adapter of the range of newly inserted items
+                    adapter.notifyItemRangeInserted(startPosition, packagesList.size() - startPosition);
+
+                    loadingIndicator.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
                 }
-
-                adapter.notifyItemRangeInserted(startPosition, packagesList.size() - startPosition);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            } finally {
-                loadingIndicator.setVisibility(View.GONE);
-                recyclerView.setVisibility(View.VISIBLE);
             }
-        }, error -> Log.e("Volley Error", error.toString()));
 
-        requestQueue.add(jsonObjectRequest);
+            @Override
+            public void onError(String errorMessage) {
+                Log.e("RedeemActivity", "Could not load packages: " + errorMessage);
+            }
+        });
     }
 }

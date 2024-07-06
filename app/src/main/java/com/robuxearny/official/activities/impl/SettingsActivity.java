@@ -20,7 +20,11 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.appodeal.ads.Appodeal;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -31,8 +35,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.functions.FirebaseFunctions;
 import com.robuxearny.official.R;
 import com.robuxearny.official.activities.BaseActivity;
+import com.robuxearny.official.adapters.FAQAdapter;
+import com.robuxearny.official.callbacks.FAQCallback;
+import com.robuxearny.official.models.FAQItem;
+import com.robuxearny.official.utils.BackendUtils;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SettingsActivity extends BaseActivity {
@@ -120,9 +129,24 @@ public class SettingsActivity extends BaseActivity {
 
     public void openFAQ(View view) {
         View popupView = getLayoutInflater().inflate(R.layout.popup_faq, null);
-        popupView.setPadding(32, 32, 32, 32);
+        RecyclerView faqRecyclerView = popupView.findViewById(R.id.faqRecyclerView);
+        faqRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Create a dialog and set the custom layout
+        BackendUtils.fetchFAQs(this, new FAQCallback() {
+            @Override
+            public void onFAQsLoaded(List<FAQItem> faqs) {
+                FAQAdapter adapter = new FAQAdapter(faqs);
+                faqRecyclerView.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                // Handle errors, e.g., display an error message
+                Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
+
+            }
+        });// Create a dialog and set the custom layout
         MaterialAlertDialogBuilder alertDialogBuilder = new MaterialAlertDialogBuilder(this);
         alertDialogBuilder.setView(popupView);
         alertDialogBuilder.show();

@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name" translatable="false">Robux Earny</string>
+    <string name="api_url" translatable="false">https://robuxrush.com/resources/</string>
     <string name="welcome">Welcome!</string>
     <string name="welcome_desc">\nWelcome to RobuxEarny! An application where you can earn Robux effortlessly!\nYou just need to play some very simple mini games, It\'s completely free and you will be able to redeem your robux by accumulating your coins!\n</string>
     <string name="coinsystem">Coin System</string>

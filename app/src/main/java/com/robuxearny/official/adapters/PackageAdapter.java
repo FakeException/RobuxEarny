@@ -8,6 +8,7 @@ package com.robuxearny.official.adapters;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,9 +26,11 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.robuxearny.official.R;
 import com.robuxearny.official.activities.impl.PurchaseActivity;
-import com.robuxearny.official.data.Package;
+import com.robuxearny.official.models.Package;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -36,6 +39,17 @@ public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private final Activity context;
     private final List<Object> items;
     private final int coins;
+
+    private static final Map<String, Integer> drawableMap = new HashMap<>();
+
+    static {
+        drawableMap.put("robux", R.drawable.robux);
+        drawableMap.put("robux2", R.drawable.robux2);
+        drawableMap.put("robux3", R.drawable.robux3);
+        drawableMap.put("robux4", R.drawable.robux4);
+        drawableMap.put("robux5", R.drawable.robux5);
+        drawableMap.put("robux6", R.drawable.robux6);
+    }
 
     public PackageAdapter(Activity context, List<Object> items, int coins) {
         this.context = context;
@@ -62,11 +76,19 @@ public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         if (viewType == VIEW_TYPE_PACKAGE) {
             PackageViewHolder packageViewHolder = (PackageViewHolder) holder;
             Package currentPackage = (Package) items.get(position);
-            packageViewHolder.titleTextView.setText(currentPackage.getTitle());
+            packageViewHolder.titleTextView.setText(currentPackage.getName());
             packageViewHolder.currentCoins.setText(context.getString(R.string.current_coins, coins));
-            packageViewHolder.redeemPriceTextView.setText(context.getString(R.string.price, currentPackage.getCost()));
-            packageViewHolder.redeemRobuxTextView.setText(context.getString(R.string.redeem_amount, currentPackage.getRedeem()));
-            packageViewHolder.icon.setImageResource(currentPackage.getIcon());
+            packageViewHolder.redeemPriceTextView.setText(context.getString(R.string.price, currentPackage.getPrice()));
+            packageViewHolder.redeemRobuxTextView.setText(context.getString(R.string.redeem_amount, currentPackage.getQuantity()));
+
+            String imageResourceString = currentPackage.getImageResource();
+            Integer imageResourceId = drawableMap.get(imageResourceString);
+
+            if (imageResourceId != null) {
+                packageViewHolder.icon.setImageResource(imageResourceId);
+            } else {
+                Log.e("PackageAdapter", "Resource not found for image: " + imageResourceString);
+            }
 
             packageViewHolder.redeemButton.setOnClickListener(view -> {
 
@@ -83,7 +105,7 @@ public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                                 Long adsLong = document.getLong("ads");
                                 if (coinsLong != null) {
                                     long coins = coinsLong;
-                                    if ((int) coins >= currentPackage.getCost()) {
+                                    if ((int) coins >= currentPackage.getPrice()) {
 
                                         Intent purchase = getIntent(currentPackage, (int) coins, adsLong);
 
@@ -106,8 +128,8 @@ public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private Intent getIntent(Package currentPackage, int coins, Long adsLong) {
         Intent purchase = new Intent(context, PurchaseActivity.class);
 
-        purchase.putExtra("price", currentPackage.getCost());
-        purchase.putExtra("robux", currentPackage.getRedeem());
+        purchase.putExtra("price", currentPackage.getPrice());
+        purchase.putExtra("robux", currentPackage.getQuantity());
         purchase.putExtra("coins", coins);
 
         if (adsLong != null) {

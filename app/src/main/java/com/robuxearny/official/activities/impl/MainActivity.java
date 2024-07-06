@@ -40,8 +40,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.robuxearny.official.R;
 import com.robuxearny.official.activities.BaseActivity;
 import com.robuxearny.official.adapters.IntroSliderAdapter;
-import com.robuxearny.official.data.IntroSlide;
-import com.robuxearny.official.interfaces.ActivityFinishListener;
+import com.robuxearny.official.models.IntroSlide;
+import com.robuxearny.official.callbacks.ActivityFinishListener;
 import com.robuxearny.official.utils.Dialogs;
 import com.robuxearny.official.utils.RootChecker;
 
