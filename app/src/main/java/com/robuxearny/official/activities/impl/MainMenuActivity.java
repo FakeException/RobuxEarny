@@ -29,7 +29,6 @@ import com.robuxearny.official.R;
 import com.robuxearny.official.activities.BaseActivity;
 import com.robuxearny.official.activities.impl.games.TicketActivity;
 import com.robuxearny.official.popup.ReviewPopup;
-import com.robuxearny.official.utils.Ads;
 
 import java.util.Map;
 
@@ -68,7 +67,10 @@ public class MainMenuActivity extends BaseActivity {
     }
 
     public void play(View view) {
-        Ads.showRewardedVideoActivity(this, TicketActivity.class);
+        if (Appodeal.isLoaded(Appodeal.INTERSTITIAL)) {
+            Appodeal.show(this, Appodeal.INTERSTITIAL);
+        }
+        startActivity(new Intent(this, TicketActivity.class));
     }
 
     public void redeem(View view) {
@@ -113,7 +115,10 @@ public class MainMenuActivity extends BaseActivity {
                         if (coinsLong != null) {
                             long coins = coinsLong;
                             preferences.edit().putInt("coins", (int) coins).apply();
-                            Ads.showRewardedVideoActivity(this, RedeemActivity.class);
+                            if (Appodeal.isLoaded(Appodeal.INTERSTITIAL)) {
+                                Appodeal.show(this, Appodeal.INTERSTITIAL);
+                            }
+                            startActivity(new Intent(this, RedeemActivity.class));
                         }
                     }
                 }

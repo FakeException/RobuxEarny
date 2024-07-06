@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.appodeal.ads.Appodeal;
 import com.appodeal.ads.RewardedVideoCallbacks;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.robuxearny.official.R;
 import com.robuxearny.official.activities.GameActivity;
@@ -189,143 +190,158 @@ public class TicketActivity extends GameActivity {
 
             findViewById(R.id.confirmButton).setEnabled(false);
 
+            // Show the confirmation dialog
+            MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(this);
 
-            // Check if the maximum attempts have been reached or if it's time to switch randomly
-            int MAX_TICKET_ATTEMPTS = 7;
-            if (ticketAttempts >= MAX_TICKET_ATTEMPTS || shouldSwitchRandomly(MAX_TICKET_ATTEMPTS)) {
-
-                if (Appodeal.canShow(Appodeal.REWARDED_VIDEO)) {
-                    this.scratchedBlocks.clear();
-                    this.winningNumbers = generateWinningNumbers();
-                    updateWinningNumbersTextView();
-
-                    ticketAttempts++;
-
-                    blockButtons.forEach(button -> {
-                        button.setText(getString(R.string.x));
-                        button.setTextColor(Color.WHITE);
-                    });
-                    Appodeal.show(this, Appodeal.REWARDED_VIDEO);
-                } else {
-                    new Handler().postDelayed(() -> {
+            dialogBuilder
+                    .setTitle(R.string.save_coins_title)
+                    .setMessage(R.string.save_coins_desc)
+                    .setPositiveButton(R.string.save_coins_continue, (dialog, which) -> handleWatchAd())
+                    .setNegativeButton(R.string.close, (dialog, which) -> {
                         findViewById(R.id.confirmButton).setEnabled(true);
-                        Toast.makeText(getApplicationContext(), getString(R.string.ad_load_fail), Toast.LENGTH_LONG).show();
-                    }, 5000); // Delay of 5 seconds
-                }
-
-                Appodeal.setRewardedVideoCallbacks(new RewardedVideoCallbacks() {
-                    @Override
-                    public void onRewardedVideoLoaded(boolean isPrecache) {
-                        // Called when rewarded video is loaded
-                    }
-                    @Override
-                    public void onRewardedVideoFailedToLoad() {
-                        // Called when rewarded video failed to load
-                        new Handler().postDelayed(() -> {
-                            findViewById(R.id.confirmButton).setEnabled(true);
-                            Toast.makeText(getApplicationContext(), getString(R.string.ad_load_fail), Toast.LENGTH_LONG).show();
-                        }, 5000); // Delay of 5 seconds
-                    }
-                    @Override
-                    public void onRewardedVideoShown() {
-                        // Called when rewarded video is shown
-                    }
-                    @Override
-                    public void onRewardedVideoShowFailed() {
-                        // Called when rewarded video show failed
-                        new Handler().postDelayed(() -> {
-                            findViewById(R.id.confirmButton).setEnabled(true);
-                            Toast.makeText(getApplicationContext(), getString(R.string.ad_load_fail), Toast.LENGTH_LONG).show();
-                        }, 5000); // Delay of 5 seconds
-                    }
-                    @Override
-                    public void onRewardedVideoClicked() {
-                        // Called when rewarded video is clicked
-                    }
-                    @Override
-                    public void onRewardedVideoFinished(double amount, String name) {
-                        save();
-
-                        Intent slot = new Intent(getApplicationContext(), SlotMachineActivity.class);
-                        startActivity(slot);
-                        findViewById(R.id.confirmButton).setEnabled(true);
-                    }
-                    @Override
-                    public void onRewardedVideoClosed(boolean finished) {
-                        // Called when rewarded video is closed
-                    }
-                    @Override
-                    public void onRewardedVideoExpired() {
-                        // Called when rewarded video is expired
-                    }
-                });
-
-            } else {
-
-                if (Appodeal.canShow(Appodeal.REWARDED_VIDEO)) {
-                    this.scratchedBlocks.clear();
-                    this.winningNumbers = generateWinningNumbers();
-                    updateWinningNumbersTextView();
-
-                    ticketAttempts++;
-
-                    blockButtons.forEach(button -> {
-                        button.setText(getString(R.string.x));
-                        button.setTextColor(Color.WHITE);
-                    });
-                    Appodeal.show(this, Appodeal.REWARDED_VIDEO);
-                } else {
-                    new Handler().postDelayed(() -> {
-                        findViewById(R.id.confirmButton).setEnabled(true);
-                        Toast.makeText(getApplicationContext(), getString(R.string.ad_load_fail), Toast.LENGTH_LONG).show();
-                    }, 5000); // Delay of 5 seconds
-                }
-
-                Appodeal.setRewardedVideoCallbacks(new RewardedVideoCallbacks() {
-                    @Override
-                    public void onRewardedVideoLoaded(boolean isPrecache) {
-                        // Called when rewarded video is loaded
-                    }
-                    @Override
-                    public void onRewardedVideoFailedToLoad() {
-                        new Handler().postDelayed(() -> {
-                            findViewById(R.id.confirmButton).setEnabled(true);
-                            Toast.makeText(getApplicationContext(), getString(R.string.ad_load_fail), Toast.LENGTH_LONG).show();
-                        }, 5000); // Delay of 5 seconds
-                    }
-                    @Override
-                    public void onRewardedVideoShown() {
-                        // Called when rewarded video is shown
-                    }
-                    @Override
-                    public void onRewardedVideoShowFailed() {
-                        new Handler().postDelayed(() -> {
-                            findViewById(R.id.confirmButton).setEnabled(true);
-                            Toast.makeText(getApplicationContext(), getString(R.string.ad_load_fail), Toast.LENGTH_LONG).show();
-                        }, 5000); // Delay of 5 seconds
-                    }
-                    @Override
-                    public void onRewardedVideoClicked() {
-                        // Called when rewarded video is clicked
-                    }
-                    @Override
-                    public void onRewardedVideoFinished(double amount, String name) {
-                        save();
-                        findViewById(R.id.confirmButton).setEnabled(true);
-                    }
-                    @Override
-                    public void onRewardedVideoClosed(boolean finished) {
-                        // Called when rewarded video is closed
-                    }
-                    @Override
-                    public void onRewardedVideoExpired() {
-                        // Called when rewarded video is expired
-                    }
-                });
-            }
+                        dialog.dismiss();
+                    })
+                    .setCancelable(false)
+                    .show();
 
         } else {
             Toast.makeText(this, getString(R.string.ticket_finish), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void handleWatchAd() {
+        // Check if the maximum attempts have been reached or if it's time to switch randomly
+        int MAX_TICKET_ATTEMPTS = 7;
+        if (ticketAttempts >= MAX_TICKET_ATTEMPTS || shouldSwitchRandomly(MAX_TICKET_ATTEMPTS)) {
+
+            if (Appodeal.canShow(Appodeal.REWARDED_VIDEO)) {
+                this.scratchedBlocks.clear();
+                this.winningNumbers = generateWinningNumbers();
+                updateWinningNumbersTextView();
+
+                ticketAttempts++;
+
+                blockButtons.forEach(button -> {
+                    button.setText(getString(R.string.x));
+                    button.setTextColor(Color.WHITE);
+                });
+                Appodeal.show(this, Appodeal.REWARDED_VIDEO);
+            } else {
+                new Handler().postDelayed(() -> {
+                    findViewById(R.id.confirmButton).setEnabled(true);
+                    Toast.makeText(getApplicationContext(), getString(R.string.ad_load_fail), Toast.LENGTH_LONG).show();
+                }, 5000); // Delay of 5 seconds
+            }
+
+            Appodeal.setRewardedVideoCallbacks(new RewardedVideoCallbacks() {
+                @Override
+                public void onRewardedVideoLoaded(boolean isPrecache) {
+                    // Called when rewarded video is loaded
+                }
+                @Override
+                public void onRewardedVideoFailedToLoad() {
+                    // Called when rewarded video failed to load
+                    new Handler().postDelayed(() -> {
+                        findViewById(R.id.confirmButton).setEnabled(true);
+                        Toast.makeText(getApplicationContext(), getString(R.string.ad_load_fail), Toast.LENGTH_LONG).show();
+                    }, 5000); // Delay of 5 seconds
+                }
+                @Override
+                public void onRewardedVideoShown() {
+                    // Called when rewarded video is shown
+                }
+                @Override
+                public void onRewardedVideoShowFailed() {
+                    // Called when rewarded video show failed
+                    new Handler().postDelayed(() -> {
+                        findViewById(R.id.confirmButton).setEnabled(true);
+                        Toast.makeText(getApplicationContext(), getString(R.string.ad_load_fail), Toast.LENGTH_LONG).show();
+                    }, 5000); // Delay of 5 seconds
+                }
+                @Override
+                public void onRewardedVideoClicked() {
+                    // Called when rewarded video is clicked
+                }
+                @Override
+                public void onRewardedVideoFinished(double amount, String name) {
+                    save();
+
+                    Intent slot = new Intent(getApplicationContext(), SlotMachineActivity.class);
+                    startActivity(slot);
+                    findViewById(R.id.confirmButton).setEnabled(true);
+                }
+                @Override
+                public void onRewardedVideoClosed(boolean finished) {
+                    // Called when rewarded video is closed
+                }
+                @Override
+                public void onRewardedVideoExpired() {
+                    // Called when rewarded video is expired
+                }
+            });
+
+        } else {
+
+            if (Appodeal.canShow(Appodeal.REWARDED_VIDEO)) {
+                this.scratchedBlocks.clear();
+                this.winningNumbers = generateWinningNumbers();
+                updateWinningNumbersTextView();
+
+                ticketAttempts++;
+
+                blockButtons.forEach(button -> {
+                    button.setText(getString(R.string.x));
+                    button.setTextColor(Color.WHITE);
+                });
+                Appodeal.show(this, Appodeal.REWARDED_VIDEO);
+            } else {
+                new Handler().postDelayed(() -> {
+                    findViewById(R.id.confirmButton).setEnabled(true);
+                    Toast.makeText(getApplicationContext(), getString(R.string.ad_load_fail), Toast.LENGTH_LONG).show();
+                }, 5000); // Delay of 5 seconds
+            }
+
+            Appodeal.setRewardedVideoCallbacks(new RewardedVideoCallbacks() {
+                @Override
+                public void onRewardedVideoLoaded(boolean isPrecache) {
+                    // Called when rewarded video is loaded
+                }
+                @Override
+                public void onRewardedVideoFailedToLoad() {
+                    new Handler().postDelayed(() -> {
+                        findViewById(R.id.confirmButton).setEnabled(true);
+                        Toast.makeText(getApplicationContext(), getString(R.string.ad_load_fail), Toast.LENGTH_LONG).show();
+                    }, 5000); // Delay of 5 seconds
+                }
+                @Override
+                public void onRewardedVideoShown() {
+                    // Called when rewarded video is shown
+                }
+                @Override
+                public void onRewardedVideoShowFailed() {
+                    new Handler().postDelayed(() -> {
+                        findViewById(R.id.confirmButton).setEnabled(true);
+                        Toast.makeText(getApplicationContext(), getString(R.string.ad_load_fail), Toast.LENGTH_LONG).show();
+                    }, 5000); // Delay of 5 seconds
+                }
+                @Override
+                public void onRewardedVideoClicked() {
+                    // Called when rewarded video is clicked
+                }
+                @Override
+                public void onRewardedVideoFinished(double amount, String name) {
+                    save();
+                    findViewById(R.id.confirmButton).setEnabled(true);
+                }
+                @Override
+                public void onRewardedVideoClosed(boolean finished) {
+                    // Called when rewarded video is closed
+                }
+                @Override
+                public void onRewardedVideoExpired() {
+                    // Called when rewarded video is expired
+                }
+            });
         }
     }
 }

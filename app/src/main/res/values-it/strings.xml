@@ -96,4 +96,7 @@
     <string name="close">Chiudi</string>
     <string name="review">Valuta</string>
     <string name="review_message">Aiutaci a migliorare la nostra app votandola a 5 stelle sul Play Store! In cambio, riceverai 350 monete!</string>
+    <string name="save_coins_title">Salva le tue monete</string>
+    <string name="save_coins_desc">Dovrai guardare un video pubblicitario per salvare le tue monete, premi continuare per guardare il video.</string>
+    <string name="save_coins_continue">Continua</string>
 </resources>

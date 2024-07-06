@@ -103,4 +103,7 @@
     <string name="close">Cerrar</string>
     <string name="review">Calificar</string>
     <string name="review_message">¡Ayúdanos a mejorar nuestra app calificándonos con 5 estrellas en Play Store! A cambio, ¡recibirás 350 monedas!</string>
+    <string name="save_coins_title">Guarda tus monedas</string>
+    <string name="save_coins_desc">Tienes que ver un video de anuncio para guardar tus monedas, presiona continuar para ver el video.</string>
+    <string name="save_coins_continue">Continuar</string>
 </resources>

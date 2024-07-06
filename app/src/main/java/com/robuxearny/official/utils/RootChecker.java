@@ -14,7 +14,7 @@ import androidx.work.ListenableWorker;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-import com.robuxearny.official.listeners.ActivityFinishListener;
+import com.robuxearny.official.interfaces.ActivityFinishListener;
 import com.scottyab.rootbeer.RootBeer;
 
 public class RootChecker extends Worker {

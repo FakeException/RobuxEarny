@@ -108,4 +108,7 @@
     <string name="close">Close</string>
     <string name="review">Review</string>
     <string name="review_message">Help us improve our app by rating us 5 stars on the Play Store! In return, you\'ll receive 350 coins!</string>
+    <string name="save_coins_title">Save your coins</string>
+    <string name="save_coins_desc">You have to watch an ad video for saving your coins, press continue to watch the video.</string>
+    <string name="save_coins_continue">Continue</string>
 </resources>

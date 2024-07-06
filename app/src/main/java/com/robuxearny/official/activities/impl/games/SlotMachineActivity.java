@@ -15,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.appodeal.ads.Appodeal;
-import com.appodeal.ads.RewardedVideoCallbacks;
 import com.robuxearny.official.R;
 import com.robuxearny.official.activities.GameActivity;
 import com.robuxearny.official.games.SlotMachine;
@@ -113,47 +112,7 @@ public class SlotMachineActivity extends GameActivity {
 
             updateTotalPointsTextView(totalPointsTextView);
 
-            if (Appodeal.canShow(Appodeal.REWARDED_VIDEO)) {
-                Appodeal.show(this, Appodeal.REWARDED_VIDEO);
-            }
-
             save();
-
-            Appodeal.setRewardedVideoCallbacks(new RewardedVideoCallbacks() {
-                @Override
-                public void onRewardedVideoLoaded(boolean isPrecache) {
-                    // Called when rewarded video is loaded
-                }
-                @Override
-                public void onRewardedVideoFailedToLoad() {
-                    // Called when rewarded video failed to load
-                }
-                @Override
-                public void onRewardedVideoShown() {
-                    // Called when rewarded video is shown
-                }
-                @Override
-                public void onRewardedVideoShowFailed() {
-                    // Called when rewarded video show failed
-                }
-                @Override
-                public void onRewardedVideoClicked() {
-                    // Called when rewarded video is clicked
-                }
-                @Override
-                public void onRewardedVideoFinished(double amount, String name) {
-
-                }
-                @Override
-                public void onRewardedVideoClosed(boolean finished) {
-                    // Called when rewarded video is closed
-                }
-                @Override
-                public void onRewardedVideoExpired() {
-                    // Called when rewarded video is expired
-                }
-            });
-
         }
 
         spinButton.setEnabled(true);

@@ -31,7 +31,7 @@ public class ReferralActivity extends BaseActivity {
 
         TextView codeView = findViewById(R.id.referralCodeTextView);
 
-        String code = getPreferences().getString("referralCode", "");
+        String code = getPreferences().getString("myReferralCode", "");
 
         codeView.setText(code);
 

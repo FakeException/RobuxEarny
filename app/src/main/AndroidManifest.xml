@@ -11,23 +11,26 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"
+    <uses-permission
+        android:name="android.permission.ACCESS_COARSE_LOCATION"
         tools:node="remove" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"
+    <uses-permission
+        android:name="android.permission.ACCESS_FINE_LOCATION"
         tools:node="remove" />
+
 
     <application
         android:name=".Robux"
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RobuxEarny"
         android:usesCleartextTraffic="true"
-        android:hardwareAccelerated="true"
-        tools:targetApi="34"
-        android:networkSecurityConfig="@xml/network_security_config">
+        tools:targetApi="34">
 
         <property
             android:name="android.adservices.AD_SERVICES_CONFIG"
@@ -36,13 +39,12 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-6202710455352099~4109402563"/>
+            android:value="ca-app-pub-6202710455352099~4109402563" />
 
         <activity
             android:name=".activities.impl.MainActivity"
             android:exported="true"
-            android:noHistory="true"
-            >
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -50,57 +52,77 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.impl.MainMenuActivity" android:exported="true">
+        <activity
+            android:name=".activities.impl.MainMenuActivity"
+            android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.impl.games.TicketActivity" android:exported="true" android:screenOrientation="portrait">
+        <activity
+            android:name=".activities.impl.games.TicketActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.impl.RedeemActivity" android:exported="true">
+        <activity
+            android:name=".activities.impl.RedeemActivity"
+            android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.impl.PurchaseActivity" android:exported="true">
+        <activity
+            android:name=".activities.impl.PurchaseActivity"
+            android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.impl.SettingsActivity" android:exported="true">
+        <activity
+            android:name=".activities.impl.SettingsActivity"
+            android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.impl.games.SlotMachineActivity" android:exported="true" android:screenOrientation="portrait">
+        <activity
+            android:name=".activities.impl.games.SlotMachineActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.impl.ReferralActivity" android:exported="true">
+        <activity
+            android:name=".activities.impl.ReferralActivity"
+            android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.impl.SurveyActivity" android:exported="true">
+        <activity
+            android:name=".activities.impl.SurveyActivity"
+            android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.impl.BoostersActivity" android:exported="true">
+        <activity
+            android:name=".activities.impl.BoostersActivity"
+            android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
 

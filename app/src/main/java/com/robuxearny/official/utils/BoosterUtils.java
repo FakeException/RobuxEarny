@@ -11,6 +11,7 @@ import android.util.Log;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.robuxearny.official.interfaces.BoosterCallback;
 
 public class BoosterUtils {
 
@@ -50,7 +51,7 @@ public class BoosterUtils {
         });
     }
 
-    public static void checkHas4xBooster(String uid, Callback<Boolean> callback) {
+    public static void checkHas4xBooster(String uid, BoosterCallback<Boolean> boosterCallback) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference userRef = db.collection("users").document(uid);
 
@@ -58,18 +59,18 @@ public class BoosterUtils {
             if (task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();
                 if (document.exists()) {
-                    callback.onResult(Boolean.TRUE.equals(document.getBoolean("has4xBooster")));
+                    boosterCallback.onResult(Boolean.TRUE.equals(document.getBoolean("has4xBooster")));
                 } else {
-                    callback.onResult(false);
+                    boosterCallback.onResult(false);
                 }
             } else {
                 Log.e("BoosterCheck", "Error checking booster: " + task.getException());
-                callback.onResult(false);
+                boosterCallback.onResult(false);
             }
         });
     }
 
-    public static void checkHas10xBooster(String uid, Callback<Boolean> callback) {
+    public static void checkHas10xBooster(String uid, BoosterCallback<Boolean> boosterCallback) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference userRef = db.collection("users").document(uid);
 
@@ -77,18 +78,16 @@ public class BoosterUtils {
             if (task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();
                 if (document.exists()) {
-                    callback.onResult(Boolean.TRUE.equals(document.getBoolean("has10xBooster")));
+                    boosterCallback.onResult(Boolean.TRUE.equals(document.getBoolean("has10xBooster")));
                 } else {
-                    callback.onResult(false);
+                    boosterCallback.onResult(false);
                 }
             } else {
                 Log.e("BoosterCheck", "Error checking booster: " + task.getException());
-                callback.onResult(false);
+                boosterCallback.onResult(false);
             }
         });
     }
 
-    public interface Callback<T> {
-        void onResult(T result);
-    }
+
 }

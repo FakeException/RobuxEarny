@@ -100,5 +100,8 @@
     <string name="close">Fechar</string>
     <string name="review">Avaliar</string>
     <string name="review_message">Ajude-nos a melhorar nosso aplicativo avaliando-nos com 5 estrelas na Play Store. Em troca, você receberá 350 moedas!</string>
+    <string name="save_coins_title">Salve suas moedas</string>
+    <string name="save_coins_desc">Você precisa assistir um vídeo de anúncio para salvar suas moedas, pressione continuar para assistir o vídeo.</string>
+    <string name="save_coins_continue">Continuar</string>
 </resources>
 
