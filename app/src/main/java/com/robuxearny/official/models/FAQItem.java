@@ -6,7 +6,13 @@
 
 package com.robuxearny.official.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class FAQItem {
+
+    @SerializedName("question")
     public String question;
+
+    @SerializedName("answer")
     public String answer;
 }

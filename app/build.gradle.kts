@@ -17,8 +17,8 @@ android {
         applicationId = "com.robuxearny.official"
         minSdk = 24
         targetSdk = 34
-        versionCode = 42
-        versionName = "3.5"
+        versionCode = 43
+        versionName = "3.5-FIX"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -66,8 +66,10 @@ dependencies {
     implementation("com.google.firebase:firebase-appcheck-playintegrity:18.0.0")
     implementation("com.google.firebase:firebase-appcheck-debug:18.0.0")
     implementation("com.google.firebase:firebase-inappmessaging-display:21.0.0")
+    annotationProcessor("com.squareup.retrofit2:response-type-keeper:2.11.0")
     testImplementation("junit:junit:4.13.2")
     implementation("androidx.core:core-splashscreen:1.1.0-alpha02")
+    implementation("com.google.android.ump:user-messaging-platform:2.2.0")
     implementation("com.google.android.ump:user-messaging-platform:2.2.0")
     implementation("com.google.android.play:app-update:2.1.0")
     implementation("com.google.firebase:firebase-messaging:24.0.0")

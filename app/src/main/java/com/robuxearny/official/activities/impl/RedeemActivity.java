@@ -19,9 +19,7 @@ import com.robuxearny.official.models.Package;
 import com.robuxearny.official.utils.BackendUtils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class RedeemActivity extends BaseActivity {
 
@@ -63,9 +61,7 @@ public class RedeemActivity extends BaseActivity {
 
                     int startPosition = packagesList.size();
 
-                    for (Package packageObj : packages) {
-                        packagesList.add(packageObj);
-                    }
+                    packagesList.addAll(packages);
 
                     // Notify the adapter of the range of newly inserted items
                     adapter.notifyItemRangeInserted(startPosition, packagesList.size() - startPosition);

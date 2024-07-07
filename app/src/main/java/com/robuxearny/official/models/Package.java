@@ -6,10 +6,20 @@
 
 package com.robuxearny.official.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Package {
+
+    @SerializedName("name")
     private String name;
+
+    @SerializedName("price")
     private int price;
+
+    @SerializedName("quantity")
     private int quantity;
+
+    @SerializedName("imageResource")
     private String imageResource;
 
     public Package(String name, int price, int quantity, String imageResource) {
