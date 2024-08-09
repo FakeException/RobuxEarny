@@ -6,6 +6,9 @@ pluginManagement {
         gradlePluginPortal()
         maven("https://jitpack.io")
     }
+    plugins {
+        id("de.fayard.refreshVersions") version "0.60.5"
+    }
 }
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
@@ -20,3 +23,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "RobuxEarny"
 include(":app")
+
+plugins {
+    id("de.fayard.refreshVersions")
+}
