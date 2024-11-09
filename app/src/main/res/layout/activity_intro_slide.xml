@@ -32,6 +32,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
+        android:id="@+id/introSliderContainer"
         android:padding="16dp">
 
         <com.google.android.material.card.MaterialCardView

@@ -18,6 +18,7 @@ dependencyResolutionManagement {
         jcenter()
         maven("https://jitpack.io")
         maven("https://artifactory.appodeal.com/appodeal")
+        maven("https://artifactory.appodeal.com/appodeal-beta-public")
     }
 }
 

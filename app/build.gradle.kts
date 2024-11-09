@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.robuxearny.official"
-    compileSdk = 34
+    compileSdk = 35
 
     dataBinding {
         enable = true
@@ -16,9 +16,9 @@ android {
     defaultConfig {
         applicationId = "com.robuxearny.official"
         minSdk = 24
-        targetSdk = 34
-        versionCode = 44
-        versionName = "3.6"
+        targetSdk = 35
+        versionCode = 46
+        versionName = "3.8"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

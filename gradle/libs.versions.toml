@@ -2,7 +2,7 @@
 
 [plugins]
 
-com-android-application = { id = "com.android.application", version = "8.5.0" }
+com-android-application = { id = "com.android.application", version = "8.6.1" }
 
 com-google-gms-google-services = { id = "com.google.gms.google-services", version = "4.4.2" }
 
@@ -14,25 +14,34 @@ com-google-firebase-firebase-perf = { id = "com.google.firebase.firebase-perf", 
 
 retrofit2 = "2.11.0"
 
-androidx-databinding = "8.5.0"
-##                ⬆ = "8.5.1"
-##                ⬆ = "8.6.0-alpha01"
-##                ⬆ = "8.6.0-alpha02"
-##                ⬆ = "8.6.0-alpha03"
-##                ⬆ = "8.6.0-alpha04"
-##                ⬆ = "8.6.0-alpha05"
-##                ⬆ = "8.6.0-alpha06"
-##                ⬆ = "8.6.0-alpha07"
-##                ⬆ = "8.6.0-alpha08"
-##                ⬆ = "8.6.0-beta01"
-##                ⬆ = "8.6.0-beta02"
-##                ⬆ = "8.6.0-rc01"
+androidx-databinding = "8.6.0"
+##                ⬆ = "8.6.1"
 ##                ⬆ = "8.7.0-alpha01"
 ##                ⬆ = "8.7.0-alpha02"
 ##                ⬆ = "8.7.0-alpha03"
 ##                ⬆ = "8.7.0-alpha04"
+##                ⬆ = "8.7.0-alpha05"
+##                ⬆ = "8.7.0-alpha06"
+##                ⬆ = "8.7.0-alpha07"
+##                ⬆ = "8.7.0-alpha08"
+##                ⬆ = "8.7.0-alpha09"
+##                ⬆ = "8.7.0-beta01"
+##                ⬆ = "8.7.0-beta02"
+##                ⬆ = "8.7.0-rc01"
+##                ⬆ = "8.7.0"
+##                ⬆ = "8.7.1"
+##                ⬆ = "8.7.2"
+##                ⬆ = "8.8.0-alpha01"
+##                ⬆ = "8.8.0-alpha02"
+##                ⬆ = "8.8.0-alpha03"
+##                ⬆ = "8.8.0-alpha04"
+##                ⬆ = "8.8.0-alpha05"
+##                ⬆ = "8.8.0-alpha06"
+##                ⬆ = "8.8.0-alpha07"
+##                ⬆ = "8.8.0-alpha08"
+##                ⬆ = "8.8.0-alpha09"
 
-google-android-play-services-ads = "23.2.0"
+google-android-play-services-ads = "23.5.0"
 
 firebase-appcheck-playintegrity = "18.0.0"
 
@@ -78,24 +87,25 @@ databinding-runtime = { group = "androidx.databinding", name = "databinding-runt
 
 databinding-adapters = { group = "androidx.databinding", name = "databinding-adapters", version.ref = "androidx-databinding" }
 
-googleid = "com.google.android.libraries.identity.googleid:googleid:_"
+googleid = "com.google.android.libraries.identity.googleid:googleid:1.1.1"
 
 play-services-ads = { group = "com.google.android.gms", name = "play-services-ads", version.ref = "google-android-play-services-ads" }
 
-rootbeer-lib = "com.scottyab:rootbeer-lib:_"
+rootbeer-lib = "com.scottyab:rootbeer-lib:0.1.1"
 
-guava = "com.google.guava:guava:_"
+guava = "com.google.guava:guava:33.3.1-android"
+##                          ⬆ :33.3.1-jre"
 
-gson = "com.google.code.gson:gson:_"
+gson = "com.google.code.gson:gson:2.11.0"
 
 firebase-appcheck-playintegrity = { group = "com.google.firebase", name = "firebase-appcheck-playintegrity", version.ref = "firebase-appcheck-playintegrity" }
 
 firebase-appcheck-debug = { group = "com.google.firebase", name = "firebase-appcheck-debug", version.ref = "firebase-appcheck-debug" }
 
-user-messaging-platform = "com.google.android.ump:user-messaging-platform:_"
+user-messaging-platform = "com.google.android.ump:user-messaging-platform:3.1.0"
 
-sdk = "com.appodeal.ads:sdk:_"
+sdk = "com.appodeal.ads:sdk:3.4.0.0-beta.1"
 
-cpx-research-sdk-android = "com.github.MakeOpinionGmbH:cpx-research-SDK-Android:_"
+cpx-research-sdk-android = "com.github.MakeOpinionGmbH:cpx-research-SDK-Android:1.5.9"
 
-volley = "com.android.volley:volley:_"
+volley = "com.android.volley:volley:1.2.1"

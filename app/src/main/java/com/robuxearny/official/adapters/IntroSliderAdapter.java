@@ -51,8 +51,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.robuxearny.official.R;
 import com.robuxearny.official.activities.impl.MainMenuActivity;
-import com.robuxearny.official.models.IntroSlide;
 import com.robuxearny.official.callbacks.CodeExistenceCallback;
+import com.robuxearny.official.models.IntroSlide;
 import com.robuxearny.official.utils.ReferralUtils;
 
 import java.util.HashMap;
@@ -170,39 +170,49 @@ public class IntroSliderAdapter extends PagerAdapter {
 
 
 
-    public void authentication() {
+    private void authentication() {
         CredentialManager credentialManager = CredentialManager.create(this.context);
         GetGoogleIdOption googleIdOption = new GetGoogleIdOption.Builder()
                 .setFilterByAuthorizedAccounts(false)
                 .setServerClientId(context.getString(R.string.web_client_id))
                 .setAutoSelectEnabled(true)
                 .build();
+
         GetCredentialRequest request = new GetCredentialRequest.Builder()
                 .addCredentialOption(googleIdOption)
                 .build();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            credentialManager.getCredentialAsync(context, request, new CancellationSignal(), context.getMainExecutor(), new CredentialManagerCallback<GetCredentialResponse, GetCredentialException>() {
-                @Override
-                public void onResult(GetCredentialResponse getCredentialResponse) {
-                    handleSignIn(getCredentialResponse);
-                }
 
-                @Override
-                public void onError(@NonNull androidx.credentials.exceptions.GetCredentialException e) {
-                    Log.e("Login", Objects.requireNonNull(e.getMessage()));
-                }
-            });
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            credentialManager.getCredentialAsync(context, request, new CancellationSignal(), context.getMainExecutor(),
+                    new CredentialManagerCallback<GetCredentialResponse, GetCredentialException>() {
+                        @Override
+                        public void onResult(GetCredentialResponse getCredentialResponse) {
+                            handleSignIn(getCredentialResponse);
+                            // Re-enable the button and hide the progress bar
+
+                        }
+
+                        @Override
+                        public void onError(@NonNull GetCredentialException e) {
+                            Log.e("Login", Objects.requireNonNull(e.getMessage()));
+
+                            Toast.makeText(context, e.getMessage() + ", Ensure you have a Google account linked in your device.", Toast.LENGTH_SHORT).show();
+
+                            // Re-enable the button and hide the progress bar (in case of error)
+
+                        }
+                    });
         }
     }
-
 
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.intro_slide, container, false);
+        View view = inflater.inflate(R.layout.activity_intro_slide, container, false);
 
         TextView titleTextView = view.findViewById(R.id.titleTextView);
         TextView descriptionTextView = view.findViewById(R.id.descriptionTextView);

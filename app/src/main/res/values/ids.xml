@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Created by FakeException on 9/7/24, 11:16 AM
+  ~ Copyright (c) 2024. All rights reserved.
+  ~ Last modified 9/7/24, 11:16 AM
+  -->
+
+<resources>
+    <item name="appInfoLayout" type="id" />
+</resources>
