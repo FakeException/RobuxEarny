@@ -214,30 +214,24 @@ public class TicketActivity extends GameActivity {
         int MAX_TICKET_ATTEMPTS = 7;
         if (ticketAttempts >= MAX_TICKET_ATTEMPTS || shouldSwitchRandomly(MAX_TICKET_ATTEMPTS)) {
 
-            if (Appodeal.canShow(Appodeal.REWARDED_VIDEO)) {
-                this.scratchedBlocks.clear();
-                this.winningNumbers = generateWinningNumbers();
-                updateWinningNumbersTextView();
+            this.scratchedBlocks.clear();
+            this.winningNumbers = generateWinningNumbers();
+            updateWinningNumbersTextView();
 
-                ticketAttempts++;
+            ticketAttempts++;
 
-                blockButtons.forEach(button -> {
-                    button.setText(getString(R.string.x));
-                    button.setTextColor(Color.WHITE);
-                });
-                Appodeal.show(this, Appodeal.REWARDED_VIDEO);
-            } else {
-                new Handler().postDelayed(() -> {
-                    findViewById(R.id.confirmButton).setEnabled(true);
-                    Toast.makeText(getApplicationContext(), getString(R.string.ad_load_fail), Toast.LENGTH_LONG).show();
-                }, 5000); // Delay of 5 seconds
-            }
+            blockButtons.forEach(button -> {
+                button.setText(getString(R.string.x));
+                button.setTextColor(Color.WHITE);
+            });
+            Appodeal.show(this, Appodeal.REWARDED_VIDEO);
 
             Appodeal.setRewardedVideoCallbacks(new RewardedVideoCallbacks() {
                 @Override
                 public void onRewardedVideoLoaded(boolean isPrecache) {
                     // Called when rewarded video is loaded
                 }
+
                 @Override
                 public void onRewardedVideoFailedToLoad() {
                     // Called when rewarded video failed to load
@@ -246,10 +240,12 @@ public class TicketActivity extends GameActivity {
                         Toast.makeText(getApplicationContext(), getString(R.string.ad_load_fail), Toast.LENGTH_LONG).show();
                     }, 5000); // Delay of 5 seconds
                 }
+
                 @Override
                 public void onRewardedVideoShown() {
                     // Called when rewarded video is shown
                 }
+
                 @Override
                 public void onRewardedVideoShowFailed() {
                     // Called when rewarded video show failed
@@ -258,10 +254,12 @@ public class TicketActivity extends GameActivity {
                         Toast.makeText(getApplicationContext(), getString(R.string.ad_load_fail), Toast.LENGTH_LONG).show();
                     }, 5000); // Delay of 5 seconds
                 }
+
                 @Override
                 public void onRewardedVideoClicked() {
                     // Called when rewarded video is clicked
                 }
+
                 @Override
                 public void onRewardedVideoFinished(double amount, String name) {
                     save();
@@ -270,10 +268,12 @@ public class TicketActivity extends GameActivity {
                     startActivity(slot);
                     findViewById(R.id.confirmButton).setEnabled(true);
                 }
+
                 @Override
                 public void onRewardedVideoClosed(boolean finished) {
                     // Called when rewarded video is closed
                 }
+
                 @Override
                 public void onRewardedVideoExpired() {
                     // Called when rewarded video is expired
@@ -306,6 +306,7 @@ public class TicketActivity extends GameActivity {
                 public void onRewardedVideoLoaded(boolean isPrecache) {
                     // Called when rewarded video is loaded
                 }
+
                 @Override
                 public void onRewardedVideoFailedToLoad() {
                     new Handler().postDelayed(() -> {
@@ -313,10 +314,12 @@ public class TicketActivity extends GameActivity {
                         Toast.makeText(getApplicationContext(), getString(R.string.ad_load_fail), Toast.LENGTH_LONG).show();
                     }, 5000); // Delay of 5 seconds
                 }
+
                 @Override
                 public void onRewardedVideoShown() {
                     // Called when rewarded video is shown
                 }
+
                 @Override
                 public void onRewardedVideoShowFailed() {
                     new Handler().postDelayed(() -> {
@@ -324,19 +327,23 @@ public class TicketActivity extends GameActivity {
                         Toast.makeText(getApplicationContext(), getString(R.string.ad_load_fail), Toast.LENGTH_LONG).show();
                     }, 5000); // Delay of 5 seconds
                 }
+
                 @Override
                 public void onRewardedVideoClicked() {
                     // Called when rewarded video is clicked
                 }
+
                 @Override
                 public void onRewardedVideoFinished(double amount, String name) {
                     save();
                     findViewById(R.id.confirmButton).setEnabled(true);
                 }
+
                 @Override
                 public void onRewardedVideoClosed(boolean finished) {
                     // Called when rewarded video is closed
                 }
+
                 @Override
                 public void onRewardedVideoExpired() {
                     // Called when rewarded video is expired
