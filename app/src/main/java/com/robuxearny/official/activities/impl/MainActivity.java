@@ -67,6 +67,7 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
         setupUpdateManager();
         rootChecker();
 
+        Appodeal.setAutoCache(Appodeal.REWARDED_VIDEO, false);
         Appodeal.initialize(this, "697e9088ec11bcc717870003a0bf6510f5d203f744b36e9b", Appodeal.BANNER | Appodeal.INTERSTITIAL | Appodeal.REWARDED_VIDEO, errors -> {
 
             ProgressBar loadingIndicator = findViewById(R.id.loading_indicator);
