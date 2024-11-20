@@ -103,4 +103,11 @@
     <string name="save_coins_title">コインを保存する</string>
     <string name="save_coins_desc">コインを保存するためには、広告動画を見る必要があります、続けるには動画を観てください。</string>
     <string name="save_coins_continue">続ける</string>
+    <string name="coins">コイン</string>
+    <string name="try_again">残念</string>
+    <string name="spin_win">おめでとうございます！%sを獲得しました！</string>
+    <string name="try_again_message">明日はもう一度試してください！</string>
+    <string name="daily_wheel">デイリー報酬ホイール</string>
+    <string name="spin_the_wheel">ホイールを回す</string>
+    <string name="daily_wheel_once_per_day">デイリー報酬ホイールは1日1回しか開けません！</string>
 </resources>

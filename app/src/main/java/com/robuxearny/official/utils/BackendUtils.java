@@ -2,13 +2,14 @@ package com.robuxearny.official.utils;
 
 import android.content.Context;
 import android.util.Log;
-import android.view.View;
 
 import com.robuxearny.official.R;
 import com.robuxearny.official.callbacks.FAQCallback;
 import com.robuxearny.official.callbacks.PackageCallback;
+import com.robuxearny.official.callbacks.SectorsCallback;
 import com.robuxearny.official.models.FAQItem;
 import com.robuxearny.official.models.Package;
+import com.robuxearny.official.models.Sector;
 import com.robuxearny.official.network.BackendService;
 
 import java.util.List;
@@ -22,8 +23,41 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class BackendUtils {
 
-    public static void fetchPackages(Context context, PackageCallback callback) {
-        String apiUrl = context.getString(R.string.api_url);
+    private final String apiUrl;
+
+    public BackendUtils(Context context) {
+        this.apiUrl = context.getString(R.string.api_url);
+    }
+
+    public void fetchSectors(SectorsCallback callback) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(apiUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        BackendService backendService = retrofit.create(BackendService.class);
+        Call<List<Sector>> call = backendService.getSectors();
+        call.enqueue(new Callback<List<Sector>>() {
+            @Override
+            public void onResponse(Call<List<Sector>> call, Response<List<Sector>> response) {
+                if (response.isSuccessful()) {
+                    List<Sector> sectors = response.body();
+                    callback.onSectorsRetrieved(sectors);
+                } else {
+                    Log.e("SpinTheWheelActivity", "Error fetching sectors: "+ response.code());
+                    callback.onError("Error fetching sectors: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Sector>> call, Throwable t) {
+                Log.e("SpinTheWheelActivity", "Network error fetching sectors: " + t.getMessage());
+                callback.onError("Network error fetching sectors: " + t.getMessage());
+            }
+        });
+    }
+
+    public void fetchPackages(PackageCallback callback) {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(apiUrl)
@@ -52,14 +86,13 @@ public class BackendUtils {
         });
     }
 
-    public static void fetchFAQs(Context context, FAQCallback callback) {
-        String apiUrl = context.getString(R.string.api_url);
+    public void fetchFAQs(FAQCallback callback) {
         String locale = Locale.getDefault().getLanguage();
 
-        fetchFAQsForLocale(apiUrl, locale, callback);
+        fetchFAQsForLocale(locale, callback);
     }
 
-    private static void fetchFAQsForLocale(String apiUrl, String locale, FAQCallback callback) {
+    private void fetchFAQsForLocale(String locale, FAQCallback callback) {
         String jsonUrl = apiUrl + "faqs_" + locale + ".json";
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -78,7 +111,7 @@ public class BackendUtils {
                 } else {
                     // If the requested language fails, try English
                     if (!locale.equals("en")) {
-                        fetchFAQsForLocale(apiUrl, "en", callback);
+                        fetchFAQsForLocale("en", callback);
                     } else {
                         Log.e("faq", String.valueOf(response.code()));
                         callback.onError("Error fetching FAQs: " + response.code());
@@ -90,7 +123,7 @@ public class BackendUtils {
             public void onFailure(Call<List<FAQItem>> call, Throwable t) {
                 // If the network request fails, try English
                 if (!locale.equals("en")) {
-                    fetchFAQsForLocale(apiUrl, "en", callback);
+                    fetchFAQsForLocale("en", callback);
                 } else {
                     Log.e("faq", t.getMessage());
                     callback.onError("Network error fetching FAQs: " + t.getMessage());

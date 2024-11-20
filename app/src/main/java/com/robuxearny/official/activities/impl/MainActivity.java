@@ -38,10 +38,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.robuxearny.official.R;
+import com.robuxearny.official.Robux;
 import com.robuxearny.official.activities.BaseActivity;
 import com.robuxearny.official.adapters.IntroSliderAdapter;
-import com.robuxearny.official.models.IntroSlide;
 import com.robuxearny.official.callbacks.ActivityFinishListener;
+import com.robuxearny.official.models.IntroSlide;
 import com.robuxearny.official.utils.Dialogs;
 import com.robuxearny.official.utils.RootChecker;
 
@@ -52,8 +53,6 @@ import java.util.Map;
 public class MainActivity extends BaseActivity implements ActivityFinishListener {
 
     private LinearLayout indicatorLayout;
-
-    private IntroSliderAdapter introSliderAdapter;
     private ActivityResultLauncher<IntentSenderRequest> updateLauncher;
     private AppUpdateManager appUpdateManager;
 
@@ -67,54 +66,61 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
         setupUpdateManager();
         rootChecker();
 
-        Appodeal.setAutoCache(Appodeal.REWARDED_VIDEO, false);
-        Appodeal.initialize(this, "697e9088ec11bcc717870003a0bf6510f5d203f744b36e9b", Appodeal.BANNER | Appodeal.INTERSTITIAL | Appodeal.REWARDED_VIDEO, errors -> {
+        if (Robux.devMode) {
+            initializeStuff();
+        } else {
+            Appodeal.setAutoCache(Appodeal.REWARDED_VIDEO, false);
+            Appodeal.initialize(this, "697e9088ec11bcc717870003a0bf6510f5d203f744b36e9b", Appodeal.BANNER | Appodeal.INTERSTITIAL | Appodeal.REWARDED_VIDEO, errors -> {
+                initializeStuff();
+            });
+        }
+    }
 
-            ProgressBar loadingIndicator = findViewById(R.id.loading_indicator);
-            loadingIndicator.setVisibility(View.GONE);
+    private void initializeStuff() {
+        ProgressBar loadingIndicator = findViewById(R.id.loading_indicator);
+        loadingIndicator.setVisibility(View.GONE);
 
-            Appodeal.show(this, Appodeal.BANNER_VIEW);
+        Appodeal.show(this, Appodeal.BANNER_VIEW);
 
-            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-            if (currentUser != null) {
+        if (currentUser != null) {
 
-                retrieveMoney();
+            retrieveMoney();
 
-                Intent intent = new Intent(this, MainMenuActivity.class);
-                startActivity(intent);
-                finish();
+            Intent intent = new Intent(this, MainMenuActivity.class);
+            startActivity(intent);
+            finish();
 
-            } else {
-                ViewPager viewPager = findViewById(R.id.viewPager);
-                indicatorLayout = findViewById(R.id.indicatorLayout);
+        } else {
+            ViewPager viewPager = findViewById(R.id.viewPager);
+            indicatorLayout = findViewById(R.id.indicatorLayout);
 
-                List<IntroSlide> introSlides = new ArrayList<>();
-                introSlides.add(new IntroSlide(getString(R.string.welcome), getString(R.string.welcome_desc)));
-                introSlides.add(new IntroSlide(getString(R.string.coinsystem), getString(R.string.coinsystem_desc)));
-                introSlides.add(new IntroSlide(getString(R.string.ready), getString(R.string.ready_desc)));
+            List<IntroSlide> introSlides = new ArrayList<>();
+            introSlides.add(new IntroSlide(getString(R.string.welcome), getString(R.string.welcome_desc)));
+            introSlides.add(new IntroSlide(getString(R.string.coinsystem), getString(R.string.coinsystem_desc)));
+            introSlides.add(new IntroSlide(getString(R.string.ready), getString(R.string.ready_desc)));
 
-                introSliderAdapter = new IntroSliderAdapter(this, introSlides);
-                viewPager.setAdapter(introSliderAdapter);
+            IntroSliderAdapter introSliderAdapter = new IntroSliderAdapter(this, introSlides);
+            viewPager.setAdapter(introSliderAdapter);
 
-                setupIndicator(introSlides.size());
+            setupIndicator(introSlides.size());
 
-                viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                    @Override
-                    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                    }
+            viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                }
 
-                    @Override
-                    public void onPageSelected(int position) {
-                        setIndicator(position);
-                    }
+                @Override
+                public void onPageSelected(int position) {
+                    setIndicator(position);
+                }
 
-                    @Override
-                    public void onPageScrollStateChanged(int state) {
-                    }
-                });
-            }
-        });
+                @Override
+                public void onPageScrollStateChanged(int state) {
+                }
+            });
+        }
     }
 
     public void retrieveMoney() {

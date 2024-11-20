@@ -99,4 +99,11 @@
     <string name="save_coins_title">Salva le tue monete</string>
     <string name="save_coins_desc">Dovrai guardare un video pubblicitario per salvare le tue monete, premi continuare per guardare il video.</string>
     <string name="save_coins_continue">Continua</string>
+    <string name="coins">Monete</string>
+    <string name="try_again">Riprova</string>
+    <string name="spin_win">Congratulazioni! Hai vinto %s!</string>
+    <string name="try_again_message">Riprova la prossima volta!</string>
+    <string name="daily_wheel">Ruota delle ricompense giornaliere</string>
+    <string name="spin_the_wheel">Gira la ruota</string>
+    <string name="daily_wheel_once_per_day">Puoi aprire la ruota giornaliera solo una volta al giorno!</string>
 </resources>

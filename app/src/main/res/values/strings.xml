@@ -112,4 +112,11 @@
     <string name="save_coins_title">Save your coins</string>
     <string name="save_coins_desc">You have to watch an ad video for saving your coins, press continue to watch the video.</string>
     <string name="save_coins_continue">Continue</string>
+    <string name="coins">Coins</string>
+    <string name="try_again">Try Again</string>
+    <string name="spin_win">Congratulations! You won %s!</string>
+    <string name="try_again_message">Try again next time!</string>
+    <string name="daily_wheel">Daily rewards wheel</string>
+    <string name="spin_the_wheel">Spin The Wheel</string>
+    <string name="daily_wheel_once_per_day">You can only open the daily wheel once per day!</string>
 </resources>

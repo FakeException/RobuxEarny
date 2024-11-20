@@ -69,6 +69,15 @@
         </activity>
 
         <activity
+            android:name=".activities.impl.games.SpinTheWheelActivity"
+            android:launchMode="singleTask"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".activities.impl.RedeemActivity"
             android:exported="true">
             <intent-filter>

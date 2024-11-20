@@ -103,4 +103,11 @@
     <string name="save_coins_title">Salve suas moedas</string>
     <string name="save_coins_desc">Você precisa assistir um vídeo de anúncio para salvar suas moedas, pressione continuar para assistir o vídeo.</string>
     <string name="save_coins_continue">Continuar</string>
+    <string name="coins">Moedas</string>
+    <string name="try_again">Tente novamente</string>
+    <string name="spin_win">Parabéns! Você ganhou %s!</string>
+    <string name="try_again_message">Tente novamente na próxima vez!</string>
+    <string name="daily_wheel">Roda de recompensas diárias</string>
+    <string name="spin_the_wheel">Gire a roda</string>
+    <string name="daily_wheel_once_per_day">Você só pode abrir a roda diária uma vez por dia!</string>
 </resources>

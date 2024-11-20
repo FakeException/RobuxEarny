@@ -8,6 +8,7 @@ package com.robuxearny.official.network;
 
 import com.robuxearny.official.models.FAQItem;
 import com.robuxearny.official.models.Package;
+import com.robuxearny.official.models.Sector;
 
 import java.util.List;
 
@@ -22,4 +23,7 @@ public interface BackendService {
 
     @GET("packages.json")
     Call<List<Package>> getPackages();
+
+    @GET("sectors.json")
+    Call<List<Sector>> getSectors();
 }

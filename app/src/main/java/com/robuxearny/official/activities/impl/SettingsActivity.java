@@ -20,7 +20,6 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -132,12 +131,13 @@ public class SettingsActivity extends BaseActivity {
         RecyclerView faqRecyclerView = popupView.findViewById(R.id.faqRecyclerView);
         faqRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        BackendUtils.fetchFAQs(this, new FAQCallback() {
+        BackendUtils backendUtils = new BackendUtils(this);
+
+        backendUtils.fetchFAQs(new FAQCallback() {
             @Override
             public void onFAQsLoaded(List<FAQItem> faqs) {
                 FAQAdapter adapter = new FAQAdapter(faqs);
                 faqRecyclerView.setAdapter(adapter);
-
             }
 
             @Override

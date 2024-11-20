@@ -66,6 +66,8 @@ public class Robux extends Application
 
     private List<ProductDetails> productDetailsList;
 
+    public static boolean devMode = false;
+
     @Override
     public void onCreate() {
         super.onCreate();

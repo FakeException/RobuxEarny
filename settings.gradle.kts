@@ -5,6 +5,7 @@ pluginManagement {
         jcenter()
         gradlePluginPortal()
         maven("https://jitpack.io")
+        maven("https://dl.bintray.com/adef145/maven/")
     }
     plugins {
         id("de.fayard.refreshVersions") version "0.60.5"

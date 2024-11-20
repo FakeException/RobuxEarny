@@ -54,7 +54,9 @@ public class RedeemActivity extends BaseActivity {
         recyclerView.setVisibility(View.GONE);
         loadingIndicator.setVisibility(View.VISIBLE);
 
-        BackendUtils.fetchPackages(this, new PackageCallback() {
+        BackendUtils backendUtils = new BackendUtils(this);
+
+        backendUtils.fetchPackages(new PackageCallback() {
             @Override
             public void onPackagesLoaded(List<Package> packages) {
                 if (packages != null) {

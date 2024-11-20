@@ -74,6 +74,26 @@ public class GameActivity extends BaseActivity {
         });
     }
 
+    public void increaseCoins(int inc) {
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference userRef = db.collection("users").document(uid);
+
+        userRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+
+                    userRef.update("coins", FieldValue.increment(inc))
+                            .addOnSuccessListener(obj -> Log.d("Coins", "Coins updated"))
+                            .addOnFailureListener(exc -> Log.d("Coins", "Error: " + exc.getMessage()));
+
+                }
+            }
+
+        });
+    }
+
     public void updateTotalPointsTextView(TextView totalPointsView) {
         totalPointsView.setText(getString(R.string.total_points, this.totalPoints));
     }

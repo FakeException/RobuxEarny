@@ -14,7 +14,7 @@ com-google-firebase-firebase-perf = { id = "com.google.firebase.firebase-perf", 
 
 retrofit2 = "2.11.0"
 
-androidx-databinding = "8.6.0"
+androidx-databinding = "8.7.2"
 ##                ⬆ = "8.6.1"
 ##                ⬆ = "8.7.0-alpha01"
 ##                ⬆ = "8.7.0-alpha02"
@@ -104,8 +104,10 @@ firebase-appcheck-debug = { group = "com.google.firebase", name = "firebase-appc
 
 user-messaging-platform = "com.google.android.ump:user-messaging-platform:3.1.0"
 
-sdk = "com.appodeal.ads:sdk:3.4.0.0-beta.1"
+sdk = "com.appodeal.ads:sdk:3.4.0.0"
 
 cpx-research-sdk-android = "com.github.MakeOpinionGmbH:cpx-research-SDK-Android:1.5.9"
 
 volley = "com.android.volley:volley:1.2.1"
+
+spinninwheel = "com.adefruandta.spinningwheel:spinningwheel:0.1.0"

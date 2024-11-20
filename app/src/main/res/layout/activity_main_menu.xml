@@ -114,6 +114,17 @@
                             app:iconTint="@color/gold"
                             />
 
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/dailyWheel"
+                            style="@style/Widget.Material3.Button.Icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="dailyWheel"
+                            android:text="@string/daily_wheel"
+                            app:icon="@drawable/ic_spin2_foreground"
+                            app:iconTint="@color/green"
+                            />
+
                     </LinearLayout>
 
 
