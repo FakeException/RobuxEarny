@@ -228,13 +228,16 @@ public class TicketActivity extends GameActivity {
 
         resetOperations();
 
+        if (!Appodeal.isLoaded(Appodeal.REWARDED_VIDEO)) {
+            Appodeal.cache(activity, Appodeal.REWARDED_VIDEO);
+        }
+
         Appodeal.show(this, Appodeal.REWARDED_VIDEO);
 
         Appodeal.setRewardedVideoCallbacks(new RewardedVideoCallbacks() {
             @Override
             public void onRewardedVideoLoaded(boolean isPrecache) {
                 // Called when rewarded video is loaded
-                Appodeal.cache(activity, Appodeal.REWARDED_VIDEO);
             }
 
             @Override
@@ -250,7 +253,6 @@ public class TicketActivity extends GameActivity {
             @Override
             public void onRewardedVideoShown() {
                 // Called when rewarded video is shown
-                Appodeal.cache(activity, Appodeal.REWARDED_VIDEO);
             }
 
             @Override
@@ -266,7 +268,6 @@ public class TicketActivity extends GameActivity {
             @Override
             public void onRewardedVideoClicked() {
                 // Called when rewarded video is clicked
-                Appodeal.cache(activity, Appodeal.REWARDED_VIDEO);
             }
 
             @Override
@@ -275,23 +276,23 @@ public class TicketActivity extends GameActivity {
                 save();
 
                 findViewById(R.id.confirmButton).setEnabled(true);
-
-                if (ticketAttempts >= MAX_TICKET_ATTEMPTS || shouldSwitchRandomly(MAX_TICKET_ATTEMPTS)) {
-                    startRandomGameActivity(true);
-                    ticketAttempts = 0;
-                }
             }
 
             @Override
             public void onRewardedVideoClosed(boolean finished) {
                 // Called when rewarded video is closed
-                Appodeal.cache(activity, Appodeal.REWARDED_VIDEO);
+                if (finished) {
+
+                    if (ticketAttempts >= MAX_TICKET_ATTEMPTS || shouldSwitchRandomly(MAX_TICKET_ATTEMPTS)) {
+                        startRandomGameActivity(false);
+                        ticketAttempts = 0;
+                    }
+                }
             }
 
             @Override
             public void onRewardedVideoExpired() {
                 // Called when rewarded video is expired
-                Appodeal.cache(activity, Appodeal.REWARDED_VIDEO);
             }
         });
     }
