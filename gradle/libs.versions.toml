@@ -12,6 +12,8 @@ com-google-firebase-firebase-perf = { id = "com.google.firebase.firebase-perf", 
 
 [versions]
 
+desugar_jdk_libs = "2.0.4"
+gdxVersion = "1.13.0"
 retrofit2 = "2.11.0"
 
 androidx-databinding = "8.7.2"
@@ -75,6 +77,11 @@ android-test-plugin-result-listener-gradle = "com.android.tools.utp:android-test
 
 com-google-testing-platform-core = "com.google.testing.platform:core:_"
 
+desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
+gdx = { module = "com.badlogicgames.gdx:gdx", version.ref = "gdxVersion" }
+gdx-freetype = { module = "com.badlogicgames.gdx:gdx-freetype", version.ref = "gdxVersion" }
+gdx-backend-android = { module = "com.badlogicgames.gdx:gdx-backend-android", version.ref = "gdxVersion" }
+gdx-box2d = { module = "com.badlogicgames.gdx:gdx-box2d", version.ref = "gdxVersion" }
 launcher = "com.google.testing.platform:launcher:_"
 
 response-type-keeper = { group = "com.squareup.retrofit2", name = "response-type-keeper", version.ref = "retrofit2" }

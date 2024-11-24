@@ -1,8 +1,13 @@
 package com.robuxearny.official.utils;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.robuxearny.official.R;
 import com.robuxearny.official.callbacks.FAQCallback;
 import com.robuxearny.official.callbacks.PackageCallback;
@@ -14,6 +19,7 @@ import com.robuxearny.official.network.BackendService;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -130,5 +136,36 @@ public class BackendUtils {
                 }
             }
         });
+    }
+
+    public static void retrieveMoney(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences("RobuxEarny", Context.MODE_PRIVATE);
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user != null) {
+            String uid = user.getUid();
+
+            Log.d("Coins", "Current UID: " + uid);
+
+            db.collection("users").document(uid).get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    Log.d("Coins", "Document Data: " + document);
+
+                    if (document.exists()) {
+                        Map<String, Object> data = document.getData();
+                        Log.d("Coins", "Document Data: " + data);
+
+                        Long coinsLong = document.getLong("coins");
+                        if (coinsLong != null) {
+                            long coins = coinsLong;
+                            preferences.edit().putInt("coins", (int) coins).apply();
+                        }
+                    }
+                }
+            });
+        }
     }
 }

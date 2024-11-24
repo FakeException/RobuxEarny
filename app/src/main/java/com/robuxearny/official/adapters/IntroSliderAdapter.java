@@ -53,6 +53,7 @@ import com.robuxearny.official.R;
 import com.robuxearny.official.activities.impl.MainMenuActivity;
 import com.robuxearny.official.callbacks.CodeExistenceCallback;
 import com.robuxearny.official.models.IntroSlide;
+import com.robuxearny.official.utils.BackendUtils;
 import com.robuxearny.official.utils.ReferralUtils;
 
 import java.util.HashMap;
@@ -153,6 +154,7 @@ public class IntroSliderAdapter extends PagerAdapter {
                             })
                             .addOnFailureListener(e -> Log.e("Firestore", "Error saving user data: " + e.getMessage()));
                 } else {
+                    BackendUtils.retrieveMoney(context);
                     ReferralUtils.saveUserReferral(db, uid, (referralCode) -> {
                         if (referralCode != null) {
                             // Store in SharedPreferences

@@ -62,12 +62,22 @@
 
         <activity
             android:name=".activities.impl.games.TicketActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
 
+
+        <activity
+            android:name=".activities.LibGDXActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
+        <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activities.impl.games.SpinTheWheelActivity"
             android:launchMode="singleTask"
@@ -103,7 +113,8 @@
 
         <activity
             android:name=".activities.impl.games.SlotMachineActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>

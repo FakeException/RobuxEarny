@@ -8,12 +8,43 @@ package com.robuxearny.official.utils;
 
 import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.robuxearny.official.callbacks.BoosterCallback;
 
 public class BoosterUtils {
+
+    private static boolean has4xBooster;
+    private static boolean has10xBooster;
+
+    public static void initialize() {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        String uid;
+        if (currentUser != null) {
+            uid = currentUser.getUid();
+            BoosterUtils.checkHas4xBooster(uid, result -> has4xBooster = result);
+            BoosterUtils.checkHas10xBooster(uid, result -> has10xBooster = result);
+        }
+    }
+
+    public static int getMoneyBooster(int points) {
+
+        if (has10xBooster && has4xBooster) {
+            return points * 14;
+        } else {
+            if (has4xBooster) {
+                return points * 4;
+            } else if (has10xBooster) {
+                return points * 10;
+            } else {
+                return points;
+            }
+        }
+    }
 
     public static void enableBoost4x(String uid) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();

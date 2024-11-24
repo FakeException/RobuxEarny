@@ -6,7 +6,6 @@
 
 package com.robuxearny.official.activities.impl.games;
 
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.widget.Button;
@@ -18,6 +17,7 @@ import com.appodeal.ads.Appodeal;
 import com.robuxearny.official.R;
 import com.robuxearny.official.activities.GameActivity;
 import com.robuxearny.official.games.SlotMachine;
+import com.robuxearny.official.utils.BoosterUtils;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -98,14 +98,6 @@ public class SlotMachineActivity extends GameActivity {
 
         slotAttempts++;
 
-        // Check if the maximum attempts have been reached or if it's time to switch randomly
-        int MAX_SLOT_ATTEMPTS = 5;
-        if (slotAttempts >= MAX_SLOT_ATTEMPTS || shouldSwitchRandomly(MAX_SLOT_ATTEMPTS)) {
-            Intent slot = new Intent(this, TicketActivity.class);
-            startActivity(slot);
-            finish();
-        }
-
         if (slotMachine.checkWin(this)) {
 
             increasePoints(generateRandomPoints());
@@ -116,6 +108,11 @@ public class SlotMachineActivity extends GameActivity {
         }
 
         spinButton.setEnabled(true);
+
+        int MAX_SLOT_ATTEMPTS = 5;
+        if (slotAttempts >= MAX_SLOT_ATTEMPTS || shouldSwitchRandomly(MAX_SLOT_ATTEMPTS)) {
+            startRandomGameActivity(true);
+        }
     }
 
     private void save() {
@@ -128,18 +125,7 @@ public class SlotMachineActivity extends GameActivity {
     }
 
     private int generateRandomPoints() {
-        int basePoints = getRandom().nextInt(21) + 20;
-
-        if (isHas10xBooster() && isHas4xBooster()) {
-            return basePoints * 14;
-        } else {
-            if (isHas4xBooster()) {
-                return basePoints * 4;
-            } else if (isHas10xBooster()) {
-                return basePoints * 10;
-            } else {
-                return basePoints;
-            }
-        }
+        int basePoints = getRandom().nextInt(21) + 8;
+        return BoosterUtils.getMoneyBooster(basePoints);
     }
 }

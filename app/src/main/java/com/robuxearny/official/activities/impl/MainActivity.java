@@ -6,9 +6,7 @@
 
 package com.robuxearny.official.activities.impl;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -35,20 +33,18 @@ import com.google.android.play.core.install.model.AppUpdateType;
 import com.google.android.play.core.install.model.UpdateAvailability;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.robuxearny.official.R;
 import com.robuxearny.official.Robux;
 import com.robuxearny.official.activities.BaseActivity;
 import com.robuxearny.official.adapters.IntroSliderAdapter;
 import com.robuxearny.official.callbacks.ActivityFinishListener;
 import com.robuxearny.official.models.IntroSlide;
+import com.robuxearny.official.utils.BackendUtils;
 import com.robuxearny.official.utils.Dialogs;
 import com.robuxearny.official.utils.RootChecker;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class MainActivity extends BaseActivity implements ActivityFinishListener {
 
@@ -86,7 +82,7 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
 
         if (currentUser != null) {
 
-            retrieveMoney();
+            BackendUtils.retrieveMoney(this);
 
             Intent intent = new Intent(this, MainMenuActivity.class);
             startActivity(intent);
@@ -123,36 +119,7 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
         }
     }
 
-    public void retrieveMoney() {
-        SharedPreferences preferences = getSharedPreferences("RobuxEarny", Context.MODE_PRIVATE);
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        if (user != null) {
-            String uid = user.getUid();
-
-            Log.d("Coins", "Current UID: " + uid);
-
-            db.collection("users").document(uid).get().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    Log.d("Coins", "Document Data: " + document);
-
-                    if (document.exists()) {
-                        Map<String, Object> data = document.getData();
-                        Log.d("Coins", "Document Data: " + data);
-
-                        Long coinsLong = document.getLong("coins");
-                        if (coinsLong != null) {
-                            long coins = coinsLong;
-                            preferences.edit().putInt("coins", (int) coins).apply();
-                        }
-                    }
-                }
-            });
-        }
-    }
 
     private void setupUpdateManager() {
 
