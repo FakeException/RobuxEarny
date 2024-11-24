@@ -243,7 +243,9 @@ public class TicketActivity extends GameActivity {
             @Override
             public void onRewardedVideoFailedToLoad() {
                 // Called when rewarded video failed to load
-                Appodeal.cache(activity, Appodeal.REWARDED_VIDEO);
+                if (!Appodeal.isLoaded(Appodeal.REWARDED_VIDEO)) {
+                    Appodeal.cache(activity, Appodeal.REWARDED_VIDEO);
+                }
                 new Handler().postDelayed(() -> {
                     findViewById(R.id.confirmButton).setEnabled(true);
                     Toast.makeText(getApplicationContext(), getString(R.string.ad_load_fail), Toast.LENGTH_LONG).show();
@@ -258,7 +260,9 @@ public class TicketActivity extends GameActivity {
             @Override
             public void onRewardedVideoShowFailed() {
                 // Called when rewarded video show failed
-                Appodeal.cache(activity, Appodeal.REWARDED_VIDEO);
+                if (!Appodeal.isLoaded(Appodeal.REWARDED_VIDEO)) {
+                    Appodeal.cache(activity, Appodeal.REWARDED_VIDEO);
+                }
                 new Handler().postDelayed(() -> {
                     findViewById(R.id.confirmButton).setEnabled(true);
                     Toast.makeText(getApplicationContext(), getString(R.string.ad_load_fail), Toast.LENGTH_LONG).show();
@@ -272,7 +276,9 @@ public class TicketActivity extends GameActivity {
 
             @Override
             public void onRewardedVideoFinished(double amount, String name) {
-                Appodeal.cache(activity, Appodeal.REWARDED_VIDEO);
+                if (!Appodeal.isLoaded(Appodeal.REWARDED_VIDEO)) {
+                    Appodeal.cache(activity, Appodeal.REWARDED_VIDEO);
+                }
                 save();
 
                 findViewById(R.id.confirmButton).setEnabled(true);
@@ -281,6 +287,10 @@ public class TicketActivity extends GameActivity {
             @Override
             public void onRewardedVideoClosed(boolean finished) {
                 // Called when rewarded video is closed
+                if (!Appodeal.isLoaded(Appodeal.REWARDED_VIDEO)) {
+                    Appodeal.cache(activity, Appodeal.REWARDED_VIDEO);
+                }
+
                 if (finished) {
 
                     if (ticketAttempts >= MAX_TICKET_ATTEMPTS || shouldSwitchRandomly(MAX_TICKET_ATTEMPTS)) {
