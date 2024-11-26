@@ -230,6 +230,8 @@ public class TicketActivity extends GameActivity {
 
         if (!Appodeal.isLoaded(Appodeal.REWARDED_VIDEO)) {
             Appodeal.cache(activity, Appodeal.REWARDED_VIDEO);
+            findViewById(R.id.confirmButton).setEnabled(true);
+            Toast.makeText(getApplicationContext(), getString(R.string.ad_load_fail), Toast.LENGTH_LONG).show();
         }
 
         Appodeal.show(this, Appodeal.REWARDED_VIDEO);
@@ -243,9 +245,7 @@ public class TicketActivity extends GameActivity {
             @Override
             public void onRewardedVideoFailedToLoad() {
                 // Called when rewarded video failed to load
-                if (!Appodeal.isLoaded(Appodeal.REWARDED_VIDEO)) {
-                    Appodeal.cache(activity, Appodeal.REWARDED_VIDEO);
-                }
+                Appodeal.cache(activity, Appodeal.REWARDED_VIDEO);
                 new Handler().postDelayed(() -> {
                     findViewById(R.id.confirmButton).setEnabled(true);
                     Toast.makeText(getApplicationContext(), getString(R.string.ad_load_fail), Toast.LENGTH_LONG).show();
@@ -255,14 +255,13 @@ public class TicketActivity extends GameActivity {
             @Override
             public void onRewardedVideoShown() {
                 // Called when rewarded video is shown
+                Appodeal.cache(activity, Appodeal.REWARDED_VIDEO);
             }
 
             @Override
             public void onRewardedVideoShowFailed() {
                 // Called when rewarded video show failed
-                if (!Appodeal.isLoaded(Appodeal.REWARDED_VIDEO)) {
-                    Appodeal.cache(activity, Appodeal.REWARDED_VIDEO);
-                }
+                Appodeal.cache(activity, Appodeal.REWARDED_VIDEO);
                 new Handler().postDelayed(() -> {
                     findViewById(R.id.confirmButton).setEnabled(true);
                     Toast.makeText(getApplicationContext(), getString(R.string.ad_load_fail), Toast.LENGTH_LONG).show();

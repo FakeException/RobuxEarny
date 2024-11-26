@@ -100,6 +100,8 @@ public class SlotMachineActivity extends GameActivity {
 
         if (slotMachine.checkWin(this)) {
 
+            Appodeal.cache(this, Appodeal.REWARDED_VIDEO);
+
             increasePoints(generateRandomPoints());
 
             updateTotalPointsTextView(totalPointsTextView);

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.widget.Toast;
 
+import com.appodeal.ads.Appodeal;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.backends.android.AndroidApplication;
@@ -96,6 +97,8 @@ public class ColorBurstGame extends LibGDXBaseGame {
         circleY = screenHeight / 2f;
 
         Gdx.input.setInputProcessor(new MyInputProcessor());
+
+        Appodeal.cache(application, Appodeal.REWARDED_VIDEO);
     }
 
     @Override

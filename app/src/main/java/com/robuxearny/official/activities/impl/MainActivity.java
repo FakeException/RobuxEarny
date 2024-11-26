@@ -130,20 +130,26 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
         updateLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartIntentSenderForResult(),
                 result -> {
-                    // handle callback
+                    // Handle the result
                     if (result.getResultCode() != RESULT_OK) {
                         Log.d("Update", "Update flow failed! Result code: " + result.getResultCode());
                     }
                 });
 
         appUpdateInfoTask.addOnSuccessListener(appUpdateInfo -> {
-            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
-                appUpdateManager.startUpdateFlowForResult(
-                        appUpdateInfo,
-                        updateLauncher,
-                        AppUpdateOptions.newBuilder(AppUpdateType.IMMEDIATE)
-                                .setAllowAssetPackDeletion(true)
-                                .build());
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE &&
+                    appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
+
+                if (updateLauncher != null) { // Check if registered
+                    appUpdateManager.startUpdateFlowForResult(
+                            appUpdateInfo,
+                            updateLauncher,
+                            AppUpdateOptions.newBuilder(AppUpdateType.IMMEDIATE)
+                                    .setAllowAssetPackDeletion(true)
+                                    .build());
+                } else {
+                    Log.e("Update", "Update launcher is not registered.");
+                }
             }
         });
     }
