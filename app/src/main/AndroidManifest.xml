@@ -72,8 +72,7 @@
 
         <activity
             android:name=".activities.LibGDXActivity"
-            android:exported="true"
-            android:screenOrientation="portrait">
+            android:exported="true">
         <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>

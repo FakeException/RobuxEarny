@@ -1,0 +1,136 @@
+package com.robuxearny.official.games.maze;
+
+import androidx.core.math.MathUtils;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.robuxearny.official.games.maze.actor.Room;
+
+import java.util.ArrayList;
+
+public class Maze {
+
+    // maze size constants
+    public final int roomCountX = 12;
+    public final int roomCountY = 10;
+    private float roomWidth, roomHeight; // Make room dimensions dynamic
+
+    private final Room[][] roomGrid = new Room[roomCountX][roomCountY];
+
+    private void calculateRoomDimensions(Stage stage) {
+        float screenWidth = Gdx.graphics.getWidth();
+        float screenHeight = Gdx.graphics.getHeight();
+
+        // Calculate room dimensions to fit the screen
+        roomWidth = screenWidth / roomCountX;
+        roomHeight = screenHeight / roomCountY;
+
+        // Adjust room dimensions to maintain aspect ratio if needed
+        // ... (your logic to adjust aspect ratio)
+    }
+
+    public Maze(Stage stage) {
+
+        calculateRoomDimensions(stage);
+
+        for (int gridY = 0; gridY < roomCountY; gridY++) {
+            for (int gridX = 0; gridX < roomCountX; gridX++) {
+                float pixelX = gridX * roomWidth;
+                float pixelY = gridY * roomHeight;
+                Room room = new Room(pixelX, pixelY, stage, roomWidth, roomHeight); // Pass room dimensions
+                roomGrid[gridX][gridY] = room;
+            }
+        }
+
+        // neighbor relations
+        for (int gridY = 0; gridY < roomCountY; gridY++) {
+            for (int gridX = 0; gridX < roomCountX; gridX++) {
+                Room room = roomGrid[gridX][gridY];
+                if (gridY > 0)
+                    room.setNeighbor(Room.SOUTH, roomGrid[gridX][gridY - 1]);
+                if (gridY < roomCountY - 1)
+                    room.setNeighbor(Room.NORTH, roomGrid[gridX][gridY + 1]);
+                if (gridX > 0)
+                    room.setNeighbor(Room.WEST, roomGrid[gridX - 1][gridY]);
+                if (gridX < roomCountX - 1)
+                    room.setNeighbor(Room.EAST, roomGrid[gridX + 1][gridY]);
+            }
+        }
+
+        // Depth-First Algorithm
+        ArrayList<Room> activeRoomList = new ArrayList<>();
+
+        Room currentRoom = roomGrid[0][0];
+        currentRoom.setConnected(true);
+        activeRoomList.add(0, currentRoom);
+
+        /* chance of returning to a random connected room
+           to create a branching path from that room */
+        float branchProbability = 0.5f;
+
+        while (!activeRoomList.isEmpty()) {
+
+            if (Math.random() < branchProbability) {
+                // get random previously visited room
+                int roomIndex = (int) (Math.random() * activeRoomList.size());
+                currentRoom = activeRoomList.get(roomIndex);
+            } else {
+                // get the most recently visited room
+                currentRoom = activeRoomList.get(activeRoomList.size() - 1);
+            }
+
+            if (currentRoom.hasUnconnectedNeighbor()) {
+                Room nextRoom = currentRoom.getRandomUnconnectedNeighbor();
+                currentRoom.removeWallsBetween(nextRoom);
+                nextRoom.setConnected(true);
+                activeRoomList.add(0, nextRoom);
+            } else {
+                // this room has no more adjacent unconnected rooms
+                //so there is no reason to keep it in the list
+                activeRoomList.remove(currentRoom);
+            }
+        }
+
+        int wallsToRemove = 24;
+
+        while (wallsToRemove > 0) {
+            int gridX = (int) Math.floor(Math.random() * roomCountX);
+            int gridY = (int) Math.floor(Math.random() * roomCountY);
+            int direction = (int) Math.floor(Math.random() * 4);
+            Room room = roomGrid[gridX][gridY];
+
+            if (room.hasNeighbor(direction) && room.hasWall(direction)) {
+                room.removeWalls(direction);
+                wallsToRemove--;
+            }
+        }
+    }
+
+    public Room getRoom(int gridX, int gridY) {
+        // Clamp grid coordinates to valid range
+        gridX = MathUtils.clamp(gridX, 0, roomCountX - 1);
+        gridY = MathUtils.clamp(gridY, 0, roomCountY - 1);
+
+        return roomGrid[gridX][gridY];
+    }
+
+    public Room getRoom(BaseActor actor) {
+        int gridX = Math.round(actor.getX() / roomWidth);
+        int gridY = Math.round(actor.getY() / roomHeight);
+
+        // Clamp grid coordinates to valid range
+        gridX = MathUtils.clamp(gridX, 0, roomCountX - 1);
+        gridY = MathUtils.clamp(gridY, 0, roomCountY - 1);
+
+        return getRoom(gridX, gridY);
+    }
+
+    public void resetRooms() {
+        for (int gridY = 0; gridY < roomCountY; gridY++) {
+            for (int gridX = 0; gridX < roomCountX; gridX++) {
+                roomGrid[gridX][gridY].setVisited(false);
+                roomGrid[gridX][gridY].setPreviousRoom(null);
+            }
+        }
+    }
+}

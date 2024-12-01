@@ -28,8 +28,8 @@ android {
         applicationId = "com.robuxearny.official"
         minSdk = 24
         targetSdk = 35
-        versionCode = 54
-        versionName = "4.2"
+        versionCode = 55
+        versionName = "4.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -84,13 +84,7 @@ dependencies {
     implementation(libs.user.messaging.platform)
     implementation(Google.android.play.appUpdate)
     implementation(Firebase.cloudMessaging)
-    implementation(libs.sdk) {
-        exclude(group = "com.appodeal.ads.sdk.services", module = "adjust")
-        exclude(group = "com.appodeal.ads.sdk.services", module = "appsflyer")
-        exclude(group = "com.appodeal.ads.sdk.services", module = "firebase")
-        exclude(group = "com.appodeal.ads.sdk.services", module = "facebook_analytics")
-        exclude(group = "com.appodeal.ads.sdk.networks", module = "sentry_analytics")
-    }
+    implementation(libs.sdk)
     implementation(libs.cpx.research.sdk.android)
     implementation(Firebase.crashlytics)
     implementation(Firebase.analytics)

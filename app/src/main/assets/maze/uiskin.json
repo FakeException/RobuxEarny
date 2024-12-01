@@ -1,0 +1,28 @@
+{
+  "com.badlogic.gdx.graphics.g2d.BitmapFont": {
+    "default-font": {
+      "file": "maze/cooper.fnt"
+    }
+  },
+  "com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle": {
+    "default": {
+      "down": "default-round-down",
+      "up": "default-round",
+      "font": "default-font"
+    }
+  },
+  "com.badlogic.gdx.scenes.scene2d.ui.Touchpad$TouchpadStyle": {
+    "default": {
+      "background": "default-round",
+      "knob": "default-round-down"
+    }
+  },
+  "com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable": {
+    "default-round": {
+      "file": "round.png"
+    },
+    "default-round-down": {
+      "file": "round-down.png"
+    }
+  }
+}
