@@ -68,6 +68,8 @@ public class Robux extends Application
 
     public static boolean devMode = false;
 
+    private NotificationManager notificationManager;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -205,9 +207,13 @@ public class Robux extends Application
             channel.setDescription(description);
             // Register the channel with the system; you can't change the importance
             // or other notification behaviors after this
-            NotificationManager notificationManager = getApplicationContext().getSystemService(NotificationManager.class);
+            notificationManager = getApplicationContext().getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
+    }
+
+    public NotificationManager getNotificationManager() {
+        return notificationManager;
     }
 
     /**

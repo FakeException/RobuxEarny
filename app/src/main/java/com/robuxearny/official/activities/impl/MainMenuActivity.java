@@ -62,10 +62,9 @@ public class MainMenuActivity extends BaseActivity {
             }
         }
 
-        SharedPreferences sharedPreferences = getSharedPreferences("review", Context.MODE_PRIVATE);
-        int usages = sharedPreferences.getInt("usages", 0);
+        int usages = getPreferences().getInt("usages", 0);
         usages++;
-        sharedPreferences.edit().putInt("review", usages).apply();
+        getPrefsEditor().putInt("usages", usages).apply();
 
         if (usages == 4) {
             ReviewPopup reviewPopup = new ReviewPopup(this);

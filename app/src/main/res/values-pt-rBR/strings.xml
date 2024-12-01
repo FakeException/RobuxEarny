@@ -99,7 +99,7 @@
     <string name="logo">Logo</string>
     <string name="close">Fechar</string>
     <string name="review">Avaliar</string>
-    <string name="review_message">Ajude-nos a melhorar nosso aplicativo avaliando-nos com 5 estrelas na Play Store. Em troca, você receberá 350 moedas!</string>
+    <string name="review_message">Para melhorar nosso aplicativo e recompensar seu apoio, por favor, nos avalie com 5 estrelas na Play Store! Após enviar sua avaliação, envie uma captura de tela da sua avaliação de 5 estrelas para info@robuxrush.com e você receberá 600 moedas como agradecimento pelo seu feedback. Sua opinião é valiosa para nos ajudar a melhorar!</string>
     <string name="save_coins_title">Salve suas moedas</string>
     <string name="save_coins_desc">Você precisa assistir um vídeo de anúncio para salvar suas moedas, pressione continuar para assistir o vídeo.</string>
     <string name="save_coins_continue">Continuar</string>
@@ -110,4 +110,6 @@
     <string name="daily_wheel">Roda de recompensas diárias</string>
     <string name="spin_the_wheel">Gire a roda</string>
     <string name="daily_wheel_once_per_day">Você só pode abrir a roda diária uma vez por dia!</string>
+    <string name="redeem_title">Resgate de Robux</string>
+    <string name="redeem_desc">Você resgatou seus Robux com sucesso! 🎉 Por favor, nos deixe uma avaliação de 5 estrelas! 🌟</string>
 </resources>

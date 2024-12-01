@@ -99,7 +99,7 @@
     <string name="logo">Logo</string>
     <string name="close">閉じる</string>
     <string name="review">評価する</string>
-    <string name="review_message">Play ストアで5つ星評価をして、当社のアプリの向上にご協力ください。 その見返りに、350コインをプレゼントします！</string>
+    <string name="review_message">アプリを改善し、あなたのサポートに感謝するために、Playストアで5つ星の評価をお願いします！レビューを送信した後、5つ星の評価のスクリーンショットをinfo@robuxrush.comに送信してください。そうすれば、感謝の気持ちとして600コインを受け取れます。あなたの意見は私たちが改善するために非常に重要です！</string>
     <string name="save_coins_title">コインを保存する</string>
     <string name="save_coins_desc">コインを保存するためには、広告動画を見る必要があります、続けるには動画を観てください。</string>
     <string name="save_coins_continue">続ける</string>
@@ -110,4 +110,6 @@
     <string name="daily_wheel">デイリー報酬ホイール</string>
     <string name="spin_the_wheel">ホイールを回す</string>
     <string name="daily_wheel_once_per_day">デイリー報酬ホイールは1日1回しか開けません！</string>
+    <string name="redeem_title">ロブックスの引き換え</string>
+    <string name="redeem_desc">ロブックスの引き換えに成功しました！🎉 ぜひ5つ星のレビューをお願いします！🌟</string>
 </resources>

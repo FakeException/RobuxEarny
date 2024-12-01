@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -17,12 +16,6 @@ import android.widget.Button;
 import androidx.appcompat.app.AlertDialog;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldValue;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.robuxearny.official.R;
 
 public class ReviewPopup {
@@ -58,43 +51,13 @@ public class ReviewPopup {
 
             sharedPreferences.edit().putBoolean("showed", true).apply();
 
-            boolean reviewDone = sharedPreferences.getBoolean("reviewDone", false);
-
             dialog.dismiss();
-
-            if (!reviewDone) {
-                updateCoins(350);
-                sharedPreferences.edit().putBoolean("reviewDone", true).apply();
-            }
         });
 
         chiudiButton.setOnClickListener(v -> {
             sharedPreferences.edit().putBoolean("showed", true).apply();
 
             dialog.dismiss();
-        });
-    }
-
-    public void updateCoins(int coins) {
-
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user == null) return;
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference userRef = db.collection("users").document(user.getUid());
-
-        userRef.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                DocumentSnapshot document = task.getResult();
-                if (document.exists()) {
-
-                    userRef.update("coins", FieldValue.increment(coins))
-                            .addOnSuccessListener(obj -> Log.d("Coins", "Coins updated"))
-                            .addOnFailureListener(exc -> Log.d("Coins", "Error: " + exc.getMessage()));
-
-                }
-            }
-
         });
     }
 }

@@ -108,7 +108,7 @@
     <string name="logo">Logo</string>
     <string name="close">Close</string>
     <string name="review">Review</string>
-    <string name="review_message">Help us improve our app by rating us 5 stars on the Play Store! In return, you\'ll receive 350 coins!</string>
+    <string name="review_message">To enhance our app and reward your support, please rate us 5 stars on the Play Store! After you submit your review, send a screenshot of your 5-star rating to info@robuxrush.com, and you\'ll receive 600 coins as a thank-you for your feedback. Your input is invaluable in helping us improve!</string>
     <string name="save_coins_title">Save your coins</string>
     <string name="save_coins_desc">You have to watch an ad video for saving your coins, press continue to watch the video.</string>
     <string name="save_coins_continue">Continue</string>
@@ -119,4 +119,6 @@
     <string name="daily_wheel">Daily rewards wheel</string>
     <string name="spin_the_wheel">Spin The Wheel</string>
     <string name="daily_wheel_once_per_day">You can only open the daily wheel once per day!</string>
+    <string name="redeem_title">Robux Redeem</string>
+    <string name="redeem_desc">You have successfully redeemed your Robux! 🎉 Please leave us a 5 star review! 🌟</string>
 </resources>
