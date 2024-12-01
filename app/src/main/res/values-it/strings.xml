@@ -24,7 +24,7 @@
     <string name="delivery">Consegna: 1–2 giorni</string>
     <string name="price">Prezzo: %d Monete</string>
     <string name="redeem">Riscatta</string>
-    <string name="guide">Segui questa guida per poter riscattare i Robux:\n\n1) Logga su Roblox: Utilizza il tuo nome utente e la tua password di Roblox per accedere.\n\n2) Vai su "Crea": Clicca sul tasto "Crea" sopra.\n\n3) Apri Il Tuo Gioco: Seleziona un gioco per aggiungere un gamepass.\n\n4) Aggiungi un Gamepass: Clicca su "Articoli Associati," scegli "I Pass," aggiungi il tuo Gamepass.\n\n5) Modifica il tuo Gamepass: Dagli un nome e una descrizione.\n\n6) Scegli il Prezzo: Setta il prezzo a %d Robux.\n\n7) Salvalo: Salvalo, clicca sul tasto … del tuo gamepass e copia il link.\n\n8) Incolla il link: Incolla il link qui sotto e hai fatto.</string>
+    <string name="guide">Segui questa guida per poter riscattare i Robux:\n\n1) Logga su Roblox: Utilizza il tuo nome utente e la tua password di Roblox per accedere.\n\n2) Vai su "Crea": Clicca sul tasto "Crea" sopra.\n\n3) Apri Il Tuo Gioco: Seleziona un gioco per aggiungere un gamepass.\n\n4) Aggiungi un Gamepass: Clicca su "Articoli Associati," scegli "I Pass," aggiungi il tuo Gamepass.\n\n5) Modifica il tuo Gamepass: Dagli un nome e una descrizione.\n\n6) Scegli il Prezzo: Setta il prezzo a %d Robux.\n\n7) Salvalo: Salvalo, clicca sul tasto … del tuo gamepass e copia il link.\n\n8) Recensione a 5 stelle: Lasciateci una recensione a 5 stelle su Google Play!\n\n9) Incolla il link: Incolla il link qui sotto e hai fatto.</string>
     <string name="gamepass_url">Inserisci il tuo url gamepass qui</string>
     <string name="not_enough">Non hai abbastanza monete :(</string>
     <string name="confirmation">Conferma</string>

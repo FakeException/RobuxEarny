@@ -165,7 +165,7 @@ public class TicketActivity extends GameActivity {
     }
 
     private int generateRandomPoints() {
-        int basePoints = getRandom().nextInt(6) + 2;
+        int basePoints = getRandom().nextInt(4) + 2;
         return BoosterUtils.getMoneyBooster(basePoints);
     }
 

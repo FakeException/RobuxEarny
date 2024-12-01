@@ -35,7 +35,7 @@
     <string name="not_enough">You don\'t have enough coins :(</string>
     <string name="redeem_amount" translatable="false">Robux: %d Robux</string>
     <string name="redeem">Redeem</string>
-    <string name="guide">Follow this guide for redeeming your Robux:\n\n1) Log in to Roblox: Use your Roblox username and password to log in.\n\n2) Go to "Create": Click on "Create" button on the top.\n\n3) Open Your Game: Select a game for adding a gamepass.\n\n4) Add a Gamepass: Click on "Associated Items," choose "Passes," and add your Gamepass.\n\n5) Customize Your Gamepass: Give it a name and description.\n\n6) Set the Price: Set the price to %d Robux.\n\n7) Save It: Save it, click on the … button and copy the link.\n\n8) Paste the link: Paste the link below and you are ready to go.</string>
+    <string name="guide">Follow this guide for redeeming your Robux:\n\n1) Log in to Roblox: Use your Roblox username and password to log in.\n\n2) Go to "Create": Click on "Create" button on the top.\n\n3) Open Your Game: Select a game for adding a gamepass.\n\n4) Add a Gamepass: Click on "Associated Items," choose "Passes," and add your Gamepass.\n\n5) Customize Your Gamepass: Give it a name and description.\n\n6) Set the Price: Set the price to %d Robux.\n\n7) Save It: Save it, click on the … button and copy the link.\n\n8) 5 star review: Please leave us a 5 star review on Google Play!\n\n9) Paste the link: Paste the link below and you are ready to go.</string>
     <string name="gamepass_url">Paste your gamepass url here</string>
     <string name="confirmation">Confirmation</string>
     <string name="confirm_desc">Is the Gamepass URL correct and do you want to confirm?</string>
