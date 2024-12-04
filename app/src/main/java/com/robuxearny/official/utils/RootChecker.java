@@ -1,3 +1,9 @@
+/*
+ * Created by FakeException Edited by Hisako on 8/5/23, 11:58 AM
+ * Copyright (c) 2023. All rights reserved.
+ * Last modified 12/4/24, 4:58 PM
+ */
+
 package com.robuxearny.official.utils;
 
 import android.app.Activity;
