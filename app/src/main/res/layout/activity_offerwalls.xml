@@ -26,7 +26,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
         android:padding="20dp"
-        android:text="Please select an offerwall"
+        android:text="@string/please_select_an_offerwall"
         android:textSize="18sp" />
 
     <ProgressBar

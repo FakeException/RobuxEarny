@@ -119,4 +119,5 @@
     <string name="male">男性</string>
     <string name="female">女性</string>
     <string name="other">その他</string>
+    <string name="please_select_an_offerwall">オファーウォールを選択してください</string>
 </resources>
