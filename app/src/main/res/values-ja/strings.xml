@@ -28,7 +28,7 @@
     <string name="invite_a_friend">友達の招待</string>
     <string name="settings">設定</string>
     <string name="description">Robuxを稼ぐための最高なアプリです</string>
-    <string name="delivery">送金: １－２日間</string>
+    <string name="delivery">送金: 2－7日間</string>
     <string name="price">値段: %d コイン</string>
     <string name="redeem">引き換え</string>
     <string name="guide">このガイドに従ってRobuxを引き換える手順をご確認ください：\n\n１）Robloxにログイン：Robloxのユーザー名とパスワードを使用してログインします。\n\n２）"制作"に移動：上部の「制作」ボタンをクリックします。\n\n３）ゲームを開く：ゲームパスを追加するゲームを選択します。\n\n４）ゲームパスを追加：「関連アイテム」をクリックし、"パス"を選択してゲームパスを追加します。\n\n５）ゲームパスを編集：名前と説明を付けます。\n\n６）価格を設定：価格を%d Robuxに設定します。\n\n７）保存：ゲームパスを保存し、ゲームパスの「…」ボタンをクリックしてリンクをコピーします。\n\n８） 5つ星レビュー Google Playで5つ星レビューをお願いします！\n\n９）リンクを貼り付け：下記の場所にリンクを貼り付けて完了です。</string>
@@ -85,7 +85,7 @@
     <string name="refcode_desc">紹介コードをお持ちの場合、こちらに入力してボーナスを受け取るために使用してください！</string>
     <string name="i_don_t_have_a_code">コードは持っていません</string>
     <string name="saved">コインが保存されました！</string>
-    <string name="survey_desc">アンケートを完了し、獲得したRobuxに対応するコインがRobux Earnyアカウントに追加されます！</string>
+    <string name="survey_desc">アンケートに回答すると、獲得したコインがあなたのRobux Earnyアカウントに追加されます！</string>
     <string name="earn_faster">もっと稼ぐ</string>
     <string name="current_coins">現在のコイン：%d</string>
     <string name="invalid_link">有効なリンクを入力してください。</string>
@@ -112,4 +112,11 @@
     <string name="daily_wheel_once_per_day">デイリー報酬ホイールは1日1回しか開けません！</string>
     <string name="redeem_title">ロブックスの引き換え</string>
     <string name="redeem_desc">ロブックスの引き換えに成功しました！🎉 ぜひ5つ星のレビューをお願いします！🌟</string>
+    <string name="user_info">ユーザー情報</string>
+    <string name="user_info_title">続行するには、次の質問に回答してください</string>
+    <string name="user_info_age">年齢を選択してください：</string>
+    <string name="user_info_gender">性別を選択してください：</string>
+    <string name="male">男性</string>
+    <string name="female">女性</string>
+    <string name="other">その他</string>
 </resources>

@@ -30,6 +30,7 @@ public class SlotMachineActivity extends GameActivity {
     private final int numReels = 3;
     private int slotAttempts = 0;
     private TextView totalPointsTextView;
+    private int coinsObtained = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +103,11 @@ public class SlotMachineActivity extends GameActivity {
 
             Appodeal.cache(this, Appodeal.REWARDED_VIDEO);
 
-            increasePoints(generateRandomPoints());
+            int points = generateRandomPoints();
+            increasePoints(points);
+
+            coinsObtained += points;
+            getPrefsHelper().addSMEarnings(coinsObtained);
 
             updateTotalPointsTextView(totalPointsTextView);
 
@@ -120,6 +125,7 @@ public class SlotMachineActivity extends GameActivity {
     private void save() {
         getPrefsEditor().putInt("coins", getTotalPoints()).apply();
         updateCoins(getTotalPoints());
+        coinsObtained = 0;
 
         playCollectSound();
 

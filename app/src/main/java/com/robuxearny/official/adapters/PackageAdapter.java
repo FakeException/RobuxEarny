@@ -103,11 +103,18 @@ public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                             if (document.exists()) {
                                 Long coinsLong = document.getLong("coins");
                                 Long adsLong = document.getLong("ads");
+                                Long referralCount = document.getLong("referralCount");
+
+                                Long surveys = 0L;
+                                if (document.contains("surveys")) {
+                                    surveys = document.getLong("surveys");
+                                }
+
                                 if (coinsLong != null) {
                                     long coins = coinsLong;
                                     if ((int) coins >= currentPackage.getPrice()) {
 
-                                        Intent purchase = getIntent(currentPackage, (int) coins, adsLong);
+                                        Intent purchase = getIntent(currentPackage, (int) coins, adsLong, referralCount, surveys);
 
                                         context.startActivity(purchase);
                                         context.finish();
@@ -125,12 +132,14 @@ public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     @NonNull
-    private Intent getIntent(Package currentPackage, int coins, Long adsLong) {
+    private Intent getIntent(Package currentPackage, int coins, Long adsLong, Long referralCount, Long surveys) {
         Intent purchase = new Intent(context, PurchaseActivity.class);
 
         purchase.putExtra("price", currentPackage.getPrice());
         purchase.putExtra("robux", currentPackage.getQuantity());
         purchase.putExtra("coins", coins);
+        purchase.putExtra("referralCount", referralCount);
+        purchase.putExtra("surveys", surveys);
 
         if (adsLong != null) {
             long ads = adsLong;

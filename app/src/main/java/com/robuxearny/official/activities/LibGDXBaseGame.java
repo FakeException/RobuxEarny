@@ -27,6 +27,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.robuxearny.official.activities.impl.games.SlotMachineActivity;
 import com.robuxearny.official.activities.impl.games.TicketActivity;
 import com.robuxearny.official.utils.BoosterUtils;
+import com.robuxearny.official.utils.SharedPrefsHelper;
 
 import java.util.Locale;
 import java.util.Random;
@@ -38,8 +39,11 @@ public class LibGDXBaseGame extends ApplicationAdapter {
 
     private BitmapFont font;
 
+    private long startTime;
+    private SharedPrefsHelper prefsHelper;
 
-    protected void initialize() {
+    protected void initialize(Context context) {
+        this.prefsHelper = new SharedPrefsHelper(context);
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         if (currentUser != null) {
@@ -64,6 +68,20 @@ public class LibGDXBaseGame extends ApplicationAdapter {
         font.getData().setScale(2f); // Double the font size
 
         localeBundle = I18NBundle.createBundle(Gdx.files.internal("i18n/RE"), locale, encoding);
+    }
+
+    @Override
+    public void resume() {
+        super.resume();
+        startTime = System.currentTimeMillis(); // Record start time when activity resumes
+    }
+
+    @Override
+    public void pause() {
+        super.pause();
+        long endTime = System.currentTimeMillis();
+        long usageTime = endTime - startTime;
+        prefsHelper.addUsageTime(usageTime); // Use the helper method
     }
 
     public BitmapFont getFont() {
@@ -133,5 +151,9 @@ public class LibGDXBaseGame extends ApplicationAdapter {
 
     public String getUid() {
         return uid;
+    }
+
+    public SharedPrefsHelper getPrefsHelper() {
+        return prefsHelper;
     }
 }

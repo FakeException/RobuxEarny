@@ -96,7 +96,14 @@ public class MainMenuActivity extends BaseActivity {
     }
 
     public void earnMore(View view) {
-        startActivity(new Intent(this, SurveyActivity.class));
+        if (getPrefsHelper().hasUserInfo()) {
+            startActivity(new Intent(this, OfferwallsActivity.class));
+        } else {
+            startActivity(new Intent(this, UserInfoActivity.class));
+        }
+        //AppsPrize.launchActivity(this);
+        //startActivity(new Intent(this, SurveyActivity.class));
+
     }
 
     public void dailyWheel(View view) {

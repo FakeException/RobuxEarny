@@ -23,6 +23,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.robuxearny.official.R;
+import com.robuxearny.official.Robux;
 import com.robuxearny.official.activities.GameActivity;
 import com.robuxearny.official.activities.impl.MainMenuActivity;
 import com.robuxearny.official.utils.BoosterUtils;
@@ -129,6 +130,8 @@ public class TicketActivity extends GameActivity {
         return numbers;
     }
 
+    private int pointsObtained = 0;
+
     private void processBlockClick(Button block, View view) {
         if (scratchedBlocks.contains(block)) {
             return;
@@ -141,6 +144,7 @@ public class TicketActivity extends GameActivity {
         if (this.winningNumbers.contains(randomNumber)) {
             int points = generateRandomPoints();
             increasePoints(points);
+            pointsObtained += points;
             playCollectSound();
         }
 
@@ -155,6 +159,7 @@ public class TicketActivity extends GameActivity {
 
         if (randomNumberBonus <= 2) {
             increasePoints(15);
+            pointsObtained += 15;
             playCollectSound();
             Snackbar.make(view, R.string.congratulations_you_won_a_20_points_bonus, Snackbar.LENGTH_SHORT).show();
         }
@@ -184,6 +189,8 @@ public class TicketActivity extends GameActivity {
         Log.d("Coins", "Document Data: " + getTotalPoints());
         getPrefsEditor().putInt("coins", getTotalPoints()).apply();
         updateCoins(getTotalPoints());
+        getPrefsHelper().addTicketEarnings(pointsObtained);
+        pointsObtained = 0;
         Toast.makeText(getApplicationContext(), getString(R.string.saved), Toast.LENGTH_SHORT).show();
     }
 
@@ -227,6 +234,19 @@ public class TicketActivity extends GameActivity {
     private void handleWatchAd() {
 
         resetOperations();
+
+        if (Robux.devMode) {
+            save();
+
+            findViewById(R.id.confirmButton).setEnabled(true);
+
+            if (ticketAttempts >= MAX_TICKET_ATTEMPTS || shouldSwitchRandomly(MAX_TICKET_ATTEMPTS)) {
+                startRandomGameActivity(false);
+                ticketAttempts = 0;
+            }
+
+            return;
+        }
 
         if (!Appodeal.isLoaded(Appodeal.REWARDED_VIDEO)) {
             Appodeal.cache(activity, Appodeal.REWARDED_VIDEO);

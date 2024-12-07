@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">Robux Earny</string>
     <string name="api_url" translatable="false">https://robuxrush.com/resources/</string>
+    <string name="appsprize_token" translatable="false">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJidW5kbGVfaWQiOiJjb20ucm9idXhlYXJueS5vZmZpY2lhbCIsImlkIjo1NzAsInVzZXJfaWQiOjUxM30.3O49oVFgb4D7T4gh7r5buGCvBW_D0Ro-Goi_mWRyxRY</string>
     <string name="welcome">Welcome!</string>
     <string name="welcome_desc">\nWelcome to RobuxEarny! An application where you can earn Robux effortlessly!\nYou just need to play some very simple mini games, It\'s completely free and you will be able to redeem your robux by accumulating your coins!\n</string>
     <string name="coinsystem">Coin System</string>
@@ -26,7 +27,7 @@
     <string name="coinsystem_desc">\nThis app has a special coin system with six packages.\nEach package comes with a different amount of coins that corresponds to a different amount of Robux. By playing our mini-games, you can earn coins. The more coins you earn, the more packages you can redeem. This means you\'ll have more chances to earn Robux! It\'s a simple way to earn Robux and have fun along the way!\n</string>
     <string name="ready_desc">"\nWhen you are ready press the start button below and start right now to earn a lot of Robux!\nIn order to send you the Robux don't forget to click on the ads as much as you can.\nThis app is still in beta but in the future we will add much more games!\n"</string>
     <string name="winning_numbers">Winning numbers: %s</string>
-    <string name="delivery">Delivery: 1–2 days</string>
+    <string name="delivery">Delivery: 2–7 days</string>
     <string name="basic_package" translatable="false">Basic Package</string>
     <string name="deluxe_package" translatable="false">Deluxe Package</string>
     <string name="premium_package" translatable="false">Premium Package</string>
@@ -93,7 +94,7 @@
     <string name="refcode_desc">If you have a referral code write it here for receiving a bonus!</string>
     <string name="i_don_t_have_a_code">I don\'t have a code</string>
     <string name="saved">Coins saved!</string>
-    <string name="survey_desc">Complete surveys and the coins corresponding to the earned Robux will be added to your Robux Earny account!</string>
+    <string name="survey_desc">Complete surveys and the coins earned will be added to your Robux Earny account!</string>
     <string name="earn_faster">Earn More</string>
     <string name="current_coins">Current Coins: %d</string>
     <string name="invalid_link">Please enter a valid link.</string>
@@ -102,6 +103,7 @@
     <string name="password_hint">Enter your password</string>
     <string name="login_with_google">Login with Google</string>
     <string name="boosters">Boosters</string>
+    <string name="user_info">User Info</string>
     <string name="buy">Buy</string>
     <string name="boost">Booster successfully purchased!</string>
     <string name="five_star_review">Leave a 5 star review!</string>
@@ -121,4 +123,12 @@
     <string name="daily_wheel_once_per_day">You can only open the daily wheel once per day!</string>
     <string name="redeem_title">Robux Redeem</string>
     <string name="redeem_desc">You have successfully redeemed your Robux! 🎉 Please leave us a 5 star review! 🌟</string>
+    <string name="offerwall_logo" translatable="false">Offerwall Logo</string>
+    <string name="offerwalls" translatable="false">Offerwalls</string>
+    <string name="user_info_title">Please answer the following questions to continue</string>
+    <string name="user_info_age">Select your age:</string>
+    <string name="user_info_gender">Select your gender:</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="other">Other</string>
 </resources>

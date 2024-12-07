@@ -24,6 +24,10 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 import com.appodeal.ads.Appodeal;
+import com.appsamurai.appsprize.AppsPrize;
+import com.appsamurai.appsprize.RewardLevel;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.tasks.Task;
 import com.google.android.play.core.appupdate.AppUpdateInfo;
 import com.google.android.play.core.appupdate.AppUpdateManager;
@@ -33,16 +37,22 @@ import com.google.android.play.core.install.model.AppUpdateType;
 import com.google.android.play.core.install.model.UpdateAvailability;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.robuxearny.official.R;
 import com.robuxearny.official.Robux;
 import com.robuxearny.official.activities.BaseActivity;
 import com.robuxearny.official.adapters.IntroSliderAdapter;
 import com.robuxearny.official.callbacks.ActivityFinishListener;
 import com.robuxearny.official.models.IntroSlide;
+import com.robuxearny.official.survey.AppsPrizeSurvey;
 import com.robuxearny.official.utils.BackendUtils;
 import com.robuxearny.official.utils.Dialogs;
 import com.robuxearny.official.utils.RootChecker;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,6 +92,13 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
 
         if (currentUser != null) {
 
+            try {
+                new AppsPrizeSurvey(this, currentUser.getUid());
+            } catch (IOException | GooglePlayServicesRepairableException |
+                     GooglePlayServicesNotAvailableException e) {
+                throw new RuntimeException(e);
+            }
+
             BackendUtils.retrieveMoney(this);
 
             Intent intent = new Intent(this, MainMenuActivity.class);
@@ -89,6 +106,7 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
             finish();
 
         } else {
+
             ViewPager viewPager = findViewById(R.id.viewPager);
             indicatorLayout = findViewById(R.id.indicatorLayout);
 
@@ -117,6 +135,30 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
                 }
             });
         }
+
+        AppsPrize.doReward(MainActivity.this, list -> {
+
+            if (currentUser != null) {
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                DocumentReference userRef = db.collection("users").document(currentUser.getUid());
+
+                userRef.get().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+
+                            list.forEach(appReward -> {
+                                for (RewardLevel reward : appReward.getRewards()) {
+                                    userRef.update("coins", FieldValue.increment(reward.getPoints()))
+                                            .addOnSuccessListener(obj -> Log.d("Coins", "Coins updated"))
+                                            .addOnFailureListener(exc -> Log.d("Coins", "Error: " + exc.getMessage()));
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+        });
     }
 
 

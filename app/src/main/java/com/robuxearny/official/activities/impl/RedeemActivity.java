@@ -32,8 +32,6 @@ public class RedeemActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_redeem);
 
-        final String JSON_URL = getString(R.string.api_url) + "packages.json";
-
         Appodeal.setBannerViewId(R.id.appodealBannerView);
         Appodeal.show(this, Appodeal.BANNER_VIEW);
 

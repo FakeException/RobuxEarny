@@ -74,7 +74,7 @@ public class ColorBurstGame extends LibGDXBaseGame {
 
     @Override
     public void create() {
-        initialize();
+        initialize(application);
 
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
@@ -136,6 +136,8 @@ public class ColorBurstGame extends LibGDXBaseGame {
 
                 Gdx.app.log("ColorBurstGame", "Game Over!");
                 increaseCoins(coinsEarned);
+
+                getPrefsHelper().addCBEarnings(coinsEarned);
 
                 int totalCoins = preferences.getInt("coins", 0);
                 preferences.edit().putInt("coins", totalCoins + coinsEarned).apply();

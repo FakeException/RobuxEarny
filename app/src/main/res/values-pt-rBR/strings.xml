@@ -26,7 +26,7 @@
     <string name="coinsystem_desc">\nEste aplicativo possui um sistema de moedas especial com seis pacotes.\nCada pacote vem com uma quantidade diferente de moedas que corresponde a uma quantidade diferente de Robux. Jogando nossos jogos simples, você pode ganhar moedas. Quanto mais moedas você ganhar, mais pacotes poderá resgatar. Isso significa que terá mais chances de ganhar Robux! É uma maneira simples de ganhar Robux e se divertir no processo!\n</string>
     <string name="ready_desc">"\nQuando estiver pronto, pressione o botão iniciar abaixo e comece agora mesmo a ganhar muitos Robux!\nPara que possamos enviar os Robux, não se esqueça de clicar nos anúncios o máximo que puder.\nEste aplicativo ainda está em beta, mas no futuro adicionaremos muitos mais jogos!\n"</string>
     <string name="winning_numbers">Números Vencedores: %s</string>
-    <string name="delivery">Entrega: 1–2 dias</string>
+    <string name="delivery">Entrega: 2–7 dias</string>
     <string name="price">Preço: %d Moedas</string>
     <string name="not_enough">Você não tem moedas suficientes :(</string>
     <string name="redeem">Resgatar</string>
@@ -85,7 +85,7 @@
     <string name="refcode_desc">Se você tiver um código de indicação, escreva-o aqui para receber um bônus!</string>
     <string name="i_don_t_have_a_code">Eu não tenho um código</string>
     <string name="saved">Moedas guardadas!</string>
-    <string name="survey_desc">Complete pesquisas e as moedas correspondentes aos Robux ganhos serão adicionadas à sua conta do Robux Earny!</string>
+    <string name="survey_desc">Complete pesquisas e as moedas ganhas serão adicionadas à sua conta Robux Earny!</string>
     <string name="earn_faster">Ganhe Mais</string>
     <string name="current_coins">Moedas Atuais: %d</string>
     <string name="invalid_link">Por favor, insira um link válido.</string>
@@ -112,4 +112,11 @@
     <string name="daily_wheel_once_per_day">Você só pode abrir a roda diária uma vez por dia!</string>
     <string name="redeem_title">Resgate de Robux</string>
     <string name="redeem_desc">Você resgatou seus Robux com sucesso! 🎉 Por favor, nos deixe uma avaliação de 5 estrelas! 🌟</string>
+    <string name="user_info">Informação do usuário</string>
+    <string name="user_info_title">Por favor, responda às seguintes perguntas para continuar</string>
+    <string name="user_info_age">Selecione sua idade:</string>
+    <string name="user_info_gender">Selecione seu gênero:</string>
+    <string name="male">Masculino</string>
+    <string name="female">Feminino</string>
+    <string name="other">Outro</string>
 </resources>

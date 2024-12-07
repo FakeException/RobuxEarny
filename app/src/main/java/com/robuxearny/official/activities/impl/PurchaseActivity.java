@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -30,6 +31,7 @@ import com.google.firebase.functions.FirebaseFunctions;
 import com.robuxearny.official.R;
 import com.robuxearny.official.Robux;
 import com.robuxearny.official.activities.BaseActivity;
+import com.robuxearny.official.utils.SharedPrefsHelper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,6 +42,8 @@ public class PurchaseActivity extends BaseActivity {
     private int coins;
     private int robux;
     private int ads;
+    private int referralCount;
+    private int surveys;
     private EditText gamePass;
 
     @Override
@@ -52,6 +56,8 @@ public class PurchaseActivity extends BaseActivity {
         cost = getIntent().getIntExtra("price", 0);
         coins = getIntent().getIntExtra("coins", 0);
         ads = getIntent().getIntExtra("ads", 0);
+        referralCount = getIntent().getIntExtra("referralCount", 0);
+        surveys = getIntent().getIntExtra("surveys", 0);
 
         robux = Math.round(getIntent().getIntExtra("robux", 0) / 0.70F);
 
@@ -68,6 +74,8 @@ public class PurchaseActivity extends BaseActivity {
     }
 
     private void showConfirmation(final Activity activity) {
+        SharedPrefsHelper prefsHelper = getPrefsHelper();
+
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(activity);
         builder.setTitle(getString(R.string.confirmation));
         builder.setMessage(getString(R.string.confirm_desc));
@@ -77,8 +85,7 @@ public class PurchaseActivity extends BaseActivity {
             if (user != null) {
                 FirebaseFunctions functions = FirebaseFunctions.getInstance();
 
-                Map<String, Object> data = new HashMap<>();
-                data.put("messageContent", "Id: " + user.getUid() + " Robux: " + robux + " Gamepass: " + gamePass.getText() + " Watched ads: " + ads);
+                Map<String, Object> data = getMessageData(user, prefsHelper);
 
                 functions
                         .getHttpsCallable("redeem")
@@ -86,6 +93,8 @@ public class PurchaseActivity extends BaseActivity {
                         .addOnSuccessListener(result -> {
                             // Handle success
                             Toast.makeText(this, getString(R.string.request), Toast.LENGTH_LONG).show();
+
+                            prefsHelper.resetAll();
 
                             int newCoins = coins - cost;
                             updateCoins(user.getUid(), newCoins);
@@ -116,6 +125,25 @@ public class PurchaseActivity extends BaseActivity {
         builder.setNegativeButton(R.string.no, ((dialogInterface, i) -> dialogInterface.cancel()));
         builder.setCancelable(false);
         builder.show();
+    }
+
+    @NonNull
+    private Map<String, Object> getMessageData(FirebaseUser user, SharedPrefsHelper prefsHelper) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("messageContent",
+                "Id: " + user.getUid()
+                + "\nRobux: " + robux
+                + "\nGamepass: " + gamePass.getText()
+                + "\nWatched ads: " + ads
+                + "\nUsage time since last redeem: " + prefsHelper.getUsageTimeString()
+                + "\nReferral Count: " + referralCount
+                + "\nCompleted Surveys: " + surveys
+                + "\nMoney earned with Daily Wheel since last redeem: " + prefsHelper.getMoneyEarnedWithDailyWheel()
+                + "\nMoney earned with Ticket since last redeem: " + prefsHelper.getMoneyEarnedWithTicket()
+                + "\nMoney earned with SM since last redeem: " + prefsHelper.getMoneyEarnedWithSM()
+                + "\nMoney earned with CB since last redeem: " + prefsHelper.getMoneyEarnedWithCB()
+        );
+        return data;
     }
 
     private void updateCoins(String uid, int newCoins) {

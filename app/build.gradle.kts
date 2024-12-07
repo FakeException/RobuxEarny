@@ -28,8 +28,8 @@ android {
         applicationId = "com.robuxearny.official"
         minSdk = 24
         targetSdk = 35
-        versionCode = 56
-        versionName = "4.4"
+        versionCode = 59
+        versionName = "4.6"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -119,6 +119,9 @@ dependencies {
     natives("com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-arm64-v8a")
     natives("com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86")
     natives("com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86_64")
+
+    implementation(libs.appsprize)
+    implementation(libs.glide)
 }
 
 tasks.register("copyAndroidNatives") {

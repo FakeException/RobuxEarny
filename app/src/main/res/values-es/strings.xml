@@ -26,7 +26,7 @@
     <string name="coinsystem_desc">\nEsta aplicación cuenta con un sistema de monedas especial con seis paquetes.\nCada paquete incluye una cantidad diferente de monedas que corresponde a una cantidad diferente de Robux. Jugando nuestros mini juegos, puedes ganar monedas. Cuantas más monedas ganes, más paquetes podrás canjear. ¡Esto significa que tendrás más oportunidades de ganar Robux! ¡Es una forma sencilla de ganar Robux y divertirse en el camino!\n</string>
     <string name="ready_desc">"\nCuando estés listo, presiona el botón de inicio a continuación y comienza a ganar Robux fácilmente.\nPara que podamos enviarte los Robux, no olvides hacer clic en los anuncios tanto como puedas.\nEsta aplicación todavía está en beta, ¡pero en el futuro agregaremos muchos más juegos!\n"</string>
     <string name="winning_numbers">Números Ganadores: %s</string>
-    <string name="delivery">Entrega: 1–2 días</string>
+    <string name="delivery">Entrega: 2–7 días</string>
     <string name="price">Precio: %d Monedas</string>
     <string name="not_enough">¡No tienes suficientes monedas :(</string>
     <string name="redeem_amount">Robux: %d Robux</string>
@@ -88,7 +88,7 @@
     <string name="refcode_desc">Si tienes un código de referencia, escríbelo aquí para recibir un bono.</string>
     <string name="i_don_t_have_a_code">No tengo un código</string>
     <string name="saved">¡Monedas ahorradas!</string>
-    <string name="survey_desc">¡Completa encuestas y las monedas correspondientes a los Robux ganados se agregarán a tu cuenta de Robux Earny!</string>
+    <string name="survey_desc">¡Completa encuestas y las monedas ganadas se agregarán a tu cuenta de Robux Earny!</string>
     <string name="earn_faster">Gana Más</string>
     <string name="current_coins">Monedas Actuales: %d</string>
     <string name="invalid_link">Por favor, ingresa un enlace válido.</string>
@@ -115,4 +115,11 @@
     <string name="daily_wheel_once_per_day">¡Solo puedes abrir la rueda diaria una vez al día!</string>
     <string name="redeem_title">Canje de Robux</string>
     <string name="redeem_desc">¡Has canjeado tus Robux con éxito! 🎉 ¡Por favor, déjanos una reseña de 5 estrellas! 🌟</string>
+    <string name="user_info">Información del usuario</string>
+    <string name="user_info_title">Por favor, responda las siguientes preguntas para continuar</string>
+    <string name="user_info_age">Seleccione su edad:</string>
+    <string name="user_info_gender">Seleccione su género:</string>
+    <string name="male">Masculino</string>
+    <string name="female">Femenino</string>
+    <string name="other">Otro</string>
 </resources>

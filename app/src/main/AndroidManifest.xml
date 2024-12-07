@@ -96,6 +96,22 @@
         </activity>
 
         <activity
+            android:name=".activities.impl.UserInfoActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activities.impl.OfferwallsActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".activities.impl.PurchaseActivity"
             android:exported="true">
             <intent-filter>
@@ -129,7 +145,7 @@
         </activity>
 
         <activity
-            android:name=".activities.impl.SurveyActivity"
+            android:name=".activities.impl.survey.CPXActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

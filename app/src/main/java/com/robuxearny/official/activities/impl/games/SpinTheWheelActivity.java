@@ -96,6 +96,7 @@ public class SpinTheWheelActivity extends GameActivity {
                                     } else {
                                         playCollectSound();
                                         int coins = Integer.parseInt(String.valueOf(item).replaceAll("[^0-9]", ""));
+                                        getPrefsHelper().addDailyWheelEarnings(coins);
                                         increaseCoins(coins);
                                         Toast.makeText(SpinTheWheelActivity.this, getString(R.string.spin_win, item), Toast.LENGTH_LONG).show();
                                     }

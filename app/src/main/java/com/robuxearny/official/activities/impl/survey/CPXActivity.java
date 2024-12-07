@@ -1,4 +1,10 @@
-package com.robuxearny.official.activities.impl;
+/*
+ * Created by FakeException on 2024/12/07 14:05
+ * Copyright (c) 2024. All rights reserved.
+ * Last modified 2024/12/07 11:20
+ */
+
+package com.robuxearny.official.activities.impl.survey;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -16,11 +22,11 @@ import com.makeopinion.cpxresearchlib.models.CPXCardStyle;
 import com.makeopinion.cpxresearchlib.models.SurveyItem;
 import com.makeopinion.cpxresearchlib.models.TransactionItem;
 import com.robuxearny.official.R;
-import com.robuxearny.official.utils.CPX;
+import com.robuxearny.official.survey.CPX;
 
 import java.util.List;
 
-public class SurveyActivity extends AppCompatActivity implements CPXResearchListener {
+public class CPXActivity extends AppCompatActivity implements CPXResearchListener {
 
     private CPX app;
 

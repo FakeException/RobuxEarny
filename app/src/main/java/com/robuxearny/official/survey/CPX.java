@@ -1,10 +1,10 @@
 /*
- * Created by FakeException on 10/9/23, 11:29 AM
- * Copyright (c) 2023. All rights reserved.
- * Last modified 10/9/23, 11:29 AM
+ * Created by FakeException on 2024/12/07 11:19
+ * Copyright (c) 2024. All rights reserved.
+ * Last modified 2023/10/09 19:51
  */
 
-package com.robuxearny.official.utils;
+package com.robuxearny.official.survey;
 
 import androidx.annotation.NonNull;
 

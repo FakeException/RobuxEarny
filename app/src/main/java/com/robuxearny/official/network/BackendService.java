@@ -7,6 +7,7 @@
 package com.robuxearny.official.network;
 
 import com.robuxearny.official.models.FAQItem;
+import com.robuxearny.official.models.OfferWall;
 import com.robuxearny.official.models.Package;
 import com.robuxearny.official.models.Sector;
 
@@ -26,4 +27,7 @@ public interface BackendService {
 
     @GET("sectors.json")
     Call<List<Sector>> getSectors();
+
+    @GET("offerwalls.json")
+    Call<List<OfferWall>> getOfferWalls();
 }

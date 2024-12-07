@@ -21,7 +21,7 @@
     <string name="invite_a_friend">Invita un amico</string>
     <string name="settings">Impostazioni</string>
     <string name="description">La miglior app per guadagnare Robux</string>
-    <string name="delivery">Consegna: 1–2 giorni</string>
+    <string name="delivery">Consegna: 2–7 giorni</string>
     <string name="price">Prezzo: %d Monete</string>
     <string name="redeem">Riscatta</string>
     <string name="guide">Segui questa guida per poter riscattare i Robux:\n\n1) Logga su Roblox: Utilizza il tuo nome utente e la tua password di Roblox per accedere.\n\n2) Vai su "Crea": Clicca sul tasto "Crea" sopra.\n\n3) Apri Il Tuo Gioco: Seleziona un gioco per aggiungere un gamepass.\n\n4) Aggiungi un Gamepass: Clicca su "Articoli Associati," scegli "I Pass," aggiungi il tuo Gamepass.\n\n5) Modifica il tuo Gamepass: Dagli un nome e una descrizione.\n\n6) Scegli il Prezzo: Setta il prezzo a %d Robux.\n\n7) Salvalo: Salvalo, clicca sul tasto … del tuo gamepass e copia il link.\n\n8) Recensione a 5 stelle: Lasciateci una recensione a 5 stelle su Google Play!\n\n9) Incolla il link: Incolla il link qui sotto e hai fatto.</string>
@@ -80,7 +80,7 @@
     <string name="refcode_desc">Se hai un codice di referral, scrivilo qui per ricevere un bonus!</string>
     <string name="i_don_t_have_a_code">Non ho un codice</string>
     <string name="saved">Monete salvate!</string>
-    <string name="survey_desc">Completa i sondaggi e le monete corrispondenti ai Robux guadagnati verranno aggiunte al tuo account Robux Earny!</string>
+    <string name="survey_desc">Completa sondaggi e le monete guadagnate verranno aggiunte al tuo account Robux Earny!</string>
     <string name="earn_faster">Guadagna di più</string>
     <string name="current_coins">Monete Attuali: %d</string>
     <string name="invalid_link">Inserisci un link valido, per favore.</string>
@@ -108,4 +108,11 @@
     <string name="daily_wheel_once_per_day">Puoi aprire la ruota giornaliera solo una volta al giorno!</string>
     <string name="redeem_title">Riscatto Robux</string>
     <string name="redeem_desc">Hai riscattato con successo i tuoi Robux! 🎉 Ti preghiamo di lasciarci una recensione a 5 stelle! 🌟</string>
+    <string name="user_info">Informazioni utente</string>
+    <string name="user_info_title">Si prega di rispondere alle seguenti domande per continuare</string>
+    <string name="user_info_age">Seleziona la tua età:</string>
+    <string name="user_info_gender">Seleziona il tuo genere:</string>
+    <string name="male">Maschile</string>
+    <string name="female">Femminile</string>
+    <string name="other">Altro</string>
 </resources>

@@ -39,6 +39,8 @@ import androidx.credentials.exceptions.GetCredentialException;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.appodeal.ads.Appodeal;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption;
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -53,9 +55,11 @@ import com.robuxearny.official.R;
 import com.robuxearny.official.activities.impl.MainMenuActivity;
 import com.robuxearny.official.callbacks.CodeExistenceCallback;
 import com.robuxearny.official.models.IntroSlide;
+import com.robuxearny.official.survey.AppsPrizeSurvey;
 import com.robuxearny.official.utils.BackendUtils;
 import com.robuxearny.official.utils.ReferralUtils;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -91,9 +95,19 @@ public class IntroSliderAdapter extends PagerAdapter {
                             if (task.isSuccessful()) {
                                 if (mAuth.getCurrentUser() != null) {
                                     FirebaseUser user = mAuth.getCurrentUser();
+
+                                    String uid = user.getUid();
+
+                                    try {
+                                        new AppsPrizeSurvey(context, uid);
+                                    } catch (IOException | GooglePlayServicesRepairableException |
+                                             GooglePlayServicesNotAvailableException e) {
+                                        throw new RuntimeException(e);
+                                    }
+
                                     Toast.makeText(context, R.string.login_success, Toast.LENGTH_SHORT).show();
 
-                                    saveData(user.getUid());
+                                    saveData(uid);
 
                                     Intent intent = new Intent(context, MainMenuActivity.class);
                                     context.startActivity(intent);
