@@ -109,10 +109,10 @@
     <string name="redeem_title">Riscatto Robux</string>
     <string name="redeem_desc">Hai riscattato con successo i tuoi Robux! 🎉 Ti preghiamo di lasciarci una recensione a 5 stelle! 🌟</string>
     <string name="user_info">Informazioni utente</string>
-    <string name="user_info_title">Si prega di rispondere alle seguenti domande per continuare</string>
+    <string name="user_info_title">Rispondi alle seguenti domande per continuare</string>
     <string name="user_info_age">Seleziona la tua età:</string>
     <string name="user_info_gender">Seleziona il tuo genere:</string>
-    <string name="male">Maschile</string>
-    <string name="female">Femminile</string>
+    <string name="male">Maschio</string>
+    <string name="female">Femmina</string>
     <string name="other">Altro</string>
 </resources>
