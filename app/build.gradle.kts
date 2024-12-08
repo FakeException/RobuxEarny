@@ -28,7 +28,7 @@ android {
         applicationId = "com.robuxearny.official"
         minSdk = 24
         targetSdk = 35
-        versionCode = 59
+        versionCode = 60
         versionName = "4.6"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
