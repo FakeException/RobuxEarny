@@ -6,10 +6,7 @@
 
 package com.robuxearny.official.adapters;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.CancellationSignal;
 import android.text.Editable;
@@ -51,6 +48,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.robuxearny.official.R;
+import com.robuxearny.official.activities.BaseActivity;
 import com.robuxearny.official.activities.impl.MainMenuActivity;
 import com.robuxearny.official.callbacks.CodeExistenceCallback;
 import com.robuxearny.official.models.IntroSlide;
@@ -66,12 +64,12 @@ import java.util.Objects;
 
 public class IntroSliderAdapter extends PagerAdapter {
 
-    private final Activity context;
+    private final BaseActivity context;
     private final List<IntroSlide> introSlides;
     private String refCode;
     private final FirebaseAuth mAuth;
 
-    public IntroSliderAdapter(Activity context, List<IntroSlide> introSlides) {
+    public IntroSliderAdapter(BaseActivity context, List<IntroSlide> introSlides) {
         this.context = context;
         this.introSlides = introSlides;
         this.refCode = "";
@@ -124,12 +122,8 @@ public class IntroSliderAdapter extends PagerAdapter {
 
     private void saveData(String uid) {
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseFirestore db = context.getDb();
         DocumentReference userDocRef = db.collection("users").document(uid);
-
-        SharedPreferences preferences = context.getSharedPreferences("RobuxEarny", Context.MODE_PRIVATE);
-
-        SharedPreferences.Editor editor = preferences.edit();
 
         userDocRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -149,12 +143,11 @@ public class IntroSliderAdapter extends PagerAdapter {
                     userDocRef.set(userMap)
                             .addOnSuccessListener(aVoid -> {
                                 Log.d("Firestore", "User data saved successfully.");
-                                editor.apply();
 
                                 ReferralUtils.saveUserReferral(db, uid, (referralCode) -> {
                                     if (referralCode != null) {
                                         // Store in SharedPreferences
-                                        editor.putString("myReferralCode", referralCode).apply();
+                                        context.getPrefsEditor().putString("myReferralCode", referralCode).apply();
                                         Log.d("Referral", "Your referral code is: " + referralCode);
                                     } else {
                                         // Handle the case where no referral code was found
@@ -167,10 +160,10 @@ public class IntroSliderAdapter extends PagerAdapter {
                             })
                             .addOnFailureListener(e -> Log.e("Firestore", "Error saving user data: " + e.getMessage()));
                 } else {
-                    BackendUtils.retrieveMoney(context, () -> ReferralUtils.saveUserReferral(db, uid, (referralCode) -> {
+                    BackendUtils.retrieveMoney(uid, context, () -> ReferralUtils.saveUserReferral(db, uid, (referralCode) -> {
                         if (referralCode != null) {
                             // Store in SharedPreferences
-                            editor.putString("myReferralCode", referralCode).apply();
+                            context.getPrefsEditor().putString("myReferralCode", referralCode).apply();
                             Log.d("Referral", "Your referral code is: " + referralCode);
                         } else {
                             // Handle the case where no referral code was found

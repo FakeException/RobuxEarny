@@ -78,9 +78,6 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
 
     private void initializeStuff() {
         ProgressBar loadingIndicator = findViewById(R.id.loading_indicator);
-        loadingIndicator.setVisibility(View.GONE);
-
-        Appodeal.show(this, Appodeal.BANNER_VIEW);
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -92,7 +89,9 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
                 throw new RuntimeException(e);
             }
 
-            BackendUtils.retrieveMoney(this, () -> {
+            BackendUtils.retrieveMoney(currentUser.getUid(), this, () -> {
+                loadingIndicator.setVisibility(View.GONE);
+
                 Intent intent = new Intent(this, MainMenuActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
@@ -100,6 +99,8 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
             });
 
         } else {
+
+            loadingIndicator.setVisibility(View.GONE);
 
             ViewPager viewPager = findViewById(R.id.viewPager);
             indicatorLayout = findViewById(R.id.indicatorLayout);

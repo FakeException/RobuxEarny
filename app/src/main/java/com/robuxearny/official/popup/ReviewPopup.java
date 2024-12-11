@@ -25,11 +25,11 @@ public class ReviewPopup {
 
     public ReviewPopup(Context context) {
         this.context = context;
-        this.sharedPreferences = context.getSharedPreferences("review", Context.MODE_PRIVATE);
+        this.sharedPreferences = context.getSharedPreferences("RobuxEarny", Context.MODE_PRIVATE);
     }
 
     public void showPopup() {
-        if (sharedPreferences.getBoolean("showed", false)) {
+        if (sharedPreferences.getBoolean("reviewShowed", false)) {
             return;
         }
 
@@ -49,13 +49,13 @@ public class ReviewPopup {
             intent.setData(Uri.parse("https://play.google.com/store/apps/details?id=" + context.getPackageName()));
             context.startActivity(intent);
 
-            sharedPreferences.edit().putBoolean("showed", true).apply();
+            sharedPreferences.edit().putBoolean("reviewShowed", true).apply();
 
             dialog.dismiss();
         });
 
         chiudiButton.setOnClickListener(v -> {
-            sharedPreferences.edit().putBoolean("showed", true).apply();
+            sharedPreferences.edit().putBoolean("reviewShowed", true).apply();
 
             dialog.dismiss();
         });

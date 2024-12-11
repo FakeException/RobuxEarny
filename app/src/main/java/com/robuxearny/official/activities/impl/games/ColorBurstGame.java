@@ -1,7 +1,5 @@
 package com.robuxearny.official.activities.impl.games;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.widget.Toast;
 
 import com.appodeal.ads.Appodeal;
@@ -25,7 +23,6 @@ public class ColorBurstGame extends LibGDXBaseGame {
 
     public ColorBurstGame(AndroidApplication androidApplication) {
         this.application = androidApplication;
-        this.preferences = androidApplication.getSharedPreferences("RobuxEarny", Context.MODE_PRIVATE);
     }
 
     private SpriteBatch batch;
@@ -70,7 +67,6 @@ public class ColorBurstGame extends LibGDXBaseGame {
     private float gameTime;
     private float elapsedTime = 0f;
     private boolean endToastShowed;
-    private final SharedPreferences preferences;
 
     @Override
     public void create() {
@@ -140,8 +136,8 @@ public class ColorBurstGame extends LibGDXBaseGame {
 
                 getPrefsHelper().addCBEarnings(coinsEarned);
 
-                int totalCoins = preferences.getInt("coins", 0);
-                preferences.edit().putInt("coins", totalCoins + coinsEarned).apply();
+                int totalCoins = getPreferences().getInt("coins", 0);
+                getPreferences().edit().putInt("coins", totalCoins + coinsEarned).apply();
 
                 startRandomGameActivity(application);
             }

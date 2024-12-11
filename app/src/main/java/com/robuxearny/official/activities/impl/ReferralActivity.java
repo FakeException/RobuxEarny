@@ -6,9 +6,7 @@
 
 package com.robuxearny.official.activities.impl;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -16,8 +14,6 @@ import android.widget.TextView;
 
 import com.appodeal.ads.Appodeal;
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.robuxearny.official.R;
 import com.robuxearny.official.activities.BaseActivity;
 import com.robuxearny.official.utils.ReferralUtils;
@@ -40,17 +36,10 @@ public class ReferralActivity extends BaseActivity {
         String code = getPreferences().getString("myReferralCode", "");
 
         if (code.isEmpty()) {
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-            String uid = FirebaseAuth.getInstance().getUid();
 
-            SharedPreferences preferences = getSharedPreferences("RobuxEarny", Context.MODE_PRIVATE);
-
-            SharedPreferences.Editor editor = preferences.edit();
-
-            ReferralUtils.saveUserReferral(db, uid, (referralCode) -> {
+            ReferralUtils.saveUserReferral(getDb(), getUid(), (referralCode) -> {
                 if (referralCode != null) {
-                    // Store in SharedPreferences
-                    editor.putString("myReferralCode", referralCode).apply();
+                    getPrefsEditor().putString("myReferralCode", referralCode).apply();
                     codeView.setText(referralCode);
                     Log.d("Referral", "Your referral code is: " + referralCode);
                 } else {

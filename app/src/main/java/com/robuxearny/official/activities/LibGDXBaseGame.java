@@ -9,6 +9,7 @@ package com.robuxearny.official.activities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.appodeal.ads.Appodeal;
@@ -39,9 +40,11 @@ public class LibGDXBaseGame extends ApplicationAdapter {
 
     private BitmapFont font;
     private SharedPrefsHelper prefsHelper;
+    private SharedPreferences preferences;
 
     protected void initialize(Context context) {
         this.prefsHelper = new SharedPrefsHelper(context);
+        this.preferences = context.getSharedPreferences("RobuxEarny", Context.MODE_PRIVATE);
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         if (currentUser != null) {
@@ -150,5 +153,9 @@ public class LibGDXBaseGame extends ApplicationAdapter {
 
     public SharedPrefsHelper getPrefsHelper() {
         return prefsHelper;
+    }
+
+    public SharedPreferences getPreferences() {
+        return preferences;
     }
 }

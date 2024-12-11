@@ -10,7 +10,6 @@ import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputFilter;
@@ -82,8 +81,7 @@ public class SettingsActivity extends BaseActivity {
                             // Handle success
                             FirebaseAuth.getInstance().signOut();
                             Toast.makeText(this, R.string.account_deleted, Toast.LENGTH_LONG).show();
-                            SharedPreferences.Editor editor = getPrefsEditor();
-                            editor.putInt("coins", 0).apply();
+                            getPrefsEditor().putInt("coins", 0).apply();
                             Intent main = new Intent(this, MainActivity.class);
                             main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(main);
@@ -121,8 +119,7 @@ public class SettingsActivity extends BaseActivity {
         Intent main = new Intent(this, MainActivity.class);
         main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-        SharedPreferences.Editor editor = getPrefsEditor();
-        editor.putInt("coins", 0).apply();
+        getPrefsEditor().putInt("coins", 0).apply();
         startActivity(main);
     }
 

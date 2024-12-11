@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -76,6 +77,9 @@ public class PurchaseActivity extends BaseActivity {
     private void showConfirmation(final Activity activity) {
         SharedPrefsHelper prefsHelper = getPrefsHelper();
 
+        Button redeem = findViewById(R.id.redeem);
+        redeem.setEnabled(false);
+
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(activity);
         builder.setTitle(getString(R.string.confirmation));
         builder.setMessage(getString(R.string.confirm_desc));
@@ -118,11 +122,16 @@ public class PurchaseActivity extends BaseActivity {
                         })
                         .addOnFailureListener(e -> {
                             // Handle failure
+                            redeem.setEnabled(true);
+                            Toast.makeText(this, "An error has occurred, please contact us.", Toast.LENGTH_LONG).show();
                             Log.e("Cloud Function", "Error: " + e.getMessage());
                         });
             }
         });
-        builder.setNegativeButton(R.string.no, ((dialogInterface, i) -> dialogInterface.cancel()));
+        builder.setNegativeButton(R.string.no, ((dialogInterface, i) -> {
+            dialogInterface.cancel();
+            redeem.setEnabled(true);
+        }));
         builder.setCancelable(false);
         builder.show();
     }
@@ -131,13 +140,18 @@ public class PurchaseActivity extends BaseActivity {
     private Map<String, Object> getMessageData(FirebaseUser user, SharedPrefsHelper prefsHelper) {
 
 
+        String usage = prefsHelper.getUsageTimeString(this);
+        if (usage == null) {
+            usage = "Usage permission not available";
+        }
+
         Map<String, Object> data = new HashMap<>();
         data.put("messageContent",
                 "Id: " + user.getUid()
                 + "\nRobux: " + robux
                 + "\nGamepass: " + gamePass.getText()
                 + "\nWatched ads: " + ads
-                + "\nUsage time since last redeem: " + prefsHelper.getUsageTimeString(this)
+                + "\nUsage time since last redeem: " + usage
                 + "\nReferral Count: " + referralCount
                 + "\nCompleted Surveys: " + surveys
                 + "\nMoney earned with Daily Wheel since last redeem: " + prefsHelper.getMoneyEarnedWithDailyWheel()

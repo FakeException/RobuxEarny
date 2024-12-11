@@ -1,14 +1,11 @@
 package com.robuxearny.official.utils;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.robuxearny.official.R;
+import com.robuxearny.official.activities.BaseActivity;
 import com.robuxearny.official.callbacks.FAQCallback;
 import com.robuxearny.official.callbacks.MoneyRetrievedCallback;
 import com.robuxearny.official.callbacks.OfferwallsCallback;
@@ -162,18 +159,13 @@ public class BackendUtils {
         });
     }
 
-    public static void retrieveMoney(Context context, MoneyRetrievedCallback callback) {
-        SharedPreferences preferences = context.getSharedPreferences("RobuxEarny", Context.MODE_PRIVATE);
+    public static void retrieveMoney(String uid, BaseActivity context, MoneyRetrievedCallback callback) {
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        if (user != null) {
-            String uid = user.getUid();
+        if (uid != null) {
 
             Log.d("Coins", "Current UID: " + uid);
 
-            db.collection("users").document(uid).get().addOnCompleteListener(task -> {
+            context.getDb().collection("users").document(uid).get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     Log.d("Coins", "Document Data: " + document);
@@ -185,7 +177,7 @@ public class BackendUtils {
                         Long coinsLong = document.getLong("coins");
                         if (coinsLong != null) {
                             long coins = coinsLong;
-                            preferences.edit().putInt("coins", (int) coins).apply();
+                            context.getPrefsEditor().putInt("coins", (int) coins).apply();
                             callback.onMoneyLoaded();
                         }
                     }
