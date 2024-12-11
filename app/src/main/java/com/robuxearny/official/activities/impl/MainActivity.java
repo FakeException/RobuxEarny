@@ -89,14 +89,23 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
                 throw new RuntimeException(e);
             }
 
-            BackendUtils.retrieveMoney(currentUser.getUid(), this, () -> {
-                loadingIndicator.setVisibility(View.GONE);
+            if (getPreferences().getInt("coins", 0) == 0) {
+                BackendUtils.retrieveMoney(currentUser.getUid(), this, () -> {
+                    loadingIndicator.setVisibility(View.GONE);
 
+                    Intent intent = new Intent(this, MainMenuActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                    startActivity(intent);
+                });
+            } else {
+                loadingIndicator.setVisibility(View.GONE);
                 Intent intent = new Intent(this, MainMenuActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
                 startActivity(intent);
-            });
+            }
+
 
         } else {
 
