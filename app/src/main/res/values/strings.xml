@@ -132,4 +132,8 @@
     <string name="female">Female</string>
     <string name="other">Other</string>
     <string name="please_select_an_offerwall">Please select an offerwall</string>
+    <string name="allow_usage_access">Allow Usage Access</string>
+    <string name="usage_desc">For the best experience, please grant Robux Earny usage access permission!</string>
+    <string name="allow">Allow</string>
+    <string name="earned_coins">Earned Coins</string>
 </resources>

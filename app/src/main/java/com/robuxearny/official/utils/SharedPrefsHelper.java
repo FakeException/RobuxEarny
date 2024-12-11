@@ -6,6 +6,8 @@
 
 package com.robuxearny.official.utils;
 
+import android.app.usage.UsageStats;
+import android.app.usage.UsageStatsManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -20,6 +22,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TimeZone;
 
 public class SharedPrefsHelper {
@@ -94,8 +97,12 @@ public class SharedPrefsHelper {
         }
     }
 
-    public long getUsageTime() {
+    public long getStartUsageTime() {
         return sharedPrefs.getLong(KEY_USAGE_TIME, 0);
+    }
+
+    public void setStartUsageTime(long timeMillis) {
+        editor.putLong(KEY_USAGE_TIME, timeMillis).apply();
     }
 
     public int getMoneyEarnedWithDailyWheel() {
@@ -138,23 +145,30 @@ public class SharedPrefsHelper {
         editor.apply();
     }
 
-    public String getUsageTimeString() {
-        long totalTimeInMillis = getUsageTime(); // Get raw usage time in milliseconds
+    public String getUsageTimeString(Context context) {
+
+        if (PermissionsUtils.hasNotUsagePermission(context)) {
+            return null;
+        }
+
+        long startUsageTime = getStartUsageTime();
+        long endUsageTime = System.currentTimeMillis();
+
+        UsageStatsManager mUsageStatsManager = (UsageStatsManager) context.getSystemService(Context.USAGE_STATS_SERVICE);
+        Map<String, UsageStats> lUsageStatsMap = mUsageStatsManager.
+                queryAndAggregateUsageStats(startUsageTime, endUsageTime);
+
+        long totalTimeUsageInMillis = Objects.requireNonNull(lUsageStatsMap.get("com.robuxearny.official")).
+                getTotalTimeInForeground();
 
         // Format the time using SimpleDateFormat
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
         formatter.setTimeZone(TimeZone.getTimeZone("UTC")); // Set timezone to UTC to avoid timezone issues
-        return formatter.format(new Date(totalTimeInMillis));
-    }
-
-    public void addUsageTime(long timeInMillis) {
-        long totalTime = getUsageTime() + timeInMillis;
-        editor.putLong(KEY_USAGE_TIME, totalTime);
-        editor.apply();
+        return formatter.format(new Date(totalTimeUsageInMillis));
     }
 
     public void resetAll() {
-        editor.putLong(KEY_USAGE_TIME, 0).apply();
+        editor.putLong(KEY_USAGE_TIME, System.currentTimeMillis()).apply();
         editor.putInt(KEY_DAILY_WHEEL_TIME, 0).apply();
         editor.putInt(KEY_TICKET_TIME, 0).apply();
         editor.putInt(KEY_SM_TIME, 0).apply();

@@ -57,7 +57,6 @@ public class BoostersActivity extends BaseActivity {
         if (productDetailsList == null || productDetailsList.isEmpty()) {
             finish();
             return;
-            // nigger not having google play installed
         }
 
         int startPosition = productDetailsList.size();

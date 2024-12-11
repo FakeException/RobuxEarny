@@ -24,8 +24,6 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 import com.appodeal.ads.Appodeal;
-import com.appsamurai.appsprize.AppsPrize;
-import com.appsamurai.appsprize.RewardLevel;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.tasks.Task;
@@ -37,10 +35,6 @@ import com.google.android.play.core.install.model.AppUpdateType;
 import com.google.android.play.core.install.model.UpdateAvailability;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldValue;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.robuxearny.official.R;
 import com.robuxearny.official.Robux;
 import com.robuxearny.official.activities.BaseActivity;
@@ -91,7 +85,6 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         if (currentUser != null) {
-
             try {
                 new AppsPrizeSurvey(this, currentUser.getUid());
             } catch (IOException | GooglePlayServicesRepairableException |
@@ -99,11 +92,12 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
                 throw new RuntimeException(e);
             }
 
-            BackendUtils.retrieveMoney(this);
+            BackendUtils.retrieveMoney(this, () -> {
+                Intent intent = new Intent(this, MainMenuActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-            Intent intent = new Intent(this, MainMenuActivity.class);
-            startActivity(intent);
-            finish();
+                startActivity(intent);
+            });
 
         } else {
 
@@ -135,30 +129,6 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
                 }
             });
         }
-
-        AppsPrize.doReward(MainActivity.this, list -> {
-
-            if (currentUser != null) {
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-                DocumentReference userRef = db.collection("users").document(currentUser.getUid());
-
-                userRef.get().addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        if (document.exists()) {
-
-                            list.forEach(appReward -> {
-                                for (RewardLevel reward : appReward.getRewards()) {
-                                    userRef.update("coins", FieldValue.increment(reward.getPoints()))
-                                            .addOnSuccessListener(obj -> Log.d("Coins", "Coins updated"))
-                                            .addOnFailureListener(exc -> Log.d("Coins", "Error: " + exc.getMessage()));
-                                }
-                            });
-                        }
-                    }
-                });
-            }
-        });
     }
 
 
@@ -250,11 +220,15 @@ public class MainActivity extends BaseActivity implements ActivityFinishListener
                         appUpdateInfo -> {
                             if (appUpdateInfo.updateAvailability()
                                     == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
-                                // If an in-app update is already running, resume the update.
-                                appUpdateManager.startUpdateFlowForResult(
-                                        appUpdateInfo,
-                                        updateLauncher,
-                                        AppUpdateOptions.newBuilder(AppUpdateType.IMMEDIATE).build());
+                                // Check if updateLauncher is registered (it should be registered in onCreate)
+                                if (updateLauncher != null) {
+                                    appUpdateManager.startUpdateFlowForResult(
+                                            appUpdateInfo,
+                                            updateLauncher,
+                                            AppUpdateOptions.newBuilder(AppUpdateType.IMMEDIATE).build());
+                                } else {
+                                    Log.e("Update", "Update launcher is not registered in onResume()");
+                                }
                             }
                         });
     }

@@ -80,8 +80,10 @@ public class UserInfoActivity extends BaseActivity {
                     }
                 }
 
-                finish();
-                startActivity(new Intent(this, OfferwallsActivity.class));
+                Intent intent = new Intent(this, OfferwallsActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                startActivity(intent);
             } else {
                 // Display an error message to the user
                 Toast.makeText(this, "Please select your gender", Toast.LENGTH_SHORT).show();

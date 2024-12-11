@@ -10,6 +10,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.robuxearny.official.R;
 import com.robuxearny.official.callbacks.FAQCallback;
+import com.robuxearny.official.callbacks.MoneyRetrievedCallback;
 import com.robuxearny.official.callbacks.OfferwallsCallback;
 import com.robuxearny.official.callbacks.PackageCallback;
 import com.robuxearny.official.callbacks.SectorsCallback;
@@ -161,7 +162,7 @@ public class BackendUtils {
         });
     }
 
-    public static void retrieveMoney(Context context) {
+    public static void retrieveMoney(Context context, MoneyRetrievedCallback callback) {
         SharedPreferences preferences = context.getSharedPreferences("RobuxEarny", Context.MODE_PRIVATE);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -185,6 +186,7 @@ public class BackendUtils {
                         if (coinsLong != null) {
                             long coins = coinsLong;
                             preferences.edit().putInt("coins", (int) coins).apply();
+                            callback.onMoneyLoaded();
                         }
                     }
                 }

@@ -17,7 +17,6 @@ import com.appodeal.ads.Appodeal;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.robuxearny.official.R;
 import com.robuxearny.official.activities.GameActivity;
 import com.robuxearny.official.activities.impl.MainMenuActivity;
@@ -82,10 +81,8 @@ public class SpinTheWheelActivity extends GameActivity {
                     @Override
                     public void onStopRotation(Object item) {
 
-                        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
                         // Reference to the user's document in Firestore
-                        DocumentReference userDocRef = db.collection("users").document(getUid());
+                        DocumentReference userDocRef = getDb().collection("users").document(getUid());
 
                         userDocRef.update("lastWheelAccess", FieldValue.serverTimestamp())
                                 .addOnSuccessListener(aVoid -> {
@@ -100,9 +97,9 @@ public class SpinTheWheelActivity extends GameActivity {
                                         increaseCoins(coins);
                                         Toast.makeText(SpinTheWheelActivity.this, getString(R.string.spin_win, item), Toast.LENGTH_LONG).show();
                                     }
-
-                                    startActivity(new Intent(SpinTheWheelActivity.this, MainMenuActivity.class));
-                                    finish();
+                                    Intent intent = new Intent(SpinTheWheelActivity.this, MainMenuActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(intent);
                                 })
                                 .addOnFailureListener(e -> {
                                     Log.w("DailyWheel", "Error updating last access time", e);

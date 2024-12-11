@@ -130,7 +130,8 @@ public class ColorBurstGame extends LibGDXBaseGame {
 
             if (!endToastShowed) {
                 application.runOnUiThread(() -> {
-                    Toast.makeText(application.getContext(), getLocale().format("win", coinsEarned), Toast.LENGTH_LONG).show();
+                    String winMessage = getLocale().format("win", coinsEarned);
+                    Toast.makeText(application.getContext(), winMessage, Toast.LENGTH_LONG).show();
                     endToastShowed = true;
                 });
 
@@ -142,7 +143,6 @@ public class ColorBurstGame extends LibGDXBaseGame {
                 int totalCoins = preferences.getInt("coins", 0);
                 preferences.edit().putInt("coins", totalCoins + coinsEarned).apply();
 
-                Gdx.app.exit();
                 startRandomGameActivity(application);
             }
 
@@ -196,7 +196,7 @@ public class ColorBurstGame extends LibGDXBaseGame {
         getFont().draw(batch, difficultyText, difficultyX, screenHeight - (10 + 160)); // Adjust y-coordinate as needed
 
         // Display timer
-        String timerText = getLocale().format("time", (int) (gameTime - elapsedTime));
+        String timerText = getLocale().format("time", Math.max(0, (int) (gameTime - elapsedTime)));
         glyphLayout.setText(getFont(), timerText);
         float timerTextWidth = glyphLayout.width;
         float timerX = (screenWidth - timerTextWidth) - 20;

@@ -28,8 +28,8 @@ android {
         applicationId = "com.robuxearny.official"
         minSdk = 24
         targetSdk = 35
-        versionCode = 60
-        versionName = "4.6"
+        versionCode = 63
+        versionName = "4.9"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -77,6 +77,7 @@ dependencies {
     implementation(libs.firebase.appcheck.playintegrity)
     implementation(libs.firebase.appcheck.debug)
     implementation(Firebase.inAppMessagingDisplay)
+    implementation(libs.firebase.auth)
     annotationProcessor(libs.response.type.keeper)
     testImplementation(Testing.junit4)
     implementation(AndroidX.core.splashscreen)

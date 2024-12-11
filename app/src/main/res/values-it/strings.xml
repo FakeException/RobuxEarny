@@ -116,4 +116,8 @@
     <string name="female">Femmina</string>
     <string name="other">Altro</string>
     <string name="please_select_an_offerwall">Si prega di selezionare un offerwall</string>
+    <string name="allow_usage_access">Consenti accesso all\'uso</string>
+    <string name="usage_desc">Per la migliore esperienza, concedi il permesso di utilizzo all\'app Robux Earny!</string>
+    <string name="allow">Consenti</string>
+    <string name="earned_coins">Monete Guadagnate</string>
 </resources>

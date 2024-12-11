@@ -57,9 +57,9 @@ public class TicketActivity extends GameActivity {
 
         MaterialToolbar tbToolBar = findViewById(R.id.ticket_tb_toolbar);
         tbToolBar.setNavigationOnClickListener(v -> {
-            Intent menu = new Intent(this, MainMenuActivity.class);
-            startActivity(menu);
-            finish();
+            Intent intent = new Intent(this, MainMenuActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
         });
 
         updateAndDisplayCoins();

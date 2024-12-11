@@ -120,5 +120,9 @@
     <string name="female">Feminino</string>
     <string name="other">Outro</string>
     <string name="please_select_an_offerwall">Por favor, selecione uma offerwall</string>
+    <string name="allow_usage_access">Permitir acesso ao uso</string>
+    <string name="usage_desc">Para a melhor experiência, por favor conceda permissão de acesso ao aplicativo Robux Earny!</string>
+    <string name="allow">Permitir</string>
+    <string name="earned_coins">Moedas Ganhas</string>
 </resources>
 

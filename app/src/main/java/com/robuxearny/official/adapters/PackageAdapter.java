@@ -115,9 +115,7 @@ public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                                     if ((int) coins >= currentPackage.getPrice()) {
 
                                         Intent purchase = getIntent(currentPackage, (int) coins, adsLong, referralCount, surveys);
-
                                         context.startActivity(purchase);
-                                        context.finish();
                                     } else {
                                         Toast.makeText(context, context.getString(R.string.not_enough), Toast.LENGTH_SHORT).show();
                                     }

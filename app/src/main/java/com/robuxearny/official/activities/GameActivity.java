@@ -15,8 +15,6 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.appodeal.ads.Appodeal;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
@@ -30,7 +28,6 @@ import java.util.Random;
 
 public class GameActivity extends BaseActivity {
 
-    private String uid;
     private int totalPoints;
     private MediaPlayer mediaPlayer;
     private Vibrator vibrator;
@@ -39,11 +36,6 @@ public class GameActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        if (currentUser != null) {
-            uid = currentUser.getUid();
-        }
 
         mediaPlayer = MediaPlayer.create(this, R.raw.collect);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
@@ -55,7 +47,7 @@ public class GameActivity extends BaseActivity {
     public void updateCoins(int newCoins) {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference userRef = db.collection("users").document(uid);
+        DocumentReference userRef = db.collection("users").document(getUid());
 
         userRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -79,7 +71,7 @@ public class GameActivity extends BaseActivity {
     public void increaseCoins(int inc) {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference userRef = db.collection("users").document(uid);
+        DocumentReference userRef = db.collection("users").document(getUid());
 
         userRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -155,11 +147,7 @@ public class GameActivity extends BaseActivity {
         int randomIndex = random.nextInt(activities.length);
 
         Intent intent = new Intent(this, activities[randomIndex]);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
-        finish();
-    }
-
-    public String getUid() {
-        return uid;
     }
 }

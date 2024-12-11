@@ -38,8 +38,6 @@ public class LibGDXBaseGame extends ApplicationAdapter {
     private I18NBundle localeBundle;
 
     private BitmapFont font;
-
-    private long startTime;
     private SharedPrefsHelper prefsHelper;
 
     protected void initialize(Context context) {
@@ -73,15 +71,11 @@ public class LibGDXBaseGame extends ApplicationAdapter {
     @Override
     public void resume() {
         super.resume();
-        startTime = System.currentTimeMillis(); // Record start time when activity resumes
     }
 
     @Override
     public void pause() {
         super.pause();
-        long endTime = System.currentTimeMillis();
-        long usageTime = endTime - startTime;
-        prefsHelper.addUsageTime(usageTime); // Use the helper method
     }
 
     public BitmapFont getFont() {
@@ -146,6 +140,7 @@ public class LibGDXBaseGame extends ApplicationAdapter {
         int randomIndex = random.nextInt(activities.length);
 
         Intent intent = new Intent(context, activities[randomIndex]);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(intent);
     }
 

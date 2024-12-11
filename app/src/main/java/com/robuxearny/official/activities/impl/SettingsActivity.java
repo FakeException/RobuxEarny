@@ -18,8 +18,9 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.appodeal.ads.Appodeal;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
@@ -85,7 +87,6 @@ public class SettingsActivity extends BaseActivity {
                             Intent main = new Intent(this, MainActivity.class);
                             main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(main);
-                            finish();
                         })
                         .addOnFailureListener(e -> {
                             // Handle failure
@@ -123,7 +124,6 @@ public class SettingsActivity extends BaseActivity {
         SharedPreferences.Editor editor = getPrefsEditor();
         editor.putInt("coins", 0).apply();
         startActivity(main);
-        finish();
     }
 
     public void openFAQ(View view) {
@@ -153,60 +153,58 @@ public class SettingsActivity extends BaseActivity {
     }
 
     public void sendFeedback(View view) {
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
-        builder.setTitle(R.string.send_feedback);
+        // Inflate the layout for the BottomSheetDialog
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_feedback, new FrameLayout(this), false);
+        EditText feedbackEditText = dialogView.findViewById(R.id.feedbackEditText);
 
-        // Create the layout for the dialog
-        LinearLayout layout = new LinearLayout(this);
-        layout.setOrientation(LinearLayout.VERTICAL);
-        layout.setPadding(32, 32, 32, 0);
+        // Create the BottomSheetDialog
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+        bottomSheetDialog.setContentView(dialogView);
 
-        // Create an EditText for the feedback input
-        final EditText feedbackEditText = new EditText(this);
-        feedbackEditText.setHint(R.string.feedback_desc);
+        // Find the buttons in the layout
+        Button submitButton = dialogView.findViewById(R.id.submitButton);
+        Button cancelButton = dialogView.findViewById(R.id.cancelButton);
 
+        // Apply properties to the feedback EditText
         feedbackEditText.setSingleLine(false);
         feedbackEditText.setImeOptions(EditorInfo.IME_FLAG_NO_ENTER_ACTION);
         feedbackEditText.setGravity(Gravity.TOP | Gravity.START);
         feedbackEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(512)});
         feedbackEditText.setHorizontallyScrolling(false);
 
-        layout.addView(feedbackEditText);
-
-
-        builder.setView(layout);
-
-        // Add a Submit button
-        builder.setPositiveButton(R.string.submit, (dialog, which) -> {
+        // Set click listener for the submit button
+        submitButton.setOnClickListener(v -> {
             String feedbackText = feedbackEditText.getText().toString();
 
-            if (feedbackText.isEmpty()) return;
+            if (!feedbackText.isEmpty()) {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user != null) {
+                    FirebaseFunctions functions = FirebaseFunctions.getInstance();
 
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            if (user != null) {
-                FirebaseFunctions functions = FirebaseFunctions.getInstance();
+                    Map<String, Object> data = new HashMap<>();
+                    data.put("messageContent", "Id: " + user.getUid() + " Feedback: " + feedbackText);
 
-                Map<String, Object> data = new HashMap<>();
-                data.put("messageContent", "Id: " + user.getUid() + " Feedback: " + feedbackText);
-
-                functions
-                        .getHttpsCallable("feedback")
-                        .call(data)
-                        .addOnSuccessListener(result -> {
-                            // Handle success
-                            Snackbar.make(view, R.string.feedback_sent, Snackbar.LENGTH_SHORT).show();
-                        })
-                        .addOnFailureListener(e -> {
-                            // Handle failure
-                            Log.e("Cloud Function", "Error: " + e.getMessage());
-                        });
+                    functions
+                            .getHttpsCallable("feedback")
+                            .call(data)
+                            .addOnSuccessListener(result -> {
+                                // Handle success
+                                Snackbar.make(view, R.string.feedback_sent, Snackbar.LENGTH_SHORT).show();
+                            })
+                            .addOnFailureListener(e -> {
+                                // Handle failure
+                                Log.e("Cloud Function", "Error: " + e.getMessage());
+                            });
+                }
             }
 
-            dialog.dismiss();
+            bottomSheetDialog.dismiss();
         });
 
-        builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss());
+        // Set click listener for the cancel button
+        cancelButton.setOnClickListener(v -> bottomSheetDialog.dismiss());
 
-        builder.show();
+        // Show the dialog
+        bottomSheetDialog.show();
     }
 }

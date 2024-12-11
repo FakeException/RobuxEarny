@@ -23,7 +23,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,12 +38,11 @@ import androidx.credentials.GetCredentialResponse;
 import androidx.credentials.exceptions.GetCredentialException;
 import androidx.viewpager.widget.PagerAdapter;
 
-import com.appodeal.ads.Appodeal;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption;
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -67,12 +66,12 @@ import java.util.Objects;
 
 public class IntroSliderAdapter extends PagerAdapter {
 
-    private final Context context;
+    private final Activity context;
     private final List<IntroSlide> introSlides;
     private String refCode;
     private final FirebaseAuth mAuth;
 
-    public IntroSliderAdapter(Context context, List<IntroSlide> introSlides) {
+    public IntroSliderAdapter(Activity context, List<IntroSlide> introSlides) {
         this.context = context;
         this.introSlides = introSlides;
         this.refCode = "";
@@ -108,9 +107,6 @@ public class IntroSliderAdapter extends PagerAdapter {
                                     Toast.makeText(context, R.string.login_success, Toast.LENGTH_SHORT).show();
 
                                     saveData(uid);
-
-                                    Intent intent = new Intent(context, MainMenuActivity.class);
-                                    context.startActivity(intent);
                                 }
 
                             } else {
@@ -164,12 +160,14 @@ public class IntroSliderAdapter extends PagerAdapter {
                                         // Handle the case where no referral code was found
                                         Log.w("Referral", "No referral code found for the user.");
                                     }
+
+                                    Intent intent = new Intent(context, MainMenuActivity.class);
+                                    context.startActivity(intent);
                                 });
                             })
                             .addOnFailureListener(e -> Log.e("Firestore", "Error saving user data: " + e.getMessage()));
                 } else {
-                    BackendUtils.retrieveMoney(context);
-                    ReferralUtils.saveUserReferral(db, uid, (referralCode) -> {
+                    BackendUtils.retrieveMoney(context, () -> ReferralUtils.saveUserReferral(db, uid, (referralCode) -> {
                         if (referralCode != null) {
                             // Store in SharedPreferences
                             editor.putString("myReferralCode", referralCode).apply();
@@ -178,7 +176,10 @@ public class IntroSliderAdapter extends PagerAdapter {
                             // Handle the case where no referral code was found
                             Log.w("Referral", "No referral code found for the user.");
                         }
-                    });
+
+                        Intent intent = new Intent(context, MainMenuActivity.class);
+                        context.startActivity(intent);
+                    }));
                 }
             }
         });
@@ -246,35 +247,59 @@ public class IntroSliderAdapter extends PagerAdapter {
 
         container.addView(view);
 
-        Appodeal.show((Activity) context, Appodeal.BANNER_BOTTOM); // Display banner at the bottom of the screen
-        Appodeal.show((Activity) context, Appodeal.BANNER_TOP);    // Display banner at the top of the screen
-
         return view;
     }
 
     public void codeInput() {
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context);
-        builder.setTitle(R.string.ref_code);
+        // Inflate the layout for the BottomSheetDialog
+        View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_referral_code, new FrameLayout(context), false);
+        EditText referralEditText = dialogView.findViewById(R.id.referralEditText);
 
-        // Create the layout for the dialog
-        LinearLayout layout = new LinearLayout(context);
-        layout.setOrientation(LinearLayout.VERTICAL);
-        layout.setPadding(32, 32, 32, 0);
+        // Apply properties and behavior from getEditText()
+        referralEditText.setSingleLine(false);
+        referralEditText.setHint(R.string.refcode_desc);
+        referralEditText.setImeOptions(EditorInfo.IME_FLAG_NO_ENTER_ACTION);
+        referralEditText.setGravity(Gravity.TOP | Gravity.START);
+        referralEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(8)});
+        referralEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
-        // Create an EditText for the feedback input
-        final EditText referallEditText = getEditText();
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Convert the text to uppercase
+                String text = s.toString().toUpperCase();
 
-        layout.addView(referallEditText);
+                if (text.length() > 8) {
+                    text = text.substring(0, 8);
+                }
 
-        builder.setView(layout);
+                if (!text.equals(s.toString())) {
+                    referralEditText.setText(text);
+                    referralEditText.setSelection(text.length());
+                }
+            }
 
-        // Add a Submit button
-        builder.setPositiveButton(R.string.confirmation, (dialog, which) -> {
-            String refText = referallEditText.getText().toString();
-            dialog.dismiss();
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
+        // Create the BottomSheetDialog
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context);
+        bottomSheetDialog.setContentView(dialogView);
+
+        // Find the buttons in the layout
+        Button confirmButton = dialogView.findViewById(R.id.confirmButton);
+        Button skipButton = dialogView.findViewById(R.id.skipButton);
+
+        // Set click listener for the confirm button
+        confirmButton.setOnClickListener(v -> {
+            String refText = referralEditText.getText().toString();
+            bottomSheetDialog.dismiss();
 
             if (!refText.isEmpty()) {
-
                 checkRefExistence(refText, (exists, referrer) -> {
                     if (exists) {
                         this.refCode = refText;
@@ -288,14 +313,14 @@ public class IntroSliderAdapter extends PagerAdapter {
             }
         });
 
-        builder.setNegativeButton(R.string.i_don_t_have_a_code, (dialog, which) -> {
-            dialog.dismiss();
+        // Set click listener for the skip button
+        skipButton.setOnClickListener(v -> {
+            bottomSheetDialog.dismiss();
             authentication();
         });
 
-        builder.setCancelable(false);
-
-        builder.show();
+        // Show the dialog
+        bottomSheetDialog.show();
     }
 
     private @NonNull EditText getEditText() {
@@ -336,8 +361,10 @@ public class IntroSliderAdapter extends PagerAdapter {
     }
 
     private void checkRefExistence(String code, CodeExistenceCallback callback) {
+        String sanitizedCode = code.replaceAll("[^a-zA-Z0-9]", ""); // Allow only letters and numbers
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference userDocRef = db.collection("referralCodes").document(code);
+        DocumentReference userDocRef = db.collection("referralCodes").document(sanitizedCode);
 
         userDocRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {

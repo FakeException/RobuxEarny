@@ -39,14 +39,7 @@ public class AppsPrizeSurvey {
 
         executor.execute(() -> {
 
-            AdvertisingIdClient.Info advertisingIdInfo;
-            try {
-                advertisingIdInfo = AdvertisingIdClient.getAdvertisingIdInfo(context);
-            } catch (IOException | GooglePlayServicesNotAvailableException |
-                     GooglePlayServicesRepairableException e) {
-                throw new RuntimeException(e);
-            }
-            String advertId = advertisingIdInfo.getId();
+            String advertId = getAdvertisingIdInBackground(context);
 
             handler.post(() -> {
 
@@ -86,5 +79,15 @@ public class AppsPrizeSurvey {
                 });
             });
         });
+    }
+
+    private String getAdvertisingIdInBackground(Context context) {
+        try {
+            AdvertisingIdClient.Info advertisingIdInfo = AdvertisingIdClient.getAdvertisingIdInfo(context);
+            return advertisingIdInfo.getId();
+        } catch (IOException | GooglePlayServicesNotAvailableException | GooglePlayServicesRepairableException e) {
+            Log.e("AppsPrizeSurvey", "Error getting advertising ID: " + e.getMessage());
+            return null;
+        }
     }
 }

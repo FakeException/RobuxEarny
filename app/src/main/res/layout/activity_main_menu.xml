@@ -34,7 +34,6 @@
             android:text="@string/description" />
 
         <com.google.android.material.card.MaterialCardView
-
             android:id="@+id/robux_card"
             style="@style/Widget.Material3.CardView.Elevated"
             android:layout_width="match_parent"
@@ -55,18 +54,17 @@
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_marginEnd="-55dp"
+                    android:importantForAccessibility="no"
                     android:src="@drawable/robux"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:importantForAccessibility="no" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="35dp"
                     android:layout_marginStart="35dp"
-                    android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -77,7 +75,9 @@
                         android:layout_height="wrap_content"
                         android:text="@string/start_earning"
                         android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-                        android:textSize="30sp" />
+                        android:textSize="30sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/earn_robux"
@@ -85,13 +85,47 @@
                         android:layout_height="wrap_content"
                         android:text="@string/earn_robux"
                         android:textSize="11sp"
-                        android:textStyle="italic" />
+                        android:textStyle="italic"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/start_earning" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/earn_robux">
+
+                        <TextView
+                            android:id="@+id/coins_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="13sp"
+                            android:text=""
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/coin_icon"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginStart="4dp"
+                            android:importantForAccessibility="no"
+                            android:src="@drawable/ic_menu_coin"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/coins_text"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="35dp"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/play"
@@ -100,8 +134,7 @@
                             android:layout_height="wrap_content"
                             android:onClick="play"
                             android:text="@string/play"
-                            app:icon="@drawable/ic_money"
-                             />
+                            app:icon="@drawable/ic_money" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/earnmore"
@@ -111,8 +144,7 @@
                             android:onClick="earnMore"
                             android:text="@string/earn_faster"
                             app:icon="@drawable/ic_money"
-                            app:iconTint="@color/gold"
-                            />
+                            app:iconTint="@color/gold" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/dailyWheel"
@@ -122,13 +154,11 @@
                             android:onClick="dailyWheel"
                             android:text="@string/daily_wheel"
                             app:icon="@drawable/ic_spin2_foreground"
-                            app:iconTint="@color/green"
-                            />
+                            app:iconTint="@color/green" />
 
                     </LinearLayout>
 
-
-                </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -199,6 +229,5 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
-
 
 </ScrollView>

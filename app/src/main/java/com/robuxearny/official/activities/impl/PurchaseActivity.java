@@ -112,9 +112,9 @@ public class PurchaseActivity extends BaseActivity {
 
                             Robux.getInstance().getNotificationManager().notify(1, notification.build());
 
-                            Intent menu = new Intent(this, MainMenuActivity.class);
-                            startActivity(menu);
-                            finish();
+                            Intent intent = new Intent(this, MainMenuActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
                         })
                         .addOnFailureListener(e -> {
                             // Handle failure
@@ -129,13 +129,15 @@ public class PurchaseActivity extends BaseActivity {
 
     @NonNull
     private Map<String, Object> getMessageData(FirebaseUser user, SharedPrefsHelper prefsHelper) {
+
+
         Map<String, Object> data = new HashMap<>();
         data.put("messageContent",
                 "Id: " + user.getUid()
                 + "\nRobux: " + robux
                 + "\nGamepass: " + gamePass.getText()
                 + "\nWatched ads: " + ads
-                + "\nUsage time since last redeem: " + prefsHelper.getUsageTimeString()
+                + "\nUsage time since last redeem: " + prefsHelper.getUsageTimeString(this)
                 + "\nReferral Count: " + referralCount
                 + "\nCompleted Surveys: " + surveys
                 + "\nMoney earned with Daily Wheel since last redeem: " + prefsHelper.getMoneyEarnedWithDailyWheel()

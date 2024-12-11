@@ -82,8 +82,8 @@
     <string name="no">いいえ</string>
     <string name="congratulations_you_won_a_20_points_bonus">おめでとうございます！15ポイントのボーナスを獲得しました！</string>
     <string name="ref_code">紹介コードをお持ちですか？</string>
-    <string name="refcode_desc">紹介コードをお持ちの場合、こちらに入力してボーナスを受け取るために使用してください！</string>
-    <string name="i_don_t_have_a_code">コードは持っていません</string>
+    <string name="refcode_desc">紹介コードをお持ちの場合、こちらに入力して報酬を受け取ります！</string>
+    <string name="i_don_t_have_a_code">コードなし</string>
     <string name="saved">コインが保存されました！</string>
     <string name="survey_desc">アンケートに回答すると、獲得したコインがあなたのRobux Earnyアカウントに追加されます！</string>
     <string name="earn_faster">もっと稼ぐ</string>
@@ -120,4 +120,8 @@
     <string name="female">女性</string>
     <string name="other">その他</string>
     <string name="please_select_an_offerwall">オファーウォールを選択してください</string>
+    <string name="allow_usage_access">使用状況へのアクセスを許可する</string>
+    <string name="usage_desc">最高の体験のために、Robux Earnyアプリの使用状況へのアクセス権限を付与してください！</string>
+    <string name="allow">許可する</string>
+    <string name="earned_coins">獲得したコイン</string>
 </resources>

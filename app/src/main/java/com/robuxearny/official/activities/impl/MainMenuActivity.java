@@ -7,37 +7,37 @@
 package com.robuxearny.official.activities.impl;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.text.Html;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.core.content.ContextCompat;
 
 import com.appodeal.ads.Appodeal;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.Timestamp;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.robuxearny.official.R;
 import com.robuxearny.official.activities.BaseActivity;
 import com.robuxearny.official.activities.impl.games.SpinTheWheelActivity;
 import com.robuxearny.official.activities.impl.games.TicketActivity;
 import com.robuxearny.official.popup.ReviewPopup;
+import com.robuxearny.official.utils.PermissionsUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Map;
 
 public class MainMenuActivity extends BaseActivity {
     
@@ -49,18 +49,47 @@ public class MainMenuActivity extends BaseActivity {
         Appodeal.setBannerViewId(R.id.appodealBannerView);
         Appodeal.show(this, Appodeal.BANNER_VIEW);
 
+        if (getPrefsHelper().getStartUsageTime() == 0) {
+            getPrefsHelper().setStartUsageTime(System.currentTimeMillis());
+        }
+
         ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), result -> {
             if (result) {
                 Log.d("Notifications", "Permission granted");
             }
         });
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
-                != PackageManager.PERMISSION_GRANTED) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (!PermissionsUtils.hasNotificationsPermission(this)) {
                 requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
             }
         }
+
+        if (PermissionsUtils.hasNotUsagePermission(this)) {
+            BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+            View parentView = bottomSheetDialog.findViewById(android.R.id.content);
+
+            // Inflate the layout with the parent view
+            View bottomSheetView = LayoutInflater.from(this)
+                    .inflate(R.layout.usage_permission, (ViewGroup) parentView, false);
+
+            bottomSheetDialog.setContentView(bottomSheetView);
+
+            Button allowButton = bottomSheetView.findViewById(R.id.button_allow_usage_access);
+            allowButton.setOnClickListener(v -> {
+                startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
+                bottomSheetDialog.dismiss();
+            });
+
+            bottomSheetDialog.show();
+        }
+
+        TextView coinsText = findViewById(R.id.coins_text);
+
+        int coinsFromStorage = getPreferences().getInt("coins", 0);
+
+        String text = getString(R.string.earned_coins) + ": <big><b>" + coinsFromStorage + "</b></big>";
+        coinsText.setText(Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY));
 
         int usages = getPreferences().getInt("usages", 0);
         usages++;
@@ -101,22 +130,16 @@ public class MainMenuActivity extends BaseActivity {
         } else {
             startActivity(new Intent(this, UserInfoActivity.class));
         }
-        //AppsPrize.launchActivity(this);
-        //startActivity(new Intent(this, SurveyActivity.class));
-
     }
 
     public void dailyWheel(View view) {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            String uid = user.getUid();
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
+        if (getUid() != null) {
 
             // Get today's date in yyyy-MM-dd format
             String todayDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
             // Reference to the user's document in Firestore
-            DocumentReference userDocRef = db.collection("users").document(uid);
+            DocumentReference userDocRef = getDb().collection("users").document(getUid());
 
             // Retrieve the last access time
             userDocRef.get().addOnCompleteListener(task -> {
@@ -156,35 +179,9 @@ public class MainMenuActivity extends BaseActivity {
     }
 
     public void openRedeem() {
-        SharedPreferences preferences = getSharedPreferences("RobuxEarny", Context.MODE_PRIVATE);
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        if (user != null) {
-            String uid = user.getUid();
-
-            Log.d("Coins", "Current UID: " + uid);
-
-            db.collection("users").document(uid).get().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Map<String, Object> data = document.getData();
-                        Log.d("Coins", "Document Data: " + data);
-
-                        Long coinsLong = document.getLong("coins");
-                        if (coinsLong != null) {
-                            long coins = coinsLong;
-                            preferences.edit().putInt("coins", (int) coins).apply();
-                            if (Appodeal.isLoaded(Appodeal.INTERSTITIAL)) {
-                                Appodeal.show(this, Appodeal.INTERSTITIAL);
-                            }
-                            startActivity(new Intent(this, RedeemActivity.class));
-                        }
-                    }
-                }
-            });
+        if (Appodeal.isLoaded(Appodeal.INTERSTITIAL)) {
+            Appodeal.show(this, Appodeal.INTERSTITIAL);
         }
+        startActivity(new Intent(this, RedeemActivity.class));
     }
 }
