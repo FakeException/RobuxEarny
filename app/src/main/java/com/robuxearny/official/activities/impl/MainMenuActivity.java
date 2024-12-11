@@ -30,6 +30,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.robuxearny.official.R;
 import com.robuxearny.official.activities.BaseActivity;
+import com.robuxearny.official.activities.impl.games.MemoryGameActivity;
 import com.robuxearny.official.activities.impl.games.SpinTheWheelActivity;
 import com.robuxearny.official.activities.impl.games.TicketActivity;
 import com.robuxearny.official.popup.ReviewPopup;
@@ -113,7 +114,7 @@ public class MainMenuActivity extends BaseActivity {
     }
 
     public void boosters(View view) {
-        startActivity(new Intent(this, BoostersActivity.class));
+        startActivity(new Intent(this, MemoryGameActivity.class));
     }
 
     public void openSettings(View view) {

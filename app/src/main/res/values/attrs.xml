@@ -4,4 +4,6 @@
         <attr name="cost" format="string" />
         <attr name="robux" format="string" />
     </declare-styleable>
+
+    <bool name="isTablet">false</bool>
 </resources>

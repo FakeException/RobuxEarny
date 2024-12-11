@@ -72,9 +72,34 @@ public class MemoryGameActivity extends GameActivity {
 
         Collections.shuffle(imageFiles);
 
-        // Calculate button size based on screen width
+        // Get screen dimensions
         int screenWidth = getResources().getDisplayMetrics().widthPixels;
-        int buttonSize = screenWidth / 4;
+        int screenHeight = getResources().getDisplayMetrics().heightPixels;
+
+        // Determine if the device is in landscape mode
+        boolean isLandscape = screenWidth > screenHeight;
+
+        // Calculate button size based on available width
+        int numColumns = 4; // Number of columns for buttons
+        int margin = 10; // Margin size (adjust as needed)
+
+        boolean tabletSize = getResources().getBoolean(R.bool.isTablet);
+
+        // Adjust button size based on orientation
+        int buttonSize = (screenWidth - (margin * (numColumns + 1))) / numColumns; // Fit within width
+        // Fit within width
+        if (isLandscape) {
+            if (tabletSize) {
+                // Smaller button size for landscape mode
+                buttonSize = (int) (buttonSize * 0.4); // Reduce to 70% of calculated size for tablet landscape
+            } else {
+                buttonSize = (int) (buttonSize * 0.2); // Reduce to 20% of calculated size for phone landscape
+            }
+
+        } else {
+            // Larger button size for portrait mode
+            buttonSize = (int) (buttonSize * 0.9); // Reduce to 90% of calculated size for portrait
+        }
 
         for (int i = 0; i < 16; i++) {
             Button button = new Button(this);
@@ -83,7 +108,7 @@ public class MemoryGameActivity extends GameActivity {
             GridLayout.LayoutParams params = new GridLayout.LayoutParams();
             params.width = buttonSize;
             params.height = buttonSize;
-            params.setMargins(5, 5, 5, 5);
+            params.setMargins(margin, margin, margin, margin); // Set margins
             button.setLayoutParams(params);
 
             int finalI = i;
