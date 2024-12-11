@@ -136,4 +136,8 @@
     <string name="usage_desc">For the best experience, please grant Robux Earny usage access permission!</string>
     <string name="allow">Allow</string>
     <string name="earned_coins">Earned Coins</string>
+    <string name="attempts_remaining">Attempts Remaining: %1$d</string>
+    <string name="game_over">Game Over! No more attempts left.</string>
+    <string name="match_found">Match found!</string>
+    <string name="no_match_found">No match, try again!</string>
 </resources>

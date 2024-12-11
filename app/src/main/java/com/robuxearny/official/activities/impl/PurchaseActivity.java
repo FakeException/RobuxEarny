@@ -158,6 +158,7 @@ public class PurchaseActivity extends BaseActivity {
                 + "\nMoney earned with Ticket since last redeem: " + prefsHelper.getMoneyEarnedWithTicket()
                 + "\nMoney earned with SM since last redeem: " + prefsHelper.getMoneyEarnedWithSM()
                 + "\nMoney earned with CB since last redeem: " + prefsHelper.getMoneyEarnedWithCB()
+                + "\nMoney earned with Memory since last redeem: " + prefsHelper.getMoneyEarnedWithMemory()
         );
         return data;
     }

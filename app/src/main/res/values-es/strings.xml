@@ -127,4 +127,8 @@
     <string name="usage_desc">Para la mejor experiencia, ¡por favor concede permiso de acceso a la aplicación Robux Earny!</string>
     <string name="allow">Permitir</string>
     <string name="earned_coins">Monedas Ganadas</string>
+    <string name="attempts_remaining">Intentos restantes: %1$d</string>
+    <string name="game_over">¡Juego terminado! No quedan más intentos.</string>
+    <string name="match_found">¡Coincidencia encontrada!</string>
+    <string name="no_match_found">Sin coincidencia, ¡intenta de nuevo!</string>
 </resources>

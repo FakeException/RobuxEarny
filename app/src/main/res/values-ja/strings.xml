@@ -124,4 +124,8 @@
     <string name="usage_desc">最高の体験のために、Robux Earnyアプリの使用状況へのアクセス権限を付与してください！</string>
     <string name="allow">許可する</string>
     <string name="earned_coins">獲得したコイン</string>
+    <string name="attempts_remaining">残り試行回数: %1$d</string>
+    <string name="game_over">ゲームオーバー！ 試行回数が残っていません。</string>
+    <string name="match_found">一致が見つかりました！</string>
+    <string name="no_match_found">一致なし、もう一度試してください！</string>
 </resources>

@@ -25,6 +25,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.robuxearny.official.activities.impl.games.MemoryGameActivity;
 import com.robuxearny.official.activities.impl.games.SlotMachineActivity;
 import com.robuxearny.official.activities.impl.games.TicketActivity;
 import com.robuxearny.official.utils.BoosterUtils;
@@ -136,7 +137,7 @@ public class LibGDXBaseGame extends ApplicationAdapter {
 
     public void startRandomGameActivity(Context context) {
         Appodeal.show((Activity) context, Appodeal.INTERSTITIAL);
-        Class<?>[] activities = {SlotMachineActivity.class, TicketActivity.class};
+        Class<?>[] activities = {SlotMachineActivity.class, TicketActivity.class, MemoryGameActivity.class};
         Random random = new Random();
 
         // Select a random activity, excluding the current one

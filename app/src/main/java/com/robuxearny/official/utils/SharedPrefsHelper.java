@@ -32,6 +32,7 @@ public class SharedPrefsHelper {
     private static final String KEY_TICKET_TIME = "usage_ticket";
     private static final String KEY_SM_TIME = "usage_sm";
     private static final String KEY_CB_TIME = "usage_cb";
+    private static final String KEY_MEMORY_TIME = "usage_memory";
     private static final String KEY_GENDER = "gender";
     private static final String KEY_AGE = "age";
     private static final String KEY_USER_INFO = "has_user_info";
@@ -145,6 +146,16 @@ public class SharedPrefsHelper {
         editor.apply();
     }
 
+    public int getMoneyEarnedWithMemory() {
+        return sharedPrefs.getInt(KEY_MEMORY_TIME, 0);
+    }
+
+    public void addMemoryEarnings(int money) {
+        int totalMoney = getMoneyEarnedWithMemory() + money;
+        editor.putInt(KEY_MEMORY_TIME, totalMoney);
+        editor.apply();
+    }
+
     public String getUsageTimeString(Context context) {
 
         if (PermissionsUtils.hasNotUsagePermission(context)) {
@@ -173,5 +184,6 @@ public class SharedPrefsHelper {
         editor.putInt(KEY_TICKET_TIME, 0).apply();
         editor.putInt(KEY_SM_TIME, 0).apply();
         editor.putInt(KEY_CB_TIME, 0).apply();
+        editor.putInt(KEY_MEMORY_TIME, 0).apply();
     }
 }
